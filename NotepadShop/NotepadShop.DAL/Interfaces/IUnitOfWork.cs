@@ -8,6 +8,6 @@ namespace NotepadShop.DAL.Interfaces
     {
         ApplicationUserManager UserManager { get; }
         ApplicationRoleManager RoleManager { get; }
-        Task SaveAsync();
+        int Save();
     }
 }

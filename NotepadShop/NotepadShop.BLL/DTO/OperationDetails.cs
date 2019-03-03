@@ -1,15 +1,13 @@
 ﻿namespace NotepadShop.BLL.DTO
 {
-    public class OperationDetails
+    public class RegisterOperationDetails
     {
-        public OperationDetails(bool succedeed, string message, string prop)
+        public RegisterOperationDetails(bool succedeed, string errorMessage)
         {
             Succedeed = succedeed;
-            Message = message;
-            Property = prop;
+            ErrorMessage = errorMessage;
         }
         public bool Succedeed { get; private set; }
-        public string Message { get; private set; }
-        public string Property { get; private set; }
+        public string ErrorMessage { get; private set; }
     }
 }

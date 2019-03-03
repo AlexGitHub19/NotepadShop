@@ -3,7 +3,6 @@ using Microsoft.Owin.Security;
 using NotepadShop.BLL.DTO;
 using NotepadShop.BLL.Interfaces;
 using NotepadShop.Models.AccountModels;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -29,82 +28,99 @@ namespace NotepadShop.Controllers
             }
         }
 
-        public ActionResult Login()
-        {
-            return View();
-        }
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginModel model)
+        public async Task<JsonResult> Login(LoginModel model)
         {
-            await SetInitialDataAsync();
-            if (ModelState.IsValid)
+            LoginResult result = new LoginResult();
+            if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+            {
+                result.ErrorMessage = "Not full input data";
+            }
+            else
             {
                 UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password };
-                ClaimsIdentity claim = await UserService.Authenticate(userDto);
+                ClaimsIdentity claim = UserService.Authenticate(userDto);
                 if (claim == null)
                 {
-                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                    result.Email = null;
+                    result.ErrorMessage = "Неверный логин или пароль.";
                 }
                 else
                 {
+                    result.Email = model.Email;
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties
                     {
                         IsPersistent = true
                     }, claim);
-                    return RedirectToAction("Index", "Home");
                 }
             }
-            return View(model);
-        }
-
-        public ActionResult Logout()
-        {
-            AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
-
-        public ActionResult Register()
-        {
-            return View();
+            return Json(result);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterModel model)
+        [Authorize]
+        public void Logout()
         {
-            await SetInitialDataAsync();
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
+            {
+                AuthenticationManager.SignOut();
+            }
+        }
+
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> Register(RegisterModel model)
+        {
+            //SetInitialData();
+            RegisterResult result = new RegisterResult();
+            if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+            {
+                result.ErrorMessage = "Not full input data";
+            }
+            else
             {
                 UserDTO userDto = new UserDTO
                 {
                     Email = model.Email,
                     Password = model.Password,
-                    Address = model.Address,
-                    Name = model.Name,
                     Role = "user"
                 };
-                OperationDetails operationDetails = await UserService.Create(userDto);
+                RegisterOperationDetails operationDetails = UserService.Create(userDto);
                 if (operationDetails.Succedeed)
-                    return View("SuccessRegister");
+                {
+                    result.Email = model.Email;
+                    ClaimsIdentity claim = UserService.Authenticate(userDto);
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, claim);
+                }
                 else
-                    ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
+                {
+                    result.ErrorMessage = operationDetails.ErrorMessage;
+                }
             }
-            return View(model);
+
+            return Json(result);
         }
-        private async Task SetInitialDataAsync()
+
+        private void SetInitialData()
         {
-            await UserService.SetInitialData(new UserDTO
-            {
-                Email = "somemail@mail.ru",
-                UserName = "somemail@mail.ru",
-                Password = "ad46D_ewr3",
-                Name = "Семен Семенович Горбунков",
-                Address = "ул. Спортивная, д.30, кв.75",
-                Role = "admin",
-            }, new List<string> { "user", "admin" });
+            UserService.SetInitialData();
         }
     }
 }

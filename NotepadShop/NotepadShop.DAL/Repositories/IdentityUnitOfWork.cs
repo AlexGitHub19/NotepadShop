@@ -10,22 +10,22 @@ namespace NotepadShop.DAL.Repositories
 {
     public class IdentityUnitOfWork : IUnitOfWork
     {
-        private ApplicationContext db;
+        private ApplicationContext context;
 
         public IdentityUnitOfWork()
         {
-            db = new ApplicationContext("DbConnection");
-            UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
-            RoleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
+            context = new ApplicationContext("DbConnection");
+            UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+            RoleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
         }
 
         public ApplicationUserManager UserManager { get; private set; }
 
         public ApplicationRoleManager RoleManager { get; private set; }
 
-        public async Task SaveAsync()
+        public int Save()
         {
-            await db.SaveChangesAsync();
+            return context.SaveChanges();
         }
 
         public void Dispose()

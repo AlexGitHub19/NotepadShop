@@ -1,0 +1,97 @@
+﻿#userInfoContainer {
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+#userInfoPopUp {
+    position: absolute;
+    display: none;
+    top: 20px;
+    right: 10px;
+    z-index: 100;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+#logOutBtn:hover {
+    cursor: pointer;
+}
+
+.modal {
+    width: 100%;
+    max-width: 500px;
+}
+
+.tabs {
+    background-color: #fafafa;
+}
+
+.tabs .indicator {
+    background-color: #2196F3;
+}
+
+.modal .modal-content {
+    padding: 0px 20px;
+}
+
+.input-field  {
+    margin-top: 5px;
+}
+
+.input-field label {
+    left: 0;
+    top: 1rem;
+}
+
+.input-field label.active {
+    -webkit-transform: translateY(-80%);
+    transform: translateY(-80%);
+}
+
+.input-field input {
+    margin: 15px 0 0 0;
+    height: 1.5rem;
+}
+
+.input-field input[type=email]:focus, .input-field input[type=password]:focus, .input-field input[type=text]:focus  {
+    border-bottom: 1px solid #2196F3;
+    box-shadow: 0 1px 0 0 #2196F3;
+}
+
+.input-field input[type=email]:focus + label, .input-field input[type=password]:focus + label, .input-field input[type=text]:focus + label {
+    color: #2196F3;
+}
+
+.password-validation-msg, .email-validation-msg {
+    display: none;
+    font-size: 0.8rem;
+}
+
+.input-field input[type=password]:invalid ~ .password-validation-msg, .input-field input[type=email]:invalid ~ .email-validation-msg {
+    display: unset;
+}
+
+.input-field input[type=password]:focus ~ .password-validation-msg, .input-field input[type=email]:focus ~ .email-validation-msg {
+    display: none;
+}
+
+.btn-submit {
+    margin: 18px 0;
+}
+
+
+.btn-submit:disabled {
+    opacity: 0.5;
+}
+
+.center-container{
+    text-align: center;
+}
+
+.authorixztionFailedMessageContainer {
+    padding-top: 10px;
+    text-align:center;
+}
+
