@@ -2,12 +2,12 @@
 {
     public class RegisterOperationDetails
     {
-        public RegisterOperationDetails(bool succedeed, string errorMessage)
+        public RegisterOperationDetails(bool succedeed, ErrorType errorType)
         {
             Succedeed = succedeed;
-            ErrorMessage = errorMessage;
+            ErrorType = errorType;
         }
         public bool Succedeed { get; private set; }
-        public string ErrorMessage { get; private set; }
+        public ErrorType ErrorType { get; private set; }
     }
 }

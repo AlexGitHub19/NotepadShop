@@ -72,7 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\OperationDetails.cs" />
+    <Compile Include="DTO\ErrorType.cs" />
+    <Compile Include="DTO\RegisterOperationDetails.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

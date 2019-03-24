@@ -30,16 +30,16 @@ namespace NotepadShop.BLL.Services
                 var result = repository.UserManager.Create(user, userDto.Password);
                 if (result.Errors.Count() > 0)
                 {
-                    return new RegisterOperationDetails(false, result.Errors.FirstOrDefault());
+                    return new RegisterOperationDetails(false, ErrorType.IdentityErrorWhileCreating);
 
                 }
                 repository.UserManager.AddToRole(user.Id, userDto.Role);
                 repository.Save();
-                return new RegisterOperationDetails(true, null);
+                return new RegisterOperationDetails(true, ErrorType.None);
             }
             else
             {
-                return new RegisterOperationDetails(false, "Пользователь с таким логином уже существует");
+                return new RegisterOperationDetails(false, ErrorType.UserWithSuchEmailAlreadyExists);
             }
         }
 

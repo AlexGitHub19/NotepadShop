@@ -49,7 +49,7 @@ namespace NotepadShop.Controllers
                 if (claim == null)
                 {
                     result.Email = null;
-                    result.ErrorMessage = "Неверный логин или пароль.";
+                    result.ErrorMessage = ViewBag.ResourceManager.GetString("incorrectLoginOrPassword");
                 }
                 else
                 {
@@ -111,11 +111,31 @@ namespace NotepadShop.Controllers
                 }
                 else
                 {
-                    result.ErrorMessage = operationDetails.ErrorMessage;
+                    result.ErrorMessage = getRegistrationErrorMessage(operationDetails.ErrorType);
                 }
             }
 
             return Json(result);
+        }
+
+        private string getRegistrationErrorMessage(ErrorType errorType)
+        {
+            string result = "error";
+            switch (errorType)
+            {
+                case ErrorType.UserWithSuchEmailAlreadyExists:
+                    result = ViewBag.ResourceManager.GetString("userWithSuchEmailAlreadyExists");
+                    break;
+                case ErrorType.IdentityErrorWhileCreating:
+                    result = ViewBag.Localization.ResourceManager.GetString("registrationIdentityError");
+                    break;
+                case ErrorType.None:
+                default:
+                    result = null;
+                    break;
+            }
+
+            return result;
         }
 
         private void SetInitialData()

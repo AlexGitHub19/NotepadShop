@@ -22,9 +22,14 @@ $(document).ready(function () {
         self.registerFailedMessage = ko.observable("");
         self.showRegisterFailedMessage = ko.observable(false);
         self.displayRegisterPreloader = ko.observable(false);
+
+        //self.ruLanguageSelected = ko.observable(true);
+        //self.ukLanguageSelected = ko.observable(false);
+        //self.enLanguageSelected = ko.observable(false);
     };
 
     viewModel = new createViewModel();
+
     ko.applyBindings(viewModel, document.getElementById("user-login-container"));
 
     $('#logInBtn').leanModal({
@@ -35,6 +40,32 @@ $(document).ready(function () {
 
     registerEvents();
 });
+
+//function selectLanguage() {
+//    var languageCookieValue = getCookieValueByName('ns-language');
+//    if (languageCookieValue) {
+//        if (languageCookieValue === 'ru') {
+//            viewModel.ruLanguageSelected(true);
+//            viewModel.ukLanguageSelected(false);
+//            viewModel.enLanguageSelected(false);
+//        } else if (languageCookieValue === 'uk') {
+//            viewModel.ruLanguageSelected(false);
+//            viewModel.ukLanguageSelected(true);
+//            viewModel.enLanguageSelected(false);
+//        } else if (languageCookieValue === 'en') {
+//            viewModel.ruLanguageSelected(false);
+//            viewModel.ukLanguageSelected(false);
+//            viewModel.enLanguageSelected(true);
+//        }
+//    }
+//}
+
+//function getCookieValueByName(name) {
+//    var matches = document.cookie.match(new RegExp(
+//        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+//    ));
+//    return matches ? decodeURIComponent(matches[1]) : undefined;
+//}
 
 function registerEvents() {
     $('body').on('click', '#sumbitLogInBtn', function (e) {
@@ -102,26 +133,67 @@ function registerEvents() {
         $('#loginModal').openModal();
     });
 
-    $('body').on('mouseover', '#userLoginContainer', function (e) {
-        $('#userInfoPopUp').css('display', 'block');
+    $('body').on('mouseenter', '#userLoginContainer', function (e) {
+        $('#userInfoPopup').css('left', $('#userInfoContainer').offset().left);
+        $('#userInfoPopup').css('display', 'block');
     });
 
     $('body').on('mouseleave', '#userLoginContainer', function (e) {
-        $('#userInfoPopUp').css('display', 'none');
+        $('#userInfoPopup').css('display', 'none');
     });
 
-    $('body').on('mouseover', '#userInfoPopUp', function (e) {
-        $('#userInfoPopUp').css('display', 'block');
+    $('body').on('mouseenter', '#userInfoPopup', function (e) {
+        $('#userInfoPopup').css('display', 'block');
     });
 
-    $('body').on('mouseleave', '#userInfoPopUp', function (e) {
-        $('#userInfoPopUp').css('display', 'none');
+    $('body').on('mouseleave', '#userInfoPopup', function (e) {
+        $('#userInfoPopup').css('display', 'none');
+    });
+
+
+    $('body').on('mouseenter', '#languageContainer', function (e) {
+        $('#languagePopup').css('left', $('#languageContainer').offset().left);
+        $('#languagePopup').css('display', 'block');
+    });
+
+    $('body').on('mouseleave', '#languageContainer', function (e) {
+        $('#languagePopup').css('display', 'none');
+    });
+
+    $('body').on('mouseenter', '#languagePopup', function (e) {
+        $('#languagePopup').css('display', 'block');
+    });
+
+    $('body').on('mouseleave', '#languagePopup', function (e) {
+        $('#languagePopup').css('display', 'none');
     });
 
 
     //$('#userInfoContainer').on('focusout', '#passwordInput', function (e) {
     //    viewModel.showPasswordValidation($("#passwordInput").hasClass("invalid"));
     //})
+
+    $('body').on('click', '#logInBtn', function (e) {
+        $('#loginModal').openModal();
+    });
+
+    $('#languagePopup').on('click', '.popup-language-item', function (e) {
+        var itemId = $(this).attr('id');
+        var language = 'ru';
+        if (itemId === 'popup-language-ru') {
+            language = 'ru';
+        } else if (itemId === 'popup-language-uk') {
+            language = 'uk';
+        } else if (itemId === 'popup-language-en') {
+            language = 'en';
+        }
+
+        var date = new Date();
+        date.setDate(date.getDate() + 2);
+        document.cookie = 'ns-language=' + language + '; path=/; expires=' + date.toUTCString();
+        $('#languagePopup').css('display', 'none');
+        location.reload();
+    });
 };
 
 function getAntiForgeryToken() {

@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using NotepadShop.Filters;
 using System.Web.Mvc;
 
 namespace NotepadShop
@@ -8,6 +8,7 @@ namespace NotepadShop
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new LocalizationAttribute());
         }
     }
 }
