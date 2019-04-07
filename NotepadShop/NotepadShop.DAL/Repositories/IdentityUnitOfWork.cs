@@ -7,7 +7,7 @@ using System;
 
 namespace NotepadShop.DAL.Repositories
 {
-    public class IdentityUnitOfWork : IUnitOfWork
+    public class IdentityUnitOfWork : IUnitOfWork, IDisposable
     {
         private ApplicationContext context;
 
@@ -42,9 +42,15 @@ namespace NotepadShop.DAL.Repositories
                 {
                     UserManager.Dispose();
                     RoleManager.Dispose();
+                    context.Dispose();
                 }
                 this.disposed = true;
             }
+        }
+
+        ~IdentityUnitOfWork()
+        {
+            Dispose(false);
         }
     }
 }
