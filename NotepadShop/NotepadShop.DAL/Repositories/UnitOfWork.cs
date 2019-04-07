@@ -9,11 +9,14 @@ namespace NotepadShop.DAL.Repositories
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
+        private static NLog.Logger logger = NLog.LogManager.GetLogger("SqlLogger");
+
         private ApplicationContext context;
 
         public UnitOfWork()
         {
             context = new ApplicationContext("DbConnection");
+            // context.Database.Log = LogSql;
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
             RoleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
         }
@@ -51,6 +54,11 @@ namespace NotepadShop.DAL.Repositories
         ~UnitOfWork()
         {
             Dispose(false);
+        }
+
+        public static void LogSql(string message)
+        {
+            logger.Info(message);
         }
     }
 }
