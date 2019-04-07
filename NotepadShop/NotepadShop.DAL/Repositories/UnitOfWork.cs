@@ -7,11 +7,11 @@ using System;
 
 namespace NotepadShop.DAL.Repositories
 {
-    public class IdentityUnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private ApplicationContext context;
 
-        public IdentityUnitOfWork()
+        public UnitOfWork()
         {
             context = new ApplicationContext("DbConnection");
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
@@ -48,7 +48,7 @@ namespace NotepadShop.DAL.Repositories
             }
         }
 
-        ~IdentityUnitOfWork()
+        ~UnitOfWork()
         {
             Dispose(false);
         }

@@ -1,6 +1,5 @@
 ﻿using NotepadShop.DAL.Identity;
 using System;
-using System.Threading.Tasks;
 
 namespace NotepadShop.DAL.Interfaces
 {

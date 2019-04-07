@@ -8,7 +8,7 @@ namespace NotepadShop.DAL.Util
     {
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<IdentityUnitOfWork>();
+            Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }
