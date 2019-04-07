@@ -133,12 +133,15 @@ function registerEvents() {
         $('#loginModal').openModal();
     });
 
-    $('body').on('mouseenter', '#userLoginContainer', function (e) {
-        $('#userInfoPopup').css('left', $('#userInfoContainer').offset().left);
-        $('#userInfoPopup').css('display', 'block');
+    $('body').on('mouseenter', '#userInfoContainer', function (e) {
+        if (viewModel.isLoggedIn()) {
+            $('#userInfoPopup').css('left', $('#userInfoContainer').offset().left);
+            $('#userInfoPopup').css('width', $('#userInfoContainer').width());
+            $('#userInfoPopup').css('display', 'block');
+        }
     });
 
-    $('body').on('mouseleave', '#userLoginContainer', function (e) {
+    $('body').on('mouseleave', '#userInfoContainer', function (e) {
         $('#userInfoPopup').css('display', 'none');
     });
 

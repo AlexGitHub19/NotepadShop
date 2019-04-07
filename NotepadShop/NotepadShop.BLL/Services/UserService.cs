@@ -3,7 +3,6 @@ using NotepadShop.BLL.Interfaces;
 using NotepadShop.DAL.Identity.Entities;
 using NotepadShop.DAL.Interfaces;
 using System.Linq;
-using NotepadShop.DAL.Repositories;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using System;
@@ -13,11 +12,11 @@ namespace NotepadShop.BLL.Services
 {
     public class UserService : IUserService
     {
-        IUnitOfWork repository { get; set; }
+        private IUnitOfWork repository { get; set; }
 
-        public UserService()
+        public UserService(IUnitOfWork repository)
         {
-            repository = new IdentityUnitOfWork();
+            this.repository = repository;
         }
 
         public RegisterOperationDetails Create(UserDTO userDto)

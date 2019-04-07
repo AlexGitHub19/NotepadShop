@@ -4,7 +4,6 @@ using NotepadShop.DAL.Identity;
 using NotepadShop.DAL.Identity.Entities;
 using NotepadShop.DAL.Interfaces;
 using System;
-using System.Threading.Tasks;
 
 namespace NotepadShop.DAL.Repositories
 {

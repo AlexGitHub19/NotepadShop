@@ -2,16 +2,14 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using NotepadShop.BLL.Interfaces;
-using NotepadShop.BLL.Services;
 using Owin;
-
+using System.Web.Mvc;
 
 [assembly: OwinStartup(typeof(NotepadShop.App_Start.Startup))]
 namespace NotepadShop.App_Start
 {
     public class Startup
     {
-
         public void Configuration(IAppBuilder app)
         {
             app.CreatePerOwinContext<IUserService>(CreateUserService);
@@ -24,7 +22,7 @@ namespace NotepadShop.App_Start
 
         private IUserService CreateUserService()
         {
-            return new UserService();
+            return DependencyResolver.Current.GetService<IUserService>();
         }
     }
 }
