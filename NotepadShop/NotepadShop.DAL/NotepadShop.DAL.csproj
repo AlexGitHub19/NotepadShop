@@ -88,7 +88,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\ApplicationContext.cs" />
+    <Compile Include="EF\Configurations\ItemConfiguration .cs" />
     <Compile Include="EF\DbInitializer.cs" />
+    <Compile Include="Entities\Item.cs" />
+    <Compile Include="Entities\ItemCategory.cs" />
+    <Compile Include="Entities\ItemCode.cs" />
+    <Compile Include="Entities\ItemName.cs" />
+    <Compile Include="Entities\LanguageType.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Identity\Entities\ApplicationRole.cs" />

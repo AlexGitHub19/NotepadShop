@@ -19,7 +19,6 @@ namespace NotepadShop
             var kernel = new StandardKernel(new NinjectSettings() { LoadExtensions = false });
             kernel.Load("*.dll");
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
-            //NinjectHolder.NinjectContainer = kernel;
         }
     }
 }

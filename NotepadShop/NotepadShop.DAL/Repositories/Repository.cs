@@ -9,7 +9,6 @@ namespace NotepadShop.DAL.Repositories
     {
         ApplicationContext context;
         DbSet<TEntity> dbSet;
-        private bool isDisposed = false;
 
         public Repository(ApplicationContext context)
         {

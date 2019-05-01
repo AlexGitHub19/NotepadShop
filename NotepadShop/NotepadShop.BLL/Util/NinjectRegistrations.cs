@@ -9,6 +9,8 @@ namespace NotepadShop.BLL.Util
         public override void Load()
         {
             Bind<IUserService>().To<UserService>();
+            Bind<IItemService>().To<ItemService>();
+            Bind<IItemCodeGenerator>().To<IItemCodeGenerator>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using NotepadShop.DAL.EF;
+using NotepadShop.DAL.Entities;
 using NotepadShop.DAL.Identity;
 using NotepadShop.DAL.Identity.Entities;
 using NotepadShop.DAL.Interfaces;
@@ -11,7 +12,37 @@ namespace NotepadShop.DAL.Repositories
     {
         private static NLog.Logger logger = NLog.LogManager.GetLogger("SqlLogger");
 
+        private bool disposed = false;
+
         private ApplicationContext context;
+
+        private IRepository<Item> itemRepository;
+        private IRepository<ItemCode> itemCodeRepository;
+
+        public IRepository<Item> ItemRepository
+        {
+            get
+            {
+                if (itemRepository == null)
+                    itemRepository = new Repository<Item>(context);
+                return itemRepository;
+            }
+        }
+
+        public IRepository<ItemCode> ItemCodeRepository
+        {
+            get
+            {
+                if (itemCodeRepository == null)
+                    itemCodeRepository = new Repository<ItemCode>(context);
+                return itemCodeRepository;
+            }
+        }
+
+        public ApplicationUserManager UserManager { get; private set; }
+
+        public ApplicationRoleManager RoleManager { get; private set; }
+
 
         public UnitOfWork()
         {
@@ -20,10 +51,6 @@ namespace NotepadShop.DAL.Repositories
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
             RoleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
         }
-
-        public ApplicationUserManager UserManager { get; private set; }
-
-        public ApplicationRoleManager RoleManager { get; private set; }
 
         public int Save()
         {
@@ -35,7 +62,6 @@ namespace NotepadShop.DAL.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        private bool disposed = false;
 
         public virtual void Dispose(bool disposing)
         {

@@ -1,4 +1,5 @@
-﻿using NotepadShop.DAL.Identity;
+﻿using NotepadShop.DAL.Entities;
+using NotepadShop.DAL.Identity;
 using System;
 
 namespace NotepadShop.DAL.Interfaces
@@ -7,6 +8,8 @@ namespace NotepadShop.DAL.Interfaces
     {
         ApplicationUserManager UserManager { get; }
         ApplicationRoleManager RoleManager { get; }
+        IRepository<Item> ItemRepository { get; }
+        IRepository<ItemCode> ItemCodeRepository { get; }
         int Save();
     }
 }
