@@ -20,6 +20,7 @@ namespace NotepadShop.DAL.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ItemConfiguration());
+            modelBuilder.Configurations.Add(new ItemNameConfiguration());
         }
     }
 }

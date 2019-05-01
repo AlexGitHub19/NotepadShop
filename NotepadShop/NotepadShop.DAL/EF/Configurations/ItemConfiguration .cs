@@ -4,7 +4,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace NotepadShop.DAL.EF.Configurations
 {
-    public class ItemConfiguration : EntityTypeConfiguration<Item>
+    public class ItemConfiguration: EntityTypeConfiguration<Item>
     {
         public ItemConfiguration()
         {
@@ -13,7 +13,7 @@ namespace NotepadShop.DAL.EF.Configurations
             Property(item => item.Price).IsRequired();
             Property(item => item.Category).IsRequired();
             Property(item => item.AddingTime).IsRequired();
-            HasMany(item => item.Names);
+            HasMany(item => item.Names).WithRequired(name => name.Item);
         }
     }
 }
