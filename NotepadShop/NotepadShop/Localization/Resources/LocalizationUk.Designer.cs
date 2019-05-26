@@ -61,6 +61,15 @@ namespace NotepadShop.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Додати новий продукт.
+        /// </summary>
+        internal static string addNewItemMessage {
+            get {
+                return ResourceManager.GetString("addNewItemMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email повинен містити символ @.
         /// </summary>
         internal static string incorrectEmailValidation {
@@ -84,6 +93,15 @@ namespace NotepadShop.Localization.Resources {
         internal static string incorrectParrwordValidation {
             get {
                 return ResourceManager.GetString("incorrectParrwordValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ім&apos;я.
+        /// </summary>
+        internal static string itemName {
+            get {
+                return ResourceManager.GetString("itemName", resourceCulture);
             }
         }
         
@@ -120,6 +138,15 @@ namespace NotepadShop.Localization.Resources {
         internal static string passwordLabel {
             get {
                 return ResourceManager.GetString("passwordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ціна.
+        /// </summary>
+        internal static string price {
+            get {
+                return ResourceManager.GetString("price", resourceCulture);
             }
         }
         

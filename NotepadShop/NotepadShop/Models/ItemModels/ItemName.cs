@@ -2,7 +2,7 @@
 {
     public class ItemName
     {
-        public string Name { get; private set; }
-        public LanguageType LanguageType { get; private set; }
+        public string Name { get; set; }
+        public string Language { get; set; }
     }
 }

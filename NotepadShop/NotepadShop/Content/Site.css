@@ -46,3 +46,47 @@ p {
     width: 54px;
     margin: 14px auto 0 auto;
 }
+
+.tabs {
+    background-color: #fafafa;
+}
+
+    .tabs .indicator {
+        background-color: #2196F3;
+    }
+
+.input-field {
+    margin-top: 5px;
+}
+
+    .input-field label {
+        left: 0;
+        top: 1rem;
+    }
+
+        .input-field label.active {
+            -webkit-transform: translateY(-80%);
+            transform: translateY(-80%);
+        }
+
+    .input-field input {
+        margin: 15px 0 0 0;
+        height: 1.5rem;
+    }
+
+        .input-field input[type=email]:focus, .input-field input[type=password]:focus, .input-field input[type=text]:focus {
+            border-bottom: 1px solid #2196F3;
+            box-shadow: 0 1px 0 0 #2196F3;
+        }
+
+            .input-field input[type=email]:focus + label, .input-field input[type=password]:focus + label, .input-field input[type=text]:focus + label {
+                color: #2196F3;
+            }
+
+.input-field input[type=password]:invalid ~ .password-validation-msg, .input-field input[type=email]:invalid ~ .email-validation-msg {
+    display: unset;
+}
+
+.input-field input[type=password]:focus ~ .password-validation-msg, .input-field input[type=email]:focus ~ .email-validation-msg {
+    display: none;
+}

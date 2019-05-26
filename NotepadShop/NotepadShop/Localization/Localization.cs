@@ -4,6 +4,10 @@ namespace NotepadShop.Localization
 {
     public static class Localization
     {
+        public static string Russian = "ru";
+        public static string Ukrainian = "uk";
+        public static string English = "en";
+
         private static ResourceManager ResourceManagerRu { get; set; } =
             new ResourceManager("NotepadShop.Localization.Resources.LocalizationRu", typeof(Localization).Assembly);
 

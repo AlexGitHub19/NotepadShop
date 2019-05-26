@@ -1,0 +1,63 @@
+﻿@model  List<string>
+@{
+    ViewBag.Title = "AddNewItem";
+}
+
+@section styles {
+    <link type="text/css" rel="stylesheet" href="~/Content/Admin/AddNewItem.css" />
+}
+
+<div id="addNewItemContainer">
+    <h5>@ViewBag.ResourceManager.GetString("addNewItemMessage")</h5>
+
+    <h6>Choose category</h6>
+    <div class="input-field category-container">
+        <select data-bind="options: availableCategories, value: selectedCategory"></select>
+    </div>
+
+    <h6>Name</h6>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a a class="blue-text" href="#ruName">Russian</a></li>
+                <li class="tab col s3"><a a class="blue-text" href="#enName">English</a></li>
+                <li class="tab col s3"><a a class="blue-text" href="#ukName">Ukrainian</a></li>
+            </ul>
+        </div>
+        <div id="ruName" class="col s12">
+            <div class="input-field">
+                <input id="ruNameInput" type="text" class="validate" data-bind="textInput: nameRu">
+                <label for="ruNameInput">Name</label>
+            </div>
+        </div>
+        <div id="enName" class="col s12">
+            <div class="input-field">
+                <input id="enNameInput" type="text" class="validate" data-bind="textInput: nameEn">
+                <label for="enNameInput">Name</label>
+            </div>
+        </div>
+        <div id="ukName" class="col s12">
+            <div class="input-field">
+                <input id="ukNameInput" type="text" class="validate" data-bind="textInput: nameUk">
+                <label for="ukNameInput">Name</label>
+            </div>
+        </div>
+    </div>
+    <div class="input-field">
+        <input id="itemPriceInput" type="number" class="validate" data-bind="textInput: price">
+        <label for="itemPriceInput">@ViewBag.ResourceManager.GetString("price")</label>
+    </div>
+
+    <a class="waves-effect waves-light btn" data-bind="click: createItemClick">Create</a>
+</div>
+
+
+<script type="text/javascript">
+    var categories = @Html.Raw(Json.Encode(Model));
+    var createItemUrl = "@Url.Action("CreateItem", "Items")";
+    @*var logInUrl = "@Url.Action("Login", "Account")";
+    var logOutUrl = "@Url.Action("Logout", "Account")";*@
+</script>
+
+<script type="text/javascript" src="~/Scripts/Admin/AddNewItem.js"></script>
+

@@ -157,4 +157,16 @@
     <value>Пользователь с таким email уже зарегестрирован</value>
     <comment>Registration error</comment>
   </data>
+  <data name="itemName" xml:space="preserve">
+    <value>Имя</value>
+    <comment>Item name</comment>
+  </data>
+  <data name="addNewItemMessage" xml:space="preserve">
+    <value>Добавить новый продукт</value>
+    <comment>Add new item message</comment>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Цена</value>
+    <comment>Price</comment>
+  </data>
 </root>

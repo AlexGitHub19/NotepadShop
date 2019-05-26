@@ -1,4 +1,4 @@
-﻿var viewModel;
+﻿var layoutViewModel;
 
 $(document).ready(function () {
 
@@ -28,9 +28,9 @@ $(document).ready(function () {
         //self.enLanguageSelected = ko.observable(false);
     };
 
-    viewModel = new createViewModel();
+    layoutViewModel = new createViewModel();
 
-    ko.applyBindings(viewModel, document.getElementById("user-login-container"));
+    ko.applyBindings(layoutViewModel, document.getElementById("layoutConainer"));
 
     $('#logInBtn').leanModal({
         ready: function () {
@@ -69,24 +69,24 @@ $(document).ready(function () {
 
 function registerEvents() {
     $('body').on('click', '#sumbitLogInBtn', function (e) {
-        viewModel.displayLogInPreloader(true);
-        viewModel.loginFailedMessage("");
-        viewModel.registerFailedMessage(false);
+        layoutViewModel.displayLogInPreloader(true);
+        layoutViewModel.loginFailedMessage("");
+        layoutViewModel.registerFailedMessage(false);
         $.ajax({
             type: "POST",
             url: logInUrl,
-            data: { __RequestVerificationToken: getAntiForgeryToken(), Email: viewModel.loginEmail(), Password: viewModel.loginPasword() },
+            data: { __RequestVerificationToken: getAntiForgeryToken(), Email: layoutViewModel.loginEmail(), Password: layoutViewModel.loginPasword() },
             success: function (result) {
                 if (result.Email) {
                     location.reload();
                 } else {
-                    viewModel.displayLogInPreloader(false);
-                    viewModel.loginFailedMessage(result.ErrorMessage);
-                    viewModel.showLoginFailedMessage(true);
+                    layoutViewModel.displayLogInPreloader(false);
+                    layoutViewModel.loginFailedMessage(result.ErrorMessage);
+                    layoutViewModel.showLoginFailedMessage(true);
                 }
             },
             error: function () {
-                viewModel.displayLogInPreloader(false);
+                layoutViewModel.displayLogInPreloader(false);
             }
         });
     });
@@ -94,25 +94,25 @@ function registerEvents() {
     $('body').on('click', '#sumbitRegisterBtn', function (e) {
 
         if ($('#registerEmailInput').hasClass('valid') && $('#registerPasswordInput').hasClass('valid')) {
-            viewModel.displayRegisterPreloader(true);
-            viewModel.registerFailedMessage("");
-            viewModel.showLoginFailedMessage(false);
+            layoutViewModel.displayRegisterPreloader(true);
+            layoutViewModel.registerFailedMessage("");
+            layoutViewModel.showLoginFailedMessage(false);
 
             $.ajax({
                 type: "POST",
                 url: registerUrl,
-                data: { __RequestVerificationToken: getAntiForgeryToken(), Email: viewModel.registerEmail(), Password: viewModel.registerPasword() },
+                data: { __RequestVerificationToken: getAntiForgeryToken(), Email: layoutViewModel.registerEmail(), Password: layoutViewModel.registerPasword() },
                 success: function (result) {
                     if (result.Email) {
                         location.reload();
                     } else {
-                        viewModel.displayRegisterPreloader(false);
-                        viewModel.registerFailedMessage(result.ErrorMessage);
-                        viewModel.showRegisterFailedMessage(true);
+                        layoutViewModel.displayRegisterPreloader(false);
+                        layoutViewModel.registerFailedMessage(result.ErrorMessage);
+                        layoutViewModel.showRegisterFailedMessage(true);
                     }
                 },
                 error: function () {
-                    viewModel.displayRegisterPreloader(false);
+                    layoutViewModel.displayRegisterPreloader(false);
                 }
             });
         }
@@ -134,7 +134,7 @@ function registerEvents() {
     });
 
     $('body').on('mouseenter', '#userInfoContainer', function (e) {
-        if (viewModel.isLoggedIn()) {
+        if (layoutViewModel.isLoggedIn()) {
             $('#userInfoPopup').css('left', $('#userInfoContainer').offset().left);
             $('#userInfoPopup').css('width', $('#userInfoContainer').width());
             $('#userInfoPopup').css('display', 'block');
@@ -191,7 +191,7 @@ function registerEvents() {
             language = 'en';
         }
 
-        var date = new Date();
+        var date = new Date();layoutViewModel
         date.setDate(date.getDate() + 2);
         document.cookie = 'ns-language=' + language + '; path=/; expires=' + date.toUTCString();
         $('#languagePopup').css('display', 'none');

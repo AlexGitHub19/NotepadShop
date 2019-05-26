@@ -14,16 +14,16 @@ namespace NotepadShop.Assemblers
             return new BLL.Entities.BriefItem(item.Price, Assemble(item.Category), Assemble(item.Names));
         }
 
-        private static BLL.Interfaces.ItemCategory Assemble(ItemCategory itemCategory)
+        private static BLL.Interfaces.ItemCategory Assemble(string category)
         {
             BLL.Interfaces.ItemCategory result;
-            switch (itemCategory)
+            switch (category)
             {
-                case ItemCategory.Notepad:
+                case "Notepad":
                     result = BLL.Interfaces.ItemCategory.Notepad;
                     break;
                 default:
-                    ThrowAssemblingException("Models.ItemModels.ItemCategory");
+                    ThrowAssemblingException("Item.Category", category);
                     result = BLL.Interfaces.ItemCategory.Notepad;
                     break;
             }
@@ -38,25 +38,25 @@ namespace NotepadShop.Assemblers
 
         private static BLL.Interfaces.IItemName Assemble(ItemName itemName)
         {
-            return new BLL.Entities.ItemName(itemName.Name, Assemble(itemName.LanguageType));
+            return new BLL.Entities.ItemName(itemName.Name, AssembleLanguage(itemName.Language));
         }
 
-        private static BLL.Interfaces.LanguageType Assemble(LanguageType language)
+        private static BLL.Interfaces.LanguageType AssembleLanguage(string language)
         {
             BLL.Interfaces.LanguageType result;
             switch (language)
             {
-                case LanguageType.English:
+                case "en":
                     result = BLL.Interfaces.LanguageType.English;
                     break;
-                case LanguageType.Russian:
+                case "ru":
                     result = BLL.Interfaces.LanguageType.Russian;
                     break;
-                case LanguageType.Ukrainian:
+                case "uk":
                     result = BLL.Interfaces.LanguageType.Ukrainian;
                     break;
                 default:
-                    ThrowAssemblingException("Models.ItemModels.LanguageType");
+                    ThrowAssemblingException("Item.ItemName.Language", language);
                     result = BLL.Interfaces.LanguageType.Russian;
                     break;
             }
@@ -64,9 +64,9 @@ namespace NotepadShop.Assemblers
             return result;
         }
 
-        private static void ThrowAssemblingException(string typeName)
+        private static void ThrowAssemblingException(string fieldName, string value)
         {
-            string exceptionMessage = $"Not supported data of type {typeName}";
+            string exceptionMessage = $"Not supported value {value} of field {fieldName}";
             logger.Error(exceptionMessage);
             throw new NotSupportedException(exceptionMessage);
         }

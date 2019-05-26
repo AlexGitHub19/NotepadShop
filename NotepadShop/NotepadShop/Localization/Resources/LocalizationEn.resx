@@ -147,4 +147,13 @@
   <data name="userWithSuchEmailAlreadyExists" xml:space="preserve">
     <value>User with such email  is already registered</value>
   </data>
+  <data name="addNewItemMessage" xml:space="preserve">
+    <value>Add new item</value>
+  </data>
+  <data name="itemName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
 </root>

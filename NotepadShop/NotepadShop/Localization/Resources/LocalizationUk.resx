@@ -147,4 +147,13 @@
   <data name="userWithSuchEmailAlreadyExists" xml:space="preserve">
     <value>Користувач з таким email вже зареєстрован</value>
   </data>
+  <data name="itemName" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="addNewItemMessage" xml:space="preserve">
+    <value>Додати новий продукт</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Ціна</value>
+  </data>
 </root>
