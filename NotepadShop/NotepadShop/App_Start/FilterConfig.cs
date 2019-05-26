@@ -9,6 +9,7 @@ namespace NotepadShop
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new LocalizationAttribute());
+            filters.Add(new UserNameAttribute());
         }
     }
 }

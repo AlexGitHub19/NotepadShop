@@ -6,10 +6,6 @@ namespace NotepadShop.Controllers
     {
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.Email = User.Identity.Name;
-            }
             return View();
         }
 
