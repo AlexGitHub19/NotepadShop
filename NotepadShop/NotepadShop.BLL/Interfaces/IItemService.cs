@@ -4,7 +4,7 @@ namespace NotepadShop.BLL.Interfaces
 {
     public interface IItemService
     {
-        void createItem(IBriefItem item);
+        string createItem(IBriefItem item);
         IItem getItemByCode(string code);
         IEnumerable<IItem> getItemsByCategory(ItemCategory category);
     }

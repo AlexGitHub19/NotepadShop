@@ -1,3 +1,21 @@
 ﻿.category-container {
     max-width: 200px;
 }
+
+.additional-images-container .loader-container {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.add-image-btn {
+    cursor: pointer;
+}
+
+.delete-img-btn-container {
+    text-align: center;
+}
+
+.delete-img-btn {
+    display: inline-block;
+    cursor: pointer;
+}

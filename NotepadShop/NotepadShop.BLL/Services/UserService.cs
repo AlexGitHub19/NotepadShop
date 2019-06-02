@@ -74,6 +74,12 @@ namespace NotepadShop.BLL.Services
             repository.Save();
         }
 
+        public bool IsInitialDataSet()
+        {
+            return repository.UserManager.Users.Count() > 0;
+        }
+
+
         public void Dispose()
         {
             repository.Dispose();

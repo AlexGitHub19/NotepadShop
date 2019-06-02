@@ -202,6 +202,7 @@
     <Compile Include="Models\AccountModels\LoginResult.cs" />
     <Compile Include="Models\AccountModels\RegisterModel.cs" />
     <Compile Include="Models\AccountModels\RegisterResult.cs" />
+    <Compile Include="Models\Admin\AddItemViewModel.cs" />
     <Compile Include="Models\HomeModels\IndexModel.cs" />
     <Compile Include="Models\ItemModels\Item.cs" />
     <Compile Include="Models\ItemModels\ItemName.cs" />

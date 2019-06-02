@@ -119,6 +119,7 @@ function registerEvents() {
     });
 
     $('body').on('click', '#logOutBtn', function (e) {
+        console.log(getAntiForgeryToken());
         $.ajax({
             type: "POST",
             url: logOutUrl,

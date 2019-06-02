@@ -32,3 +32,6 @@ _ReSharper*/
 packages/
 /NotepadShop/NotepadShop/App_Data/NotepadShopDb_log.ldf
 /NotepadShop/NotepadShop/App_Data/NotepadShopDb.mdf
+/NotepadShop/NotepadShop/Content/logs
+/NotepadShop/NotepadShop/Content/Item/Images
+/NotepadShop/NotepadShop/Content/Item/Temp

@@ -1,7 +1,6 @@
-﻿using System;
+﻿using NotepadShop.Models.Admin;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NotepadShop.Controllers
@@ -9,7 +8,7 @@ namespace NotepadShop.Controllers
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-        private static List<string> categories = new List<string> { "Notepad", "Category2"};
+        private static IEnumerable<string> categories = new List<string> { "Notepad", "Category2"};
 
         // GET: Admin
         [HttpGet]
@@ -21,7 +20,9 @@ namespace NotepadShop.Controllers
         [HttpGet]
         public ActionResult AddNewItem()
         {
-            return View(categories);
+            Guid newItemKey = Guid.NewGuid();       
+            AddItemViewModel viewModel = new AddItemViewModel(newItemKey.ToString(), categories);
+            return View(viewModel);
         }
     }
 }

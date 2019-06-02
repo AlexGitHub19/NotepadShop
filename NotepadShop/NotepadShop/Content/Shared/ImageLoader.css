@@ -1,4 +1,4 @@
-﻿.loader-container input {
+﻿.loader-image-container input {
     display: none;
 }
 
@@ -11,13 +11,14 @@
 
 .loader-image {
     display:none;
-    max-height: 160px;
-    max-width: 500px;
+    max-height: 200px;
+    max-width: 400px;
 }
 
 .loader-image-replacement {
-    height: 160px;
-    width: 160px;
+    height: 200px;
+    width: 200px;
+    background: url( data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAYAAADA+m62AAAAP0lEQVQoU42Q0QoAIAgDz///aMPAKKeQb26HTg0tB6zKVUhI4Bus5tMn2K4Djh7gBGXM7Uvo5riQ/BfUNwwTWfn+Cgg4zkoRAAAAAElFTkSuQmCC ) repeat;
 }
 
 .loader-image-container {
@@ -56,6 +57,7 @@
     top: 1px;
 }
 
-.loader-overlay {
-   
+.image-size-container {
+    text-align:center;
+    display: none;
 }

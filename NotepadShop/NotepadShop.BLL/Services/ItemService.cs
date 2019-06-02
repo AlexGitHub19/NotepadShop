@@ -17,7 +17,7 @@ namespace NotepadShop.BLL.Services
             this.itemCodeGenerator = itemCodeGenerator;
         }
 
-        public void createItem(IBriefItem item)
+        public string createItem(IBriefItem item)
         {
             DAL.Entities.Item assembled = new DAL.Entities.Item
             {
@@ -29,6 +29,8 @@ namespace NotepadShop.BLL.Services
             };
             repository.ItemRepository.Create(assembled);
             repository.Save();
+
+            return assembled.Code;
         }
 
         public IItem getItemByCode(string code)

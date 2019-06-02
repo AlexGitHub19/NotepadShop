@@ -1,4 +1,4 @@
-﻿@model  List<string>
+﻿@model  NotepadShop.Models.Admin.AddItemViewModel
 @{
     ViewBag.Title = "AddNewItem";
 }
@@ -55,14 +55,35 @@
 
         <a class="waves-effect waves-light btn" data-bind="click: createItemClick">Create</a>
 
+        <h6>Main image</h6>
         <div class="loader-container">
             <div class="loader-image-container">
                 <div class="loader-btn-contaner">
-                    <i class="material-icons loader-btn">edit</i>
+                    <i class="material-icons loader-btn">file_download</i>
                 </div>
-                <input type='file' class="loader-image-input" accept=".png, .jpg, .jpeg" />
+                <input id="mainImageInput" type='file' class="loader-image-input" accept=".png, .jpg, .jpeg" data-bind="event:{change: onMainImageChange}" />
                 <div class="loader-image-style loader-image-replacement"></div>
                 <img class="loader-image-style loader-image" src="" alt="upload image" />
+                <div class="image-size-container"></div>
+            </div>
+        </div>
+
+        <h6>Additional images</h6> 
+        <i class="material-icons add-image-btn" data-bind="click: addNewImage">add</i>
+        <div class="additional-images-container" data-bind="foreach: additionalmages">
+            <div class="loader-container">
+                <div class="loader-image-container">
+                    <div class="loader-btn-contaner">
+                        <i class="material-icons loader-btn">file_download</i>
+                    </div>
+                    <input type='file' class="loader-image-input" accept=".png, .jpg, .jpeg" data-bind="event:{change: $root.onAdditinalImageChange}"/>
+                    <div class="loader-image-style loader-image-replacement"></div>
+                    <img class="loader-image-style loader-image" src="" alt="upload image" />
+                    <div class="image-size-container">asdasssad</div>
+                    <div class="delete-img-btn-container">
+                        <p class="delete-img-btn" data-bind="click: $parent.removeAdditionalImage">Remove</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -71,8 +92,8 @@
 
 
 <script type="text/javascript">
-    var categories = @Html.Raw(Json.Encode(Model));
-    var createItemUrl = "@Url.Action("CreateItem", "Items")";
+    var categories = @Html.Raw(Json.Encode(Model.Categories));
+    var addItemKey = '@Model.Key';
     @*var logInUrl = "@Url.Action("Login", "Account")";
     var logOutUrl = "@Url.Action("Logout", "Account")";*@
 </script>

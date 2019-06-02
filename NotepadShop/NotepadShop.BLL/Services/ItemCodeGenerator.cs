@@ -22,13 +22,15 @@ namespace NotepadShop.BLL.Services
             {
                 string lastCode = itemCode.Code;
                 newCode = int.Parse(lastCode) + 1;
+                itemCode.Code = newCode.ToString();
             }
             else
             {
                 ItemCode item = new ItemCode { Code = newCode.ToString() };
                 repository.ItemCodeRepository.Create(item);
-                repository.Save();
             }
+
+            repository.Save();
 
             return newCode.ToString();
         }

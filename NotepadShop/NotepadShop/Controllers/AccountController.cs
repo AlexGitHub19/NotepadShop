@@ -84,7 +84,6 @@ namespace NotepadShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> Register(RegisterModel model)
         {
-            //SetInitialData();
             RegisterResult result = new RegisterResult();
             if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
             {
@@ -138,9 +137,14 @@ namespace NotepadShop.Controllers
             return result;
         }
 
-        private void SetInitialData()
+        [HttpGet]
+        public void SetInitialData()
         {
-            UserService.SetInitialData();
+            if (!UserService.IsInitialDataSet()) {
+                UserService.SetInitialData();
+            }
+            
         }
+
     }
 }

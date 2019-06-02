@@ -9,5 +9,6 @@ namespace NotepadShop.BLL.Interfaces
         RegisterOperationDetails Create(UserDTO userDto);
         ClaimsIdentity Authenticate(UserDTO userDto);
         void SetInitialData();
+        bool IsInitialDataSet();
     }
 }
