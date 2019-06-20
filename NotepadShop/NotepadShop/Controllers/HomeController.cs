@@ -9,6 +9,12 @@ namespace NotepadShop.Controllers
             return View();
         }
 
+        [Route("Notepads")]
+        public ActionResult Notepads()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

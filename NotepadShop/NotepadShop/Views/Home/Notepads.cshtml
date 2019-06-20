@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Notepads";
+}
+
+<h2>Notepads</h2>
+
+@section styles {
+    <link type="text/css" rel="stylesheet" href="~/Content/Home/Notepads.css" />
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/Home/Notepads.js"></script>
+}   
+    
+<div id="homeItemsContainer">
+    <div class="row items-container" data-bind="foreach: items">
+        <div class="col-lg-6">
+            <a>
+                <img class="item-image" data-bind="attr: { src: '/Content/Item/Images/' + MainImageName }" alt="image can't be loaded"/>
+                <p data-bind="text: Name"></p>
+                <p data-bind="text: Price"></p>
+            </a>
+        </div>
+    </div>
+</div>

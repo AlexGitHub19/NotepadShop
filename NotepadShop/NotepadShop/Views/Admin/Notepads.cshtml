@@ -1,0 +1,23 @@
+﻿@section styles {
+    <link type="text/css" rel="stylesheet" href="~/Content/Admin/Notepads.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Home/Notepads.css" />
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/Admin/Notepads.js"></script>
+}
+
+<div id="adminNotepadsContainer">
+    <div class="row items-container" data-bind="foreach: items">
+        <div class="col-lg-6">
+            <a>
+                <img class="item-image" data-bind="attr: { src: '/Content/Item/Images/' + MainImageName }" alt="image can't be loaded" />
+                <p data-bind="text: Name"></p>
+                <p data-bind="text: Price"></p>
+                <p class="waves-effect waves-light btn" data-bind="click: $root.deleteItem">Delete item</p>
+                <a data-bind="attr: { href: '/Admin/ChangeItem?code=' + Code }" class="waves-effect waves-light btn">Change item</a>
+            </a>
+        </div>
+    </div>
+</div>
+

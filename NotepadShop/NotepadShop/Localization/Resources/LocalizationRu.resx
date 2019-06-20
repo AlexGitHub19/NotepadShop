@@ -169,4 +169,12 @@
     <value>Цена</value>
     <comment>Price</comment>
   </data>
+  <data name="notepadsCategory" xml:space="preserve">
+    <value>Блокноты</value>
+    <comment>сategory item</comment>
+  </data>
+  <data name="pensCategory" xml:space="preserve">
+    <value>Ручки</value>
+    <comment>category item</comment>
+  </data>
 </root>

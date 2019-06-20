@@ -1,13 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace NotepadShop.DAL.Interfaces
 {
     public interface IRepository<T> where T : class
     {
         IQueryable<T> GetAll();
-        T Get(int id);
+        T Get(Guid id);
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(Guid id);
     }
 }

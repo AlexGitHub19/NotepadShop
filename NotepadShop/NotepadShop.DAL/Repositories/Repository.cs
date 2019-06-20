@@ -1,5 +1,6 @@
 ﻿using NotepadShop.DAL.EF;
 using NotepadShop.DAL.Interfaces;
+using System;
 using System.Data.Entity;
 using System.Linq;
 
@@ -16,7 +17,7 @@ namespace NotepadShop.DAL.Repositories
             dbSet = context.Set<TEntity>();
         }
 
-        public TEntity Get(int id)
+        public TEntity Get(Guid id)
         {
             return dbSet.Find(id);
         }
@@ -36,7 +37,7 @@ namespace NotepadShop.DAL.Repositories
             context.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             TEntity item = dbSet.Find(id);
             dbSet.Remove(item);

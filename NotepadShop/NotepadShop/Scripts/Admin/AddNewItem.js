@@ -29,12 +29,11 @@ $(document).ready(function () {
     $('select').material_select();
 });
 
-function onMainImageChangeCallback(elemet, event) {
+function onMainImageChangeCallback(element, event) {
     addNewItemViewModel.mainImage().file = event.target.files[0];
-    console.log(addNewItemViewModel.mainImage().file);
 };
 
-function onAdditionalImageChangeCallback(elemet, event) {
+function onAdditionalImageChangeCallback(element, event) {
     this.file = event.target.files[0];
 };
 function addAdditionalImage() {
@@ -47,6 +46,10 @@ function removeAdditionalImage() {
 }
 
 function createItem() {
+    if (!validateSaving()) {
+        return;
+    }
+
     $.when(uploadImages())
         .done(function () {
             var dataObject =
@@ -79,16 +82,41 @@ function createItem() {
         });
 }
 
+function validateSaving() {
+    if (!addNewItemViewModel.nameRu()) {
+        alert("Russian name isn't enered");
+        return false;
+    }
+    if (!addNewItemViewModel.nameEn()) {
+        alert("English name isn't enered");
+        return false;
+    }
+    if (!addNewItemViewModel.nameUk()) {
+        alert("Ukranian name isn't enered");
+        return false;
+    }
+    if (!addNewItemViewModel.price()) {
+        alert("Price isn't enered");
+        return false;
+    }
+    if (!addNewItemViewModel.selectedCategory()) {
+        alert("Category isn't enered");
+        return false;
+    }
+    if (!addNewItemViewModel.mainImage().file) {
+        alert("Main image isn't enered");
+        return false;
+    }
+    return true;
+}
+
 function uploadImages() {
 
     var d = $.Deferred();
 
     if (window.FormData !== undefined) {
 
-        console.log(addNewItemViewModel.mainImage().file);
         if (addNewItemViewModel.mainImage().file != undefined) {
-            console.log('inside');
-
             var data = new FormData();
             data.append("mainImage", addNewItemViewModel.mainImage().file);
 

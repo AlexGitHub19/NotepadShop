@@ -1,28 +1,29 @@
-﻿@model  NotepadShop.Models.Admin.AddItemViewModel
+﻿@model  NotepadShop.Models.Admin.ChangeItemViewModel
 @{
-    ViewBag.Title = "AddNewItem";
+    ViewBag.Title = "Changetem";
 }
+
+<h2>Changetem</h2>
 
 @section styles {
     <link type="text/css" rel="stylesheet" href="~/Content/Admin/AddNewItem.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/Shared/ImageLoader.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Admin/ChangeItem.css" />
 }
 
 @section scripts {
     <script type="text/javascript" src="~/Scripts/Shared/ImageLoader.js"></script>
-    <script type="text/javascript" src="~/Scripts/Admin/AddNewItem.js"></script>
+    <script type="text/javascript" src="~/Scripts/Admin/ChangeItem.js"></script>
 }
 
-<div id="addNewItemContainer">
-    <h5>@ViewBag.ResourceManager.GetString("addNewItemMessage")</h5>
-
+<div id="changeItemContainer">
     <h6>Choose category</h6>
     <div class="input-field category-container">
-        <select data-bind="options: availableCategories, value: selectedCategory"></select>
+        <select data-bind="options: availableCategories, value: selectedCategory().value, event:{ change: onInputChange(selectedCategory) }"></select>
     </div>
 
     <h6>Name</h6>
-    <div >
+    <div>
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s3"><a a class="blue-text" href="#ruName">Russian</a></li>
@@ -32,29 +33,27 @@
         </div>
         <div id="ruName" class="col s12">
             <div class="input-field">
-                <input id="ruNameInput" type="text" class="validate" data-bind="textInput: nameRu">
+                <input id="ruNameInput" type="text" class="validate" data-bind="textInput: nameRu().value, event:{ change: onInputChange(nameRu) }">
                 <label for="ruNameInput">Name</label>
             </div>
         </div>
         <div id="enName" class="col s12">
             <div class="input-field">
-                <input id="enNameInput" type="text" class="validate" data-bind="textInput: nameEn">
+                <input id="enNameInput" type="text" class="validate" data-bind="textInput: nameEn().value, event:{ change: onInputChange(nameEn) }">
                 <label for="enNameInput">Name</label>
             </div>
         </div>
         <div id="ukName" class="col s12">
             <div class="input-field">
-                <input id="ukNameInput" type="text" class="validate" data-bind="textInput: nameUk">
+                <input id="ukNameInput" type="text" class="validate" data-bind="textInput: nameUk().value, event:{ change: onInputChange(nameUk) }">
                 <label for="ukNameInput">Name</label>
             </div>
         </div>
     </div>
     <div class="input-field">
-        <input id="itemPriceInput" type="number" class="validate" data-bind="textInput: price">
+        <input id="itemPriceInput" type="number" class="validate" data-bind="textInput: price().value, event:{ change: onInputChange(price) }">
         <label for="itemPriceInput">@ViewBag.ResourceManager.GetString("price")</label>
     </div>
-
-    <a class="waves-effect waves-light btn" data-bind="click: createItemClick">Create</a>
 
     <h6>Main image</h6>
     <div class="loader-container">
@@ -63,8 +62,7 @@
                 <i class="material-icons loader-btn">file_download</i>
             </div>
             <input id="mainImageInput" type='file' class="loader-image-input" accept=".png, .jpg, .jpeg" data-bind="event:{change: onMainImageChange}" />
-            <div class="loader-image-style loader-image-replacement"></div>
-            <img class="loader-image-style loader-image" src="" alt="upload image" />
+            <img class="loader-image-style loader-image" data-bind="attr: { src: mainImage().src }" alt="upload image" />
             <div class="image-size-container"></div>
         </div>
     </div>
@@ -78,8 +76,7 @@
                     <i class="material-icons loader-btn">file_download</i>
                 </div>
                 <input type='file' class="loader-image-input" accept=".png, .jpg, .jpeg" data-bind="event:{change: $root.onAdditinalImageChange}" />
-                <div class="loader-image-style loader-image-replacement"></div>
-                <img class="loader-image-style loader-image" src="" alt="upload image" />
+                <img class="loader-image-style loader-image" data-bind="attr: { src: $data.src }" alt="upload image" />
                 <div class="image-size-container"></div>
                 <div class="delete-img-btn-container">
                     <p class="delete-img-btn" data-bind="click: $parent.removeAdditionalImage">Remove</p>
@@ -88,14 +85,24 @@
         </div>
     </div>
 
+    
+    <a class="waves-effect waves-light btn" data-bind="click: saveItem">Save</a>
 
 </div>
 
 
 <script type="text/javascript">
-    var categories = @Html.Raw(Json.Encode(Model.Categories));
-    var addItemKey = '@Model.Key';
-    @*var logInUrl = "@Url.Action("Login", "Account")";
-    var logOutUrl = "@Url.Action("Logout", "Account")";*@
+    var inputData = {
+        key: '@Model.Key',
+        code: '@Model.Code',
+        price: Number('@Model.Price'.replace(',', '.')),
+        category: '@Model.Category',
+        additionalImages: @Html.Raw(Json.Encode(Model.AdditionalImages)),
+        ruName: '@Model.RuName',
+        engName: '@Model.EngName',
+        ukrName: '@Model.UkrName',
+        mainImageName: '@Model.MainIImageName',
+        allCategories: @Html.Raw(Json.Encode(Model.AllCategories))
+    };
 </script>
 

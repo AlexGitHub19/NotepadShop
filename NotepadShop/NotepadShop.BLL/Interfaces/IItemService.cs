@@ -6,6 +6,8 @@ namespace NotepadShop.BLL.Interfaces
     {
         string createItem(IBriefItem item);
         IItem getItemByCode(string code);
-        IEnumerable<IItem> getItemsByCategory(ItemCategory category);
+        IEnumerable<IItem> getItemsByCategory(ItemCategory category, int countOnPage, int page);
+        void deleteItemByCode(string code);
+        void changeItem(IChangeItemData itemData);
     }
 }

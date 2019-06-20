@@ -6,18 +6,15 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    @Scripts.Render("~/bundles/jquery")
-    <script type="text/javascript" src="~/Scripts/materialize/materialize.js"></script>
-    <script type="text/javascript" src="~/Scripts/knockout-3.4.2.js"></script>
 
     <link type="text/css" rel="stylesheet" href="~/Content/Layout.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/Site.css" />
 
     @RenderSection("styles", required: false)
-    @RenderSection("scripts", required: false)
     @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />
 
         @Scripts.Render("~/bundles/jquery")
@@ -57,14 +54,14 @@
                     }
 
                     @*<div id="languageRu" data-bind="if: ruLanguageSelected">
-                        Русский
-                    </div>
-                    <div id="languageUk" data-bind="if: ukLanguageSelected">
-                        Українська
-                    </div>
-                    <div id="languageEn" data-bind="if: enLanguageSelected">
-                        English
-                    </div>*@
+                            Русский
+                        </div>
+                        <div id="languageUk" data-bind="if: ukLanguageSelected">
+                            Українська
+                        </div>
+                        <div id="languageEn" data-bind="if: enLanguageSelected">
+                            English
+                        </div>*@
                 </div>
                 <div id="userInfoContainer">
                     <div class="display-inline height100">
@@ -185,10 +182,16 @@
     <div class="body-content">
         @RenderBody()
     </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="~/Scripts/materialize/materialize.js"></script>
+    <script type="text/javascript" src="~/Scripts/knockout-3.4.2.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/Shared/Layout.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>
 
-<script type="text/javascript" src="~/Scripts/Shared/Layout.js"></script>
 <script type="text/javascript">
     var email = "@ViewBag.Email";
     var registerUrl = "@Url.Action("Register", "Account")";

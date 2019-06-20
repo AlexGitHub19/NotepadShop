@@ -39,10 +39,15 @@ namespace NotepadShop.BLL.Services
             return Assembler.Assemble(found);
         }
 
-        public IEnumerable<IItem> getItemsByCategory(ItemCategory category)
+        public IEnumerable<IItem> getItemsByCategory(ItemCategory category, int countOnPage, int page)
         {
             DAL.Entities.ItemCategory assembledCategory = Assembler.Assemble(category);
-            IEnumerable<DAL.Entities.Item> found = repository.ItemRepository.GetAll().Where(item => item.Category == assembledCategory).ToList();
+
+            IEnumerable<DAL.Entities.Item> found = repository.ItemRepository.
+                GetAll().Where(item => item.Category == assembledCategory).
+                OrderByDescending(item => item.AddingTime).
+                Skip(page > 1 ? (page * countOnPage) : 0).
+                ToList();
             IEnumerable<IItem> result = new List<IItem>();
             if (found.Count() > 0)
             {
@@ -50,6 +55,54 @@ namespace NotepadShop.BLL.Services
             }
 
             return result;
+        }
+
+        public void deleteItemByCode(string code)
+        {
+            DAL.Entities.Item foundItem = repository.ItemRepository.GetAll().First(item =>item.Code == code);
+            repository.ItemRepository.Delete(foundItem.Id);
+            repository.Save();
+        }
+
+        public void changeItem(IChangeItemData itemData)
+        {
+            DAL.Entities.Item foundItem = repository.ItemRepository.GetAll().First(item => item.Code == itemData.Code);
+
+            if (itemData.NewPrice != null)
+            {
+                foundItem.Price = itemData.NewPrice.Value;
+            }
+            if (itemData.NewCategory != null)
+            {
+                foundItem.Category = Assembler.Assemble(itemData.NewCategory.Value);
+            }            
+            foreach (DAL.Entities.ItemName itemName in foundItem.Names)
+            {
+                switch (itemName.LanguageType)
+                {
+                    case DAL.Entities.LanguageType.English:
+                        if (!string.IsNullOrEmpty(itemData.NewEnName))
+                        {
+                            itemName.Name = itemData.NewEnName;
+                        }                        
+                        break;
+                    case DAL.Entities.LanguageType.Russian:
+                        if (!string.IsNullOrEmpty(itemData.NewRuName))
+                        {
+                            itemName.Name = itemData.NewRuName;
+                        }
+                        break;
+                    case DAL.Entities.LanguageType.Ukrainian:
+                        if (!string.IsNullOrEmpty(itemData.NewUkName))
+                        {
+                            itemName.Name = itemData.NewUkName;
+                        }
+                        break;
+                }
+            }
+
+            repository.ItemRepository.Update(foundItem);
+            repository.Save();
         }
     }
 }

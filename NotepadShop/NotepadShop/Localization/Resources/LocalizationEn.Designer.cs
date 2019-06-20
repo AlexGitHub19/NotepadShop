@@ -133,11 +133,29 @@ namespace NotepadShop.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notepads.
+        /// </summary>
+        internal static string notepadsCategory {
+            get {
+                return ResourceManager.GetString("notepadsCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string passwordLabel {
             get {
                 return ResourceManager.GetString("passwordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pens.
+        /// </summary>
+        internal static string pensCategory {
+            get {
+                return ResourceManager.GetString("pensCategory", resourceCulture);
             }
         }
         

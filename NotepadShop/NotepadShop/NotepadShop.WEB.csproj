@@ -203,13 +203,18 @@
     <Compile Include="Models\AccountModels\RegisterModel.cs" />
     <Compile Include="Models\AccountModels\RegisterResult.cs" />
     <Compile Include="Models\Admin\AddItemViewModel.cs" />
+    <Compile Include="Models\Admin\ChangeItemViewModel.cs" />
     <Compile Include="Models\HomeModels\IndexModel.cs" />
+    <Compile Include="Models\ItemModels\ChangeItemData.cs" />
     <Compile Include="Models\ItemModels\Item.cs" />
+    <Compile Include="Models\ItemModels\ItemBriefData.cs" />
     <Compile Include="Models\ItemModels\ItemName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\AddNewItem.css" />
+    <Content Include="Content\Admin\ChangeItem.css" />
+    <Content Include="Content\Admin\Notepads.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -217,6 +222,8 @@
     <Content Include="Content\Flags\GreatBritainFlag.svg" />
     <Content Include="Content\Flags\RussiaFlag.svg" />
     <Content Include="Content\Flags\UkraineFlag.svg" />
+    <Content Include="Content\Home\Index.css" />
+    <Content Include="Content\Home\Notepads.css" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\materialize\css\materialize.css" />
     <Content Include="Content\materialize\css\materialize.min.css" />
@@ -228,7 +235,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Admin\AddNewItem.js" />
+    <Content Include="Scripts\Admin\ChangeItem.js" />
     <Content Include="Scripts\Admin\Index.js" />
+    <Content Include="Scripts\Admin\Notepads.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\materialize\font\roboto\Roboto-Thin.woff2" />
@@ -283,6 +292,7 @@
     </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Home\Index.js" />
+    <Content Include="Scripts\Home\Notepads.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -317,6 +327,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\AddNewItem.cshtml" />
+    <Content Include="Views\Home\Notepads.cshtml" />
+    <Content Include="Views\Admin\Notepads.cshtml" />
+    <Content Include="Views\Admin\ChangeItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

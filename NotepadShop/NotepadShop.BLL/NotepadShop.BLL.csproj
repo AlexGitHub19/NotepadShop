@@ -110,6 +110,8 @@
     <Compile Include="DTO\RegisterOperationDetails.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Entities\BriefItem.cs" />
+    <Compile Include="Entities\ChangeItemData.cs" />
+    <Compile Include="Interfaces\IChangeItemData.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\ItemName.cs" />
     <Compile Include="Interfaces\IBriefItem.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Services\ItemCodeGenerator.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Util\GlobalConstants.cs" />
     <Compile Include="Util\NinjectRegistrations.cs" />
   </ItemGroup>
   <ItemGroup>
