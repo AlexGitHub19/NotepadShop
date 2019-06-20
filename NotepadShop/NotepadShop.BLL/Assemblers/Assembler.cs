@@ -18,6 +18,9 @@ namespace NotepadShop.BLL
                 case ItemCategory.Notepad:
                     result = DAL.Entities.ItemCategory.Notepad;
                     break;
+                case ItemCategory.Pen:
+                    result = DAL.Entities.ItemCategory.Pen;
+                    break;
                 default:
                     ThrowAssemblingException("Models.ItemModels.ItemCategory");
                     result = DAL.Entities.ItemCategory.Notepad;
@@ -34,6 +37,9 @@ namespace NotepadShop.BLL
             {
                 case DAL.Entities.ItemCategory.Notepad:
                     result = ItemCategory.Notepad;
+                    break;
+                case DAL.Entities.ItemCategory.Pen:
+                    result = ItemCategory.Pen;
                     break;
                 default:
                     ThrowAssemblingException("Models.ItemModels.ItemCategory");

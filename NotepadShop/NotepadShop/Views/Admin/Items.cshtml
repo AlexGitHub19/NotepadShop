@@ -1,13 +1,13 @@
 ﻿@section styles {
-    <link type="text/css" rel="stylesheet" href="~/Content/Admin/Notepads.css" />
-    <link type="text/css" rel="stylesheet" href="~/Content/Home/Notepads.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Admin/Items.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Home/Items.css" />
 }
 
 @section scripts {
-    <script type="text/javascript" src="~/Scripts/Admin/Notepads.js"></script>
+    <script type="text/javascript" src="~/Scripts/Admin/Items.js"></script>
 }
 
-<div id="adminNotepadsContainer">
+<div id="adminItemsContainer">
     <div class="row items-container" data-bind="foreach: items">
         <div class="col-lg-6">
             <a>
@@ -20,4 +20,8 @@
         </div>
     </div>
 </div>
+
+<script>
+    var category = '@ViewBag.ItemsCategory';
+</script>
 

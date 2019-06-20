@@ -20,7 +20,7 @@ function loadItems() {
         type: "GET",
         url: '/Items/GetItems',
         contentType: "application/json",
-        data: { category: 'Notepad', countOnPage: 20, page: 1 },
+        data: { category: category, countOnPage: 20, page: 1 },
         dataType: "json"
     });
 

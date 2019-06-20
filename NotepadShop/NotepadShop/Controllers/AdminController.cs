@@ -82,7 +82,14 @@ namespace NotepadShop.Controllers
 
         public ActionResult Notepads()
         {
-            return View();
+            ViewBag.ItemsCategory = GlobalConstants.Notepad;
+            return View("Items");
+        }
+
+        public ActionResult Pens()
+        {
+            ViewBag.ItemsCategory = GlobalConstants.Pen;
+            return View("Items");
         }
     }
 }

@@ -208,8 +208,7 @@ namespace NotepadShop.Controllers
         [HttpGet]
         public JsonResult GetItems(string category, int countOnPage, int page)
         {
-            ItemCategory assembledCategory = WebAssembler.Assemble(category);
-            IEnumerable<IItem> items = itemService.getItemsByCategory(assembledCategory, countOnPage, page);
+            IEnumerable<IItem> items = itemService.getItemsByCategory(WebAssembler.Assemble(category), countOnPage, page);
 
             IEnumerable<ItemBriefData> result = WebAssembler.Assemble(items, ViewBag.Language);
             foreach (ItemBriefData data in result)

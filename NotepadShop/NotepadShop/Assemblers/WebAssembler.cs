@@ -24,6 +24,9 @@ namespace NotepadShop.Assemblers
                 case GlobalConstants.Notepad:
                     result = BLL.Interfaces.ItemCategory.Notepad;
                     break;
+                case GlobalConstants.Pen:
+                    result = BLL.Interfaces.ItemCategory.Pen;
+                    break;
                 default:
                     ThrowAssemblingException("Item.Category", category);
                     result = BLL.Interfaces.ItemCategory.Notepad;
@@ -40,6 +43,9 @@ namespace NotepadShop.Assemblers
             {
                 case BLL.Interfaces.ItemCategory.Notepad:
                     result = GlobalConstants.Notepad;
+                    break;
+                case BLL.Interfaces.ItemCategory.Pen:
+                    result = GlobalConstants.Pen;
                     break;
                 default:
                     ThrowAssemblingException("Item.Category", category.ToString());

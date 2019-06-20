@@ -1,4 +1,4 @@
-﻿var adminNotepadsViewModel;
+﻿var adminItemsViewModel;
 
 $(document).ready(function () {
 
@@ -8,9 +8,9 @@ $(document).ready(function () {
         self.deleteItem = onDeleteItemCallback;
     };
 
-    adminNotepadsViewModel = new createViewModel();
+    adminItemsViewModel = new createViewModel();
 
-    ko.applyBindings(adminNotepadsViewModel, document.getElementById("adminNotepadsContainer"));
+    ko.applyBindings(adminItemsViewModel, document.getElementById("adminItemsContainer"));
 
     loadItems();
 });
@@ -21,13 +21,13 @@ function loadItems() {
         type: "GET",
         url: '/Items/GetItems',
         contentType: "application/json",
-        data: { category: 'Notepad', countOnPage: 20, page: 1 },
+        data: { category: category, countOnPage: 20, page: 1 },
         dataType: "json"
     });
 
     createItemPromise.done(function (result) {
         var items = result.map(item => new Item(item));
-        ko.utils.arrayPushAll(adminNotepadsViewModel.items, items);
+        ko.utils.arrayPushAll(adminItemsViewModel.items, items);
     });
 
     createItemPromise.fail(function () {
@@ -44,7 +44,7 @@ function Item(item) {
 
 function onDeleteItemCallback(element, event) {
 
-    adminNotepadsViewModel.items.remove(element);
+    adminItemsViewModel.items.remove(element);
 
     var deleteItemPromise = $.ajax({
         type: "POST",

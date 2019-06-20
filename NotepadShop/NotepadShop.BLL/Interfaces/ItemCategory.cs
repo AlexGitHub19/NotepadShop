@@ -2,6 +2,7 @@
 {
     public enum ItemCategory
     {
-        Notepad
+        Notepad,
+        Pen
     }
 }

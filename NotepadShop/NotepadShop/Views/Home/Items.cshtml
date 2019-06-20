@@ -1,16 +1,16 @@
 ﻿
 @{
-    ViewBag.Title = "Notepads";
+    ViewBag.Title = "Items";
 }
 
-<h2>Notepads</h2>
+<h2>Items</h2>
 
 @section styles {
-    <link type="text/css" rel="stylesheet" href="~/Content/Home/Notepads.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Home/Items.css" />
 }
 
 @section scripts {
-    <script type="text/javascript" src="~/Scripts/Home/Notepads.js"></script>
+    <script type="text/javascript" src="~/Scripts/Home/Items.js"></script>
 }   
     
 <div id="homeItemsContainer">
@@ -24,3 +24,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    var category = '@ViewBag.ItemsCategory';
+</script>

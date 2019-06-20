@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using NotepadShop.BLL.Util;
+using System.Web.Mvc;
 
 namespace NotepadShop.Controllers
 {
@@ -9,10 +10,18 @@ namespace NotepadShop.Controllers
             return View();
         }
 
-        [Route("Notepads")]
+        [Route("notepads")]
         public ActionResult Notepads()
         {
-            return View();
+            ViewBag.ItemsCategory = GlobalConstants.Notepad;
+            return View("Items");
+        }
+
+        [Route("pens")]
+        public ActionResult Pens()
+        {
+            ViewBag.ItemsCategory = GlobalConstants.Pen;
+            return View("Items");
         }
 
         public ActionResult About()
