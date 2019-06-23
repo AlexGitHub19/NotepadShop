@@ -1,3 +1,29 @@
 ﻿.item-image {
     height: 300px;
 }
+.pagination-container {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-element {
+    cursor: pointer;
+}
+
+.pagination-element-number {
+    width: 24px;
+    text-align: center;
+}
+
+.selected-pagination-element {
+    background-color: blue;
+}
+
+.div-disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.items-count-container {
+    width: 50px;
+}

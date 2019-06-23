@@ -209,6 +209,7 @@
     <Compile Include="Models\ItemModels\Item.cs" />
     <Compile Include="Models\ItemModels\ItemBriefData.cs" />
     <Compile Include="Models\ItemModels\ItemName.cs" />
+    <Compile Include="Models\ItemModels\ItemsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

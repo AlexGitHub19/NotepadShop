@@ -111,6 +111,7 @@
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Entities\BriefItem.cs" />
     <Compile Include="Entities\ChangeItemData.cs" />
+    <Compile Include="Entities\ItemsData.cs" />
     <Compile Include="Interfaces\IChangeItemData.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\ItemName.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\IItemCodeGenerator.cs" />
     <Compile Include="Interfaces\IItemName.cs" />
+    <Compile Include="Interfaces\IItemsData.cs" />
     <Compile Include="Interfaces\IItemService.cs" />
     <Compile Include="Interfaces\ItemCategory.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

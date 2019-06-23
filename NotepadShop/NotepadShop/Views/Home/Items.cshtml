@@ -14,6 +14,11 @@
 }   
     
 <div id="homeItemsContainer">
+
+    <div class="input-field items-count-container">
+        <select data-bind="options: availableItemsCountOnPage, value: itemsCountOnPage, event:{change: itemsCountOnPageChange}"></select>
+    </div>
+
     <div class="row items-container" data-bind="foreach: items">
         <div class="col-lg-6">
             <a>
@@ -22,6 +27,21 @@
                 <p data-bind="text: Price"></p>
             </a>
         </div>
+    </div>
+
+    <div class="pagination-container" data-bind="visible: isPaginationVisible">
+        <div class="pagination-element" data-bind="click: leftArrowClick,  css: { 'div-disabled': isLeftArrowDisabled }"><i class="material-icons">chevron_left</i></div>
+        <div class="pagination-element pagination-element-number" 
+             data-bind="visible: firstPaginationElement().number, click: function() { paginationElementClick(firstPaginationElement().number()) }, text: firstPaginationElement().number, css: { 'selected-pagination-element': firstPaginationElement().isMarked }"></div>
+        <div class="pagination-element pagination-element-number"
+             data-bind="visible: secondPaginationElement().number, click: function() { paginationElementClick(secondPaginationElement().number()) }, text: secondPaginationElement().number, css: { 'selected-pagination-element': secondPaginationElement().isMarked }"></div>
+        <div class="pagination-element pagination-element-number" 
+             data-bind="visible: thirdPaginationElement().number, click: function() { paginationElementClick(thirdPaginationElement().number()) }, text: thirdPaginationElement().number, css: { 'selected-pagination-element': thirdPaginationElement().isMarked }"></div>
+        <div class="pagination-element pagination-element-number" 
+             data-bind="visible: thourthPaginationElement().number, click: function() { paginationElementClick(thourthPaginationElement().number()) }, text: thourthPaginationElement().number, css: { 'selected-pagination-element': thourthPaginationElement().isMarked }"></div>
+        <div class="pagination-element pagination-element-number" 
+             data-bind="visible: fifthPaginationElement().number, click: function() { paginationElementClick(fifthPaginationElement().number()) }, text: fifthPaginationElement().number, css: { 'selected-pagination-element': fifthPaginationElement().isMarked }"></div>
+        <div class="pagination-element" data-bind="click: rightArrowClick, css: { 'div-disabled': isRightArrowDisabled }" ><i class="material-icons">chevron_right</i></div>
     </div>
 </div>
 

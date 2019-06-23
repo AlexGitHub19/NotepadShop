@@ -205,13 +205,14 @@ namespace NotepadShop.Controllers
             return Json("Ok");
         }
 
+            
         [HttpGet]
         public JsonResult GetItems(string category, int countOnPage, int page)
         {
-            IEnumerable<IItem> items = itemService.getItemsByCategory(WebAssembler.Assemble(category), countOnPage, page);
+            IItemsData itemsData = itemService.getItemsByCategory(WebAssembler.Assemble(category), countOnPage, page);
 
-            IEnumerable<ItemBriefData> result = WebAssembler.Assemble(items, ViewBag.Language);
-            foreach (ItemBriefData data in result)
+            ItemsData result = new ItemsData(itemsData.TotalCount, WebAssembler.Assemble(itemsData.Items, ViewBag.Language));
+            foreach (ItemBriefData data in result.Items)
             {
                 data.MainImageName = calculateMainImageName(data);
             }

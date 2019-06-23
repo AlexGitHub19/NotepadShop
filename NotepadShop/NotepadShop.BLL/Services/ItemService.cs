@@ -1,4 +1,5 @@
-﻿using NotepadShop.BLL.Interfaces;
+﻿using NotepadShop.BLL.Entities;
+using NotepadShop.BLL.Interfaces;
 using NotepadShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -39,22 +40,26 @@ namespace NotepadShop.BLL.Services
             return Assembler.Assemble(found);
         }
 
-        public IEnumerable<IItem> getItemsByCategory(ItemCategory category, int countOnPage, int page)
+        public IItemsData getItemsByCategory(ItemCategory category, int countOnPage, int page)
         {
             DAL.Entities.ItemCategory assembledCategory = Assembler.Assemble(category);
 
             IEnumerable<DAL.Entities.Item> found = repository.ItemRepository.
                 GetAll().Where(item => item.Category == assembledCategory).
                 OrderByDescending(item => item.AddingTime).
-                Skip(page > 1 ? (page * countOnPage) : 0).
+                Skip((page-1) * countOnPage).
+                Take(countOnPage).
                 ToList();
-            IEnumerable<IItem> result = new List<IItem>();
+
+            IEnumerable <IItem> items = new List<IItem>();
             if (found.Count() > 0)
             {
-                result = Assembler.Assemble(found);
+                items = Assembler.Assemble(found);
             }
 
-            return result;
+            int itemsTotalCount = repository.ItemRepository.GetAll().Where(item => item.Category == assembledCategory).Count();
+
+            return new ItemsData(itemsTotalCount, items);
         }
 
         public void deleteItemByCode(string code)
