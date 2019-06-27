@@ -23,14 +23,32 @@ $(document).ready(function () {
         self.showRegisterFailedMessage = ko.observable(false);
         self.displayRegisterPreloader = ko.observable(false);
 
-        //self.ruLanguageSelected = ko.observable(true);
-        //self.ukLanguageSelected = ko.observable(false);
-        //self.enLanguageSelected = ko.observable(false);
+        self.shoppingCartCookieName = 'ns-shopping-cart';
+        self.shoppingCartItems = ko.observableArray();
+        self.showShoppingCart = ko.observable(false);
+        self.showShoppingCartPopup = () => self.showShoppingCart(true);
+        self.hideShoppingCartPopup = () => self.showShoppingCart(false);
+        self.deleteItemFromShoppingCart = (item) => deleteItemFromShoppingCart(item);
+        self.totaShoppingCartlPrice = ko.pureComputed(function () {
+            let result = 0;
+            this.shoppingCartItems().forEach(item => result += item.Price * item.Quantity());
+            return result.toFixed(2);
+        }, self);
+        self.plusQuantity = (item) => {
+            if (item.Quantity() < 99) {
+                item.Quantity(item.Quantity() + 1); 
+                setNewItemQuantityToCookie(item.Code, item.Quantity());
+            }
+        };
+        self.minusQuantity = (item) => {
+            if (item.Quantity() > 1) {
+                item.Quantity(item.Quantity() - 1); 
+                setNewItemQuantityToCookie(item.Code, item.Quantity());
+            }
+        };
     };
 
     layoutViewModel = new createViewModel();
-
-    ko.applyBindings(layoutViewModel, document.getElementById("layoutConainer"));
 
     $('#logInBtn').leanModal({
         ready: function () {
@@ -38,34 +56,30 @@ $(document).ready(function () {
         }
     });
 
+    createShoppingCartCookie();
+    var items = JSON.parse(getCookie(layoutViewModel.shoppingCartCookieName));
+    ko.utils.arrayPushAll(layoutViewModel.shoppingCartItems,
+        items.map(item => new ShoppingCartItem(item.Code, item.Price, item.Name, item.Quantity, item.ImageName)));
+    startShoppingCartCookieTimer();
+
+    ko.applyBindings(layoutViewModel, document.getElementById("layoutConainer"));
+
     registerEvents();
+
 });
 
-//function selectLanguage() {
-//    var languageCookieValue = getCookieValueByName('ns-language');
-//    if (languageCookieValue) {
-//        if (languageCookieValue === 'ru') {
-//            viewModel.ruLanguageSelected(true);
-//            viewModel.ukLanguageSelected(false);
-//            viewModel.enLanguageSelected(false);
-//        } else if (languageCookieValue === 'uk') {
-//            viewModel.ruLanguageSelected(false);
-//            viewModel.ukLanguageSelected(true);
-//            viewModel.enLanguageSelected(false);
-//        } else if (languageCookieValue === 'en') {
-//            viewModel.ruLanguageSelected(false);
-//            viewModel.ukLanguageSelected(false);
-//            viewModel.enLanguageSelected(true);
-//        }
-//    }
-//}
+function startShoppingCartCookieTimer() {
+    let currentCookie = getCookie(layoutViewModel.shoppingCartCookieName);
+    const checkCookiechanged = () => {
+        const shoppingCartCookieValue = getCookie(layoutViewModel.shoppingCartCookieName);
+        if (currentCookie !== shoppingCartCookieValue) {
+            console.log('changed');
+        }
+        currentCookie = shoppingCartCookieValue;
+    }
+    setInterval(checkCookiechanged, 1000);
+}
 
-//function getCookieValueByName(name) {
-//    var matches = document.cookie.match(new RegExp(
-//        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-//    ));
-//    return matches ? decodeURIComponent(matches[1]) : undefined;
-//}
 
 function registerEvents() {
     $('body').on('click', '#sumbitLogInBtn', function (e) {
@@ -192,13 +206,78 @@ function registerEvents() {
             language = 'en';
         }
 
-        var date = new Date();layoutViewModel
+        var date = new Date();
         date.setDate(date.getDate() + 2);
         document.cookie = 'ns-language=' + language + '; path=/; expires=' + date.toUTCString();
         $('#languagePopup').css('display', 'none');
         location.reload();
     });
 };
+
+function createShoppingCartCookie() {
+    if (!isCookieExists(layoutViewModel.shoppingCartCookieName)) {
+        setCartCookieValue('[]');
+    } else {
+        setCartCookieValue(getCookie(layoutViewModel.shoppingCartCookieName));
+    }
+}
+
+function addItemToShoppingCart(itemCode, itemPrice, itemName, imageName) {
+    const itemToAdd = new ShoppingCartItem(itemCode, itemPrice, itemName, 1, imageName);
+    layoutViewModel.shoppingCartItems.push(itemToAdd);
+
+    var cartCookieValue = JSON.parse(getCookie(layoutViewModel.shoppingCartCookieName));
+    newCookieValue = cartCookieValue;
+    newCookieValue.push(new CookieShoppingCartItem(itemToAdd.Code, itemToAdd.Price, itemToAdd.Name, itemToAdd.Quantity(), itemToAdd.ImageName));
+    setCartCookieValue(JSON.stringify(newCookieValue));
+}
+
+function deleteItemFromShoppingCart(item) {
+    layoutViewModel.shoppingCartItems.remove(item);
+
+    var cartCookieValue = JSON.parse(getCookie(layoutViewModel.shoppingCartCookieName));
+    var newCookieValue = cartCookieValue.filter(cookieItem => cookieItem.Code !== item.Code);
+    setCartCookieValue(JSON.stringify(newCookieValue));
+}
+
+function setCartCookieValue(newValue) {
+    var date = new Date();
+    date.setMinutes(date.getMinutes() + 5);
+    document.cookie = layoutViewModel.shoppingCartCookieName + '=' + newValue + '; path=/; expires=' + date.toUTCString();
+}
+
+function setNewItemQuantityToCookie(itemCode, newQuantity) {
+    var cartCookieValue = JSON.parse(getCookie(layoutViewModel.shoppingCartCookieName));
+    cartCookieValue.filter(cookieItem => cookieItem.Code === itemCode)[0].Quantity = newQuantity;
+    setCartCookieValue(JSON.stringify(cartCookieValue));
+}
+
+function isCookieExists(name) {
+    return getCookie(name) !== undefined;
+}
+
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function ShoppingCartItem(code, price, name, quantity, imageName) {
+    this.Code = code;
+    this.Price = price;
+    this.Name = name;
+    this.Quantity = ko.observable(quantity);
+    this.ImageName = imageName;
+}
+
+function CookieShoppingCartItem(code, price, name, quantity, imageName) {
+    this.Code = code;
+    this.Price = price;
+    this.Name = name;
+    this.Quantity = quantity;
+    this.ImageName = imageName;
+}
 
 function getAntiForgeryToken() {
     return $(".tokenContainer > input[type='hidden'][name$='RequestVerificationToken']").val();

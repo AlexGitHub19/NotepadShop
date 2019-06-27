@@ -151,18 +151,6 @@ function getPagesCount(itemsTotalCount) {
     return Math.ceil(itemsTotalCount / Number(adminItemsViewModel.itemsCountOnPage()));
 }
 
-function Item(item) {
-    this.Code = item.Code;
-    this.Price = item.Price;
-    this.Name = item.Name;
-    this.MainImageName = item.MainImageName;
-}
-
-function PaginationElement(number, isMarked) {
-    this.number = ko.observable(number);
-    this.isMarked = ko.observable(isMarked);
-}
-
 function onDeleteItemCallback(element, event) {
 
     adminItemsViewModel.items.remove(element);
@@ -177,3 +165,15 @@ function onDeleteItemCallback(element, event) {
         alert("error!");
     });
 };
+
+function Item(item) {
+    this.Code = item.Code;
+    this.Price = item.Price;
+    this.Name = item.Name;
+    this.MainImageName = item.MainImageName;
+}
+
+function PaginationElement(number, isMarked) {
+    this.number = ko.observable(number);
+    this.isMarked = ko.observable(isMarked);
+}

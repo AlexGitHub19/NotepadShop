@@ -61,6 +61,15 @@ namespace NotepadShop.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to shopping cart.
+        /// </summary>
+        internal static string addItemToShopppingCart {
+            get {
+                return ResourceManager.GetString("addItemToShopppingCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new item.
         /// </summary>
         internal static string addNewItemMessage {

@@ -20,6 +20,7 @@ $(document).ready(function () {
         self.leftArrowClick = onLeftArrowClick;
         self.rightArrowClick = onRightArrowClick;
         self.itemsCountOnPageChange = onItemsCountOnPageChange;
+        self.addItemToCartClick = onAddItemToCartClick;
     };
 
     homeItemsViewModel = new createViewModel();
@@ -149,6 +150,10 @@ function resetPaginationElemensMarkedState(paginationElement) {
 
 function getPagesCount(itemsTotalCount) {
     return Math.ceil(itemsTotalCount / Number(homeItemsViewModel.itemsCountOnPage()));
+}
+
+function onAddItemToCartClick(item) {
+    addItemToShoppingCart(item.Code, item.Price, item.Name, item.MainImageName);
 }
 
 function Item(item) {

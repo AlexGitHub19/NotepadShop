@@ -177,4 +177,8 @@
     <value>Ручки</value>
     <comment>category item</comment>
   </data>
+  <data name="addItemToShopppingCart" xml:space="preserve">
+    <value>Добавить в корзину</value>
+    <comment>Add item to shoppping cart message</comment>
+  </data>
 </root>

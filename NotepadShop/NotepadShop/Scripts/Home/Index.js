@@ -11,5 +11,5 @@ $(document).ready(function () {
 
     homeIndexViewModel = new createViewModel();
 
-    ko.applyBindings(addNewItemViewModel, document.getElementById("homeIndexContainer"));   
+    ko.applyBindings(homeIndexViewModel, document.getElementById("homeIndexContainer"));   
 });

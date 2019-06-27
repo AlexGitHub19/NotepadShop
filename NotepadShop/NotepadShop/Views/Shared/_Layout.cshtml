@@ -63,6 +63,10 @@
                             English
                         </div>*@
                 </div>
+                <div id="shoppingCartImageContainer">
+                    <i class="material-icons shopping-cart-icon" data-bind="event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }">shopping_cart</i>
+                    <span data-bind="text: shoppingCartItems().length, visible: shoppingCartItems().length > 0"></span>
+                </div>
                 <div id="userInfoContainer">
                     <div class="display-inline height100">
                         <i class="material-icons person-icon">person</i>
@@ -102,6 +106,30 @@
         </div>
         <div id="userInfoPopup" class="popup">
             <p id="logOutBtn">@ViewBag.ResourceManager.GetString("logOutLabel")</p>
+        </div>
+
+        <div id="shoppingCart" style="display: none;" data-bind="visible: showShoppingCart, event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }">
+            <div data-bind="foreach: shoppingCartItems">
+                <div>
+                    <img class="shopping-cart-item-image" data-bind="attr: { src: '/Content/Item/Images/' + ImageName }" alt="image can't be loaded" />
+                    <p data-bind="text: Name"></p>
+                    <p data-bind="text: Price"></p>
+                    <div>
+                        <i class="material-icons" data-bind="click: function() { $root.minusQuantity($data) }">remove</i>
+                        <input type="text" class="quantity-input" data-bind="textInput: Quantity"/>
+                        <i class="material-icons" data-bind="click: function() { $root.plusQuantity($data) }">add</i>
+                    </div>
+                    <a class="waves-effect waves-light btn" data-bind="click: function() { $root.deleteItemFromShoppingCart($data) } ">Delete интернализ</a>
+                </div>
+            </div>
+            <div data-bind="visible: shoppingCartItems().length > 0">
+                <span>Total cумма: </span>
+                <span data-bind="text: $root.totaShoppingCartlPrice"></span>
+            </div>
+            <div data-bind="visible: shoppingCartItems().length == 0">
+                Cart is пустая
+            </div>
+
         </div>
 
         <!-- Modal Structure -->
@@ -177,6 +205,8 @@
                 </div>
             </div>
         </div>
+
+        <div cart></div>
     </div>
 
     <div class="body-content">

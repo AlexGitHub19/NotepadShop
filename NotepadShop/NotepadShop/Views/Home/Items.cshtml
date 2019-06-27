@@ -22,9 +22,10 @@
     <div class="row items-container" data-bind="foreach: items">
         <div class="col-lg-6">
             <a>
-                <img class="item-image" data-bind="attr: { src: '/Content/Item/Images/' + MainImageName }" alt="image can't be loaded"/>
+                <img class="item-image" data-bind="attr: { src: '/Content/Item/Images/' + MainImageName }" alt="image can't be loaded" />
                 <p data-bind="text: Name"></p>
                 <p data-bind="text: Price"></p>
+                <a class="waves-effect waves-light btn" data-bind="click: $root.addItemToCartClick">@ViewBag.ResourceManager.GetString("addItemToShopppingCart")</a>
             </a>
         </div>
     </div>

@@ -61,6 +61,15 @@ namespace NotepadShop.Localization.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Додати в кошик.
+        /// </summary>
+        internal static string addItemToShopppingCart {
+            get {
+                return ResourceManager.GetString("addItemToShopppingCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Додати новий продукт.
         /// </summary>
         internal static string addNewItemMessage {

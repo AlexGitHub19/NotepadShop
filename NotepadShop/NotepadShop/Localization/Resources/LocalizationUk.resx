@@ -162,4 +162,7 @@
   <data name="pensCategory" xml:space="preserve">
     <value>Ручки</value>
   </data>
+  <data name="addItemToShopppingCart" xml:space="preserve">
+    <value>Додати в кошик</value>
+  </data>
 </root>
