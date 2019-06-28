@@ -30,7 +30,7 @@ textarea {
 }
 
 p {
-    margin: 0px;
+    margin: 0;
 }
 
 .btn-small {
@@ -72,6 +72,9 @@ p {
 
         .input-field label.active {
             -webkit-transform: translateY(-80%);
+            -ms-transform: translateY(-80%);
+            -moz-transform: translateY(-80%);
+            -o-transform: translateY(-80%);
             transform: translateY(-80%);
         }
 
