@@ -57,9 +57,7 @@ $(document).ready(function () {
     });
 
     createShoppingCartCookie();
-    var items = JSON.parse(getCookie(layoutViewModel.shoppingCartCookieName));
-    ko.utils.arrayPushAll(layoutViewModel.shoppingCartItems,
-        items.map(item => new ShoppingCartItem(item.Code, item.Price, item.Name, item.Quantity, item.ImageName)));
+    setShoppingCartValuesFromCookie();
     startShoppingCartCookieTimer();
 
     ko.applyBindings(layoutViewModel, document.getElementById("layoutConainer"));
@@ -67,19 +65,6 @@ $(document).ready(function () {
     registerEvents();
 
 });
-
-function startShoppingCartCookieTimer() {
-    let currentCookie = getCookie(layoutViewModel.shoppingCartCookieName);
-    const checkCookiechanged = () => {
-        const shoppingCartCookieValue = getCookie(layoutViewModel.shoppingCartCookieName);
-        if (currentCookie !== shoppingCartCookieValue) {
-            console.log('changed');
-        }
-        currentCookie = shoppingCartCookieValue;
-    }
-    setInterval(checkCookiechanged, 1000);
-}
-
 
 function registerEvents() {
     $('body').on('click', '#sumbitLogInBtn', function (e) {
@@ -262,6 +247,26 @@ function getCookie(name) {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+function setShoppingCartValuesFromCookie() {
+    var items = JSON.parse(getCookie(layoutViewModel.shoppingCartCookieName));
+    layoutViewModel.shoppingCartItems.removeAll();
+    ko.utils.arrayPushAll(layoutViewModel.shoppingCartItems,
+        items.map(item => new ShoppingCartItem(item.Code, item.Price, item.Name, item.Quantity, item.ImageName)));
+}
+
+function startShoppingCartCookieTimer() {
+    let currentCookie = getCookie(layoutViewModel.shoppingCartCookieName);
+    const checkCookiechanged = () => {
+        const shoppingCartCookieValue = getCookie(layoutViewModel.shoppingCartCookieName);
+        if (currentCookie !== shoppingCartCookieValue) {
+            setShoppingCartValuesFromCookie();
+        }
+        currentCookie = shoppingCartCookieValue;
+    }
+    setInterval(checkCookiechanged, 1000);
+}
+
 
 function ShoppingCartItem(code, price, name, quantity, imageName) {
     this.Code = code;
