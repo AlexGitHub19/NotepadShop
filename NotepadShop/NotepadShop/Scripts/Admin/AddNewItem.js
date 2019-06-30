@@ -24,9 +24,6 @@ $(document).ready(function () {
     addNewItemViewModel = new createViewModel();
 
     ko.applyBindings(addNewItemViewModel, document.getElementById("addNewItemContainer"));
-
-    $('ul.tabs').tabs();
-    $('select').material_select();
 });
 
 function onMainImageChangeCallback(element, event) {

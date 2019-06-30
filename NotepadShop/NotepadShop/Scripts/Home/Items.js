@@ -26,7 +26,6 @@ $(document).ready(function () {
     homeItemsViewModel = new createViewModel();
 
     ko.applyBindings(homeItemsViewModel, document.getElementById("homeItemsContainer"));
-    $('select').material_select();
 
     loadItems();
 });

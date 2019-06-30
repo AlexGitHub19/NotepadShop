@@ -13,6 +13,7 @@
     <link type="text/css" rel="stylesheet" href="~/Content/Layout.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/Site.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/bootstrap-grid.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Shared/tabs-control.css" />
 
     @RenderSection("styles", required: false)
     @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />
@@ -25,6 +26,7 @@
         <script type="text/javascript" src="~/Scripts/knockout-3.4.2.js"></script>*@
 </head>
 <body>
+
     <div class="tokenContainer">
         @Html.AntiForgeryToken()
     </div>
@@ -54,7 +56,8 @@
                     }
                 </div>
                 <div id="shoppingCartImageContainer">
-                    <i id="shoppingCartBtn" class="material-icons shopping-cart-icon" data-bind="event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }" data-target="shoppingCartModal">shopping_cart</i>
+                    <i id="shoppingCartBtn" disabled class="material-icons shopping-cart-icon"
+                       data-bind="event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }">shopping_cart</i>
                     <span data-bind="text: shoppingCartItems().length, visible: shoppingCartItems().length > 0"></span>
                 </div>
                 <div id="userInfoContainer">
@@ -66,7 +69,7 @@
                             <p data-bind="text: email"></p>
                         </div>
                         <div data-bind="ifnot: isLoggedIn">
-                            <span id="logInBtn" data-target="loginModal">@ViewBag.ResourceManager.GetString("loginOrRegisterLabel")</span>
+                            <span id="logInBtn">@ViewBag.ResourceManager.GetString("loginOrRegisterLabel")</span>
                         </div>
                     </div>
                 </div>
@@ -124,74 +127,93 @@
 
         <div id="loginModal" class="modal">
             <div class="modal-content">
-                <ul class="tabs">
-                    <li class="tab col s6"><a class="blue-text" href="#modalLogInContainer">@ViewBag.ResourceManager.GetString("loginLabel")</a></li>
-                    <li class="tab col s6"><a class="blue-text" href="#modalRegisterContainer">@ViewBag.ResourceManager.GetString("registerLabel")</a></li>
-                </ul>
-                <div id="modalLogInContainer" class="col s12">
-                    <div class="input-field col s6">
-                        <input id="loginEmailInput" type="text" class="validate" data-bind="textInput: loginEmail">
-                        <label for="loginEmailInput">Email</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="loginPasswordInput" type="password" class="validate" data-bind="textInput: loginPasword">
-                        <label for="loginPasswordInput">@ViewBag.ResourceManager.GetString("passwordLabel")</label>
-                    </div>
-                    <div class="authorizationFailedMessageContainer" data-bind="visible: showLoginFailedMessage">
-                        <p class="red-text" data-bind="text: loginFailedMessage"></p>
-                    </div>
-                    <div class="center-container">
-                        <button id="sumbitLogInBtn" class="btn btn-small btn-submit  btn-blue" data-bind="visible: !displayLogInPreloader(), enable: submitLoginBtnEnabled">
-                            @ViewBag.ResourceManager.GetString("loginLabel")
-                        </button>
-                        <div id="logInPreloader" class="small-preloader-holder" data-bind="visible: displayLogInPreloader">
-                            <div class="preloader-wrapper small active">
-                                <div class="spinner-layer spinner-blue-only">
-                                    <div class="circle-clipper left">
-                                        <div class="circle"></div>
-                                    </div><div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div><div class="circle-clipper right">
-                                        <div class="circle"></div>
+
+                <div class="ns-tabs">
+                    <input type="radio" id="tab1" name="ns-tab-control" checked>
+                    <input type="radio" id="tab2" name="ns-tab-control">
+                    <ul>
+                        <li title="@ViewBag.ResourceManager.GetString("loginLabel")">
+                            <label for="tab1" role="button" >
+                                <span>@ViewBag.ResourceManager.GetString("loginLabel")</span>
+                            </label>
+                        </li>
+                        <li title="@ViewBag.ResourceManager.GetString("registerLabel")">
+                            <label for="tab2" role="button">
+                                <span>@ViewBag.ResourceManager.GetString("registerLabel")</span>
+                            </label>
+                        </li>
+                    </ul>
+
+                    <div class="ns-tabs-slider"><div class="indicator"></div></div>
+                    <div class="ns-tab-content">
+                        <section>
+                            <div class="input-field col s6">
+                                <input id="loginEmailInput" type="text" class="validate" data-bind="textInput: loginEmail">
+                                <label for="loginEmailInput">Email</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="loginPasswordInput" type="password" class="validate" data-bind="textInput: loginPasword">
+                                <label for="loginPasswordInput">@ViewBag.ResourceManager.GetString("passwordLabel")</label>
+                            </div>
+                            <div class="authorizationFailedMessageContainer" data-bind="visible: showLoginFailedMessage">
+                                <p class="red-text" data-bind="text: loginFailedMessage"></p>
+                            </div>
+                            <div class="center-container">
+                                <button id="sumbitLogInBtn" class="btn btn-small btn-submit  btn-blue" data-bind="visible: !displayLogInPreloader(), enable: submitLoginBtnEnabled">
+                                    @ViewBag.ResourceManager.GetString("loginLabel")
+                                </button>
+                                <div id="logInPreloader" class="small-preloader-holder" data-bind="visible: displayLogInPreloader">
+                                    <div class="preloader-wrapper small active">
+                                        <div class="spinner-layer spinner-blue-only">
+                                            <div class="circle-clipper left">
+                                                <div class="circle"></div>
+                                            </div><div class="gap-patch">
+                                                <div class="circle"></div>
+                                            </div><div class="circle-clipper right">
+                                                <div class="circle"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="modalRegisterContainer" class="col s12">
-                    <div class="input-field col s6">
-                        <input id="registerEmailInput" type="email" class="validate" data-bind="textInput: registerEmail">
-                        <label for="registerEmailInput">Email</label>
-                        <span class="email-validation-msg red-text">@ViewBag.ResourceManager.GetString("incorrectEmailValidation")</span>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="registerPasswordInput" type="password" data-bind="textInput: registerPasword" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
-                        <label for="registerPasswordInput">@ViewBag.ResourceManager.GetString("passwordLabel")</label>
-                        <span class="password-validation-msg red-text">@ViewBag.ResourceManager.GetString("incorrectParrwordValidation")</span>
-                    </div>
-                    <div class="authorizationFailedMessageContainer" data-bind="visible: showRegisterFailedMessage">
-                        <p class="red-text" data-bind="text: registerFailedMessage"></p>
-                    </div>
-                    <div class="center-container">
-                        <a id="sumbitRegisterBtn" class="btn btn-small btn-submit btn-blue" data-bind="visible: !displayRegisterPreloader()">
-                            @ViewBag.ResourceManager.GetString("registerLabel")
-                        </a>
-                        <div id="registrationPreloader" class="small-preloader-holder" data-bind="visible: displayRegisterPreloader">
-                            <div class="preloader-wrapper small active">
-                                <div class="spinner-layer spinner-blue-only">
-                                    <div class="circle-clipper left">
-                                        <div class="circle"></div>
-                                    </div><div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div><div class="circle-clipper right">
-                                        <div class="circle"></div>
+                        </section>
+                        <section>
+                            <div class="input-field col s6">
+                                <input id="registerEmailInput" type="email" class="validate" data-bind="textInput: registerEmail">
+                                <label for="registerEmailInput">Email</label>
+                                <span class="email-validation-msg red-text">@ViewBag.ResourceManager.GetString("incorrectEmailValidation")</span>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="registerPasswordInput" type="password" data-bind="textInput: registerPasword" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
+                                <label for="registerPasswordInput">@ViewBag.ResourceManager.GetString("passwordLabel")</label>
+                                <span class="password-validation-msg red-text">@ViewBag.ResourceManager.GetString("incorrectParrwordValidation")</span>
+                            </div>
+                            <div class="authorizationFailedMessageContainer" data-bind="visible: showRegisterFailedMessage">
+                                <p class="red-text" data-bind="text: registerFailedMessage"></p>
+                            </div>
+                            <div class="center-container">
+                                <a id="sumbitRegisterBtn" class="btn btn-small btn-submit btn-blue" data-bind="visible: !displayRegisterPreloader()">
+                                    @ViewBag.ResourceManager.GetString("registerLabel")
+                                </a>
+                                <div id="registrationPreloader" class="small-preloader-holder" data-bind="visible: displayRegisterPreloader">
+                                    <div class="preloader-wrapper small active">
+                                        <div class="spinner-layer spinner-blue-only">
+                                            <div class="circle-clipper left">
+                                                <div class="circle"></div>
+                                            </div><div class="gap-patch">
+                                                <div class="circle"></div>
+                                            </div><div class="circle-clipper right">
+                                                <div class="circle"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
                 </div>
+
+
             </div>
         </div>
 
@@ -222,6 +244,7 @@
         </div>
 
     </div>
+
 
     <div class="body-content">
         @RenderBody()

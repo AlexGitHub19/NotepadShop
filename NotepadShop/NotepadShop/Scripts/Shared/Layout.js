@@ -53,13 +53,16 @@ $(document).ready(function () {
 
     layoutViewModel = new createViewModel();
 
-    $('#logInBtn').leanModal({
-        ready: function () {
-            $('ul.tabs').tabs();
-        }
-    });
+    //$('#logInBtn').leanModal({
+    //    ready: function () {
+    //        $('.tabs').tabs();
+    //    }
+    //});
 
-    $('#shoppingCartBtn').leanModal();
+    $('#loginModal').modal();
+    //$('.tabs').tabs();
+
+    //$('#shoppingCartBtn').leanModal();
 
     createShoppingCartCookie();
     setShoppingCartValuesFromCookie();
@@ -134,10 +137,6 @@ function registerEvents() {
         });
     });
 
-    $('body').on('click', '#logInBtn', function (e) {
-        $('#loginModal').openModal();
-    });
-
     $('body').on('mouseenter', '#userInfoContainer', function (e) {
         if (layoutViewModel.isLoggedIn()) {
             $('#userInfoPopup').css('left', $('#userInfoContainer').offset().left);
@@ -182,8 +181,10 @@ function registerEvents() {
     //})
 
     $('body').on('click', '#logInBtn', function (e) {
-        $('#loginModal').openModal();
+        $('#loginModal').modal('open');
+
     });
+
 
     $('#languagePopup').on('click', '.popup-language-item', function (e) {
         var itemId = $(this).attr('id');

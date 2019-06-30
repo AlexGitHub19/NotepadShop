@@ -33,7 +33,6 @@ $(document).ready(function () {
     ko.applyBindings(changeItemViewModel, document.getElementById("changeItemContainer"));
 
     $('ul.tabs').tabs();
-    $('select').material_select();
 
     changeItemViewModel.isChangeDetectionOn = true;
 });

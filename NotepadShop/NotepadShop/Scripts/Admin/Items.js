@@ -26,7 +26,6 @@ $(document).ready(function () {
     adminItemsViewModel = new createViewModel();
 
     ko.applyBindings(adminItemsViewModel, document.getElementById("adminItemsContainer"));
-    $('select').material_select();
 
     loadItems();
 });

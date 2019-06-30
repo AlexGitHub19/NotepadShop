@@ -22,32 +22,52 @@
     </div>
 
     <h6>Name</h6>
-    <div >
-        <div class="col s12">
-            <ul class="tabs">
-                <li class="tab col s3"><a a class="blue-text" href="#ruName">Russian</a></li>
-                <li class="tab col s3"><a a class="blue-text" href="#enName">English</a></li>
-                <li class="tab col s3"><a a class="blue-text" href="#ukName">Ukrainian</a></li>
+    <div>
+        <div class="ns-tabs">
+            <input type="radio" id="tabItem1" name="ns-tab-control" checked>
+            <input type="radio" id="tabItem2" name="ns-tab-control">
+            <input type="radio" id="tabItem3" name="ns-tab-control">
+            <ul>
+                <li title="Russian">
+                    <label for="tabItem1" role="button">
+                        <span>Russian</span>
+                    </label>
+                </li>
+                <li title="English">
+                    <label for="tabItem2" role="button">
+                        <span>English</span>
+                    </label>
+                </li>
+                <li title="Ukrainian">
+                    <label for="tabItem3" role="button">
+                        <span>Ukrainian</span>
+                    </label>
+                </li>
             </ul>
-        </div>
-        <div id="ruName" class="col s12">
-            <div class="input-field">
-                <input id="ruNameInput" type="text" class="validate" data-bind="textInput: nameRu">
-                <label for="ruNameInput">Name</label>
+
+            <div class="ns-tabs-slider"><div class="indicator"></div></div>
+            <div class="ns-tab-content">
+                <section>
+                    <div class="input-field">
+                        <input id="ruNameInput" type="text" class="validate" data-bind="textInput: nameRu">
+                        <label for="ruNameInput">Name</label>
+                    </div>
+                </section>
+                <section>
+                    <div class="input-field">
+                        <input id="enNameInput" type="text" class="validate" data-bind="textInput: nameEn">
+                        <label for="enNameInput">Name</label>
+                    </div>
+                </section>
+                <section>
+                    <div class="input-field">
+                        <input id="ukNameInput" type="text" class="validate" data-bind="textInput: nameUk">
+                        <label for="ukNameInput">Name</label>
+                    </div>
+                </section>
             </div>
         </div>
-        <div id="enName" class="col s12">
-            <div class="input-field">
-                <input id="enNameInput" type="text" class="validate" data-bind="textInput: nameEn">
-                <label for="enNameInput">Name</label>
-            </div>
-        </div>
-        <div id="ukName" class="col s12">
-            <div class="input-field">
-                <input id="ukNameInput" type="text" class="validate" data-bind="textInput: nameUk">
-                <label for="ukNameInput">Name</label>
-            </div>
-        </div>
+
     </div>
     <div class="input-field">
         <input id="itemPriceInput" type="number" class="validate" data-bind="textInput: price">

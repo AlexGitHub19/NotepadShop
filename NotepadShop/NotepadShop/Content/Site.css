@@ -53,14 +53,6 @@ p {
     margin: 14px auto 0 auto;
 }
 
-.tabs {
-    background-color: #fafafa;
-}
-
-    .tabs .indicator {
-        background-color: #2196F3;
-    }
-
 .input-field {
     margin-top: 5px;
 }
@@ -98,4 +90,8 @@ p {
 
 .input-field input[type=password]:focus ~ .password-validation-msg, .input-field input[type=email]:focus ~ .email-validation-msg {
     display: none;
+}
+
+.disabled-pointer-events {
+    pointer-events: none;
 }
