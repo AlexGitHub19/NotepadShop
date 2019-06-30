@@ -26,6 +26,7 @@ $(document).ready(function () {
         self.shoppingCartCookieName = 'ns-shopping-cart';
         self.shoppingCartItems = ko.observableArray();
         self.showShoppingCart = ko.observable(false);
+        self.shoppingCartTimer;
         self.showShoppingCartPopup = () => self.showShoppingCart(true);
         self.hideShoppingCartPopup = () => self.showShoppingCart(false);
         self.deleteItemFromShoppingCart = (item) => deleteItemFromShoppingCart(item);
@@ -46,6 +47,8 @@ $(document).ready(function () {
                 setNewItemQuantityToCookie(item.Code, item.Quantity());
             }
         };
+
+        self.displaySessionExpiredWindow = ko.observable(false);
     };
 
     layoutViewModel = new createViewModel();
@@ -55,6 +58,8 @@ $(document).ready(function () {
             $('ul.tabs').tabs();
         }
     });
+
+    $('#shoppingCartBtn').leanModal();
 
     createShoppingCartCookie();
     setShoppingCartValuesFromCookie();
@@ -258,14 +263,31 @@ function setShoppingCartValuesFromCookie() {
 function startShoppingCartCookieTimer() {
     let currentCookie = getCookie(layoutViewModel.shoppingCartCookieName);
     const checkCookiechanged = () => {
-        const shoppingCartCookieValue = getCookie(layoutViewModel.shoppingCartCookieName);
-        if (currentCookie !== shoppingCartCookieValue) {
-            setShoppingCartValuesFromCookie();
+        if (!isCookieExists(layoutViewModel.shoppingCartCookieName)) {
+            clearTimeout(layoutViewModel.shoppingCartTimer);
+            layoutViewModel.displaySessionExpiredWindow(true);
+        } else {
+            const shoppingCartCookieValue = getCookie(layoutViewModel.shoppingCartCookieName);
+            if (currentCookie !== shoppingCartCookieValue) {
+                if (wasShoppingCartChangedInAnotherPage()) {
+                    setShoppingCartValuesFromCookie();
+                }
+            }
+            currentCookie = shoppingCartCookieValue;
         }
-        currentCookie = shoppingCartCookieValue;
     }
-    setInterval(checkCookiechanged, 1000);
+
+    layoutViewModel.shoppingCartTimer = setInterval(checkCookiechanged, 1000);
 }
+
+function wasShoppingCartChangedInAnotherPage() {
+    const shoppingCartCookieValue = getCookie(layoutViewModel.shoppingCartCookieName);
+    const shoppingCartItemsValue = JSON.stringify(layoutViewModel.shoppingCartItems()
+        .map(item => new CookieShoppingCartItem(item.Code, item.Price, item.Name, item.Quantity(), item.ImageName)));
+
+    return shoppingCartCookieValue !== shoppingCartItemsValue;
+}
+
 
 
 function ShoppingCartItem(code, price, name, quantity, imageName) {

@@ -6,13 +6,13 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link type="text/css" rel="stylesheet" href="~/Content/Layout.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/Site.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/bootstrap-grid.css" />
 
     @RenderSection("styles", required: false)
     @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />
@@ -52,19 +52,9 @@
                             </div>
                             break;
                     }
-
-                    @*<div id="languageRu" data-bind="if: ruLanguageSelected">
-                            Русский
-                        </div>
-                        <div id="languageUk" data-bind="if: ukLanguageSelected">
-                            Українська
-                        </div>
-                        <div id="languageEn" data-bind="if: enLanguageSelected">
-                            English
-                        </div>*@
                 </div>
                 <div id="shoppingCartImageContainer">
-                    <i class="material-icons shopping-cart-icon" data-bind="event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }">shopping_cart</i>
+                    <i id="shoppingCartBtn" class="material-icons shopping-cart-icon" data-bind="event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }" data-target="shoppingCartModal">shopping_cart</i>
                     <span data-bind="text: shoppingCartItems().length, visible: shoppingCartItems().length > 0"></span>
                 </div>
                 <div id="userInfoContainer">
@@ -77,7 +67,6 @@
                         </div>
                         <div data-bind="ifnot: isLoggedIn">
                             <span id="logInBtn" data-target="loginModal">@ViewBag.ResourceManager.GetString("loginOrRegisterLabel")</span>
-                            @*<a class="waves-effect waves-light btn modal-trigger" data-target="loginModal">Modal</a>*@
                         </div>
                     </div>
                 </div>
@@ -115,9 +104,9 @@
                     <p data-bind="text: Name"></p>
                     <p data-bind="text: Price"></p>
                     <div>
-                        <i class="material-icons" data-bind="click: function() { $root.minusQuantity($data) }">remove</i>
-                        <input type="text" class="quantity-input" data-bind="textInput: Quantity"/>
-                        <i class="material-icons" data-bind="click: function() { $root.plusQuantity($data) }">add</i>
+                        <i class="material-icons cursor-pointer" data-bind="click: function() { $root.minusQuantity($data) }">remove</i>
+                        <input type="text" class="quantity-input" data-bind="textInput: Quantity" />
+                        <i class="material-icons cursor-pointer" data-bind="click: function() { $root.plusQuantity($data) }">add</i>
                     </div>
                     <a class="waves-effect waves-light btn" data-bind="click: function() { $root.deleteItemFromShoppingCart($data) } ">Delete интернализ</a>
                 </div>
@@ -132,7 +121,7 @@
 
         </div>
 
-        <!-- Modal Structure -->
+
         <div id="loginModal" class="modal">
             <div class="modal-content">
                 <ul class="tabs">
@@ -206,6 +195,31 @@
             </div>
         </div>
 
+        <div id="shoppingCartModal" class="modal">
+            <div class="modal-content">
+                <div data-bind="foreach: shoppingCartItems">
+                    <div>
+                        <img class="shopping-cart-item-image" data-bind="attr: { src: '/Content/Item/Images/' + ImageName }" alt="image can't be loaded" />
+                        <p data-bind="text: Name"></p>
+                        <p data-bind="text: Price"></p>
+                        <div>
+                            <i class="material-icons cursor-pointer" data-bind="click: function() { $root.minusQuantity($data) }">remove</i>
+                            <input type="text" class="quantity-input" data-bind="textInput: Quantity" />
+                            <i class="material-icons cursor-pointer" data-bind="click: function() { $root.plusQuantity($data) }">add</i>
+                        </div>
+                        <a class="waves-effect waves-light btn" data-bind="click: function() { $root.deleteItemFromShoppingCart($data) } ">Delete интернализ</a>
+                    </div>
+                </div>
+                <div data-bind="visible: shoppingCartItems().length > 0">
+                    <span>Total cумма: </span>
+                    <span data-bind="text: $root.totaShoppingCartlPrice"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="session-expired-window" style="display: none;" data-bind="visible: displaySessionExpiredWindow">
+            <p>Your session is expired. Обновите страницу для дальнейшей работы</p>
+        </div>
 
     </div>
 
