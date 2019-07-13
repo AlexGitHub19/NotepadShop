@@ -2,6 +2,7 @@
 using NotepadShop.BLL.Interfaces;
 using NotepadShop.BLL.Util;
 using NotepadShop.Models.Admin;
+using NotepadShop.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,12 +68,9 @@ namespace NotepadShop.Controllers
                 }
             }
 
-            DirectoryInfo imagesDirectory = new DirectoryInfo(Server.MapPath(GlobalConstants.ImagesDirectoryPath));
-            IEnumerable<string> itemAdditionalImageNames = imagesDirectory.GetFiles().
-                Where(image => image.Name.StartsWith(code + "_") && !image.Name.StartsWith(code + "_Main")).
-                Select(image => image.Name);
-            string mainImageName = imagesDirectory.GetFiles().
-                First(image => image.Name.StartsWith(code + "_Main")).Name;
+
+            IEnumerable<string> itemAdditionalImageNames = ItemUtils.GetItemAdditionalImageNames(code);
+            string mainImageName = ItemUtils.getMainImageName(code);
 
 
             ChangeItemViewModel viewModel = new ChangeItemViewModel(Guid.NewGuid().ToString(), item.Code, item.Price.ToString(), 

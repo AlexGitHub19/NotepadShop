@@ -1,0 +1,33 @@
+﻿@model  NotepadShop.Models.ItemModels.FullItem
+@{
+    ViewBag.Title = "Item";
+}
+
+@section styles {
+    <link type="text/css" rel="stylesheet" href="~/Content/Home/Item.css" />
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/Home/Item.js"></script>
+}
+
+<div id="homeItemContainer">
+    <p>@Model.Code</p>
+    <p>@Model.Name</p>
+    <p>@Model.Price</p>
+    <img src="/Content/Item/Images/@Model.MainImageName" class="main-img"/>
+    <br />
+    @foreach (string addImageName in Model.AdditionalImages)
+    {
+        <img src="/Content/Item/Images/@addImageName" class="additional-img"/>
+    }
+
+    <a class="btn" data-bind="click: addItemToCartClick">@ViewBag.ResourceManager.GetString("addItemToShopppingCart")</a>
+</div>
+
+<script type="text/javascript">
+    var homeItemCode = "@Model.Code";
+    var homeItemName = "@Model.Name";
+    var homeItemPrice = Number(@Model.Price);
+    var homeItemMainImgName = "@Model.MainImageName";
+</script>

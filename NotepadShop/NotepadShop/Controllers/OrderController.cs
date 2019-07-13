@@ -36,8 +36,7 @@ namespace NotepadShop.Controllers
             DateTime utcDateFrom = dateFrom.ToUniversalTime();
             DateTime utcDateTo = dateTo.ToUniversalTime();
             IEnumerable<IOrder> foundOrders = orderService.getOrdersByDateRange(utcDateFrom, utcDateTo);
-            IEnumerable<Order> assembledOrders = WebAssembler.Assemble(foundOrders, ViewBag.Language,
-                Server.MapPath(GlobalConstants.ImagesDirectoryPath));
+            IEnumerable<Order> assembledOrders = WebAssembler.Assemble(foundOrders, ViewBag.Language);
            
             return Json(assembledOrders, JsonRequestBehavior.AllowGet);
         }
@@ -48,7 +47,7 @@ namespace NotepadShop.Controllers
         {
             IOrder foundOrder = orderService.getOrderByNumber(number);
             return Json(foundOrder == null ? "not exists" : 
-                WebAssembler.Assemble(foundOrder, ViewBag.Language, Server.MapPath(GlobalConstants.ImagesDirectoryPath)), JsonRequestBehavior.AllowGet);
+                WebAssembler.Assemble(foundOrder, ViewBag.Language), JsonRequestBehavior.AllowGet);
         }
 
         private string calculateMainImageName(Item data)

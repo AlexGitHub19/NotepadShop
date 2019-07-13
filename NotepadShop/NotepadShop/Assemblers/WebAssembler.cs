@@ -1,6 +1,7 @@
 ﻿using NotepadShop.BLL.Util;
 using NotepadShop.Models.ItemModels;
 using NotepadShop.Models.Order;
+using NotepadShop.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -100,20 +101,31 @@ namespace NotepadShop.Assemblers
             return result;
         }
 
-        public static IEnumerable<Item> Assemble(IEnumerable<BLL.Interfaces.IItem> items, string language,
-            string imagesDirectoryPath)
+        public static IEnumerable<Item> Assemble(IEnumerable<BLL.Interfaces.IItem> items, string language)
         {
-            return items.Select(item => Assemble(item, language, imagesDirectoryPath)).ToList();
+            return items.Select(item => Assemble(item, language)).ToList();
         }
 
-        public static Item Assemble(BLL.Interfaces.IItem item, string language, string imagesDirectoryPath)
+        public static Item Assemble(BLL.Interfaces.IItem item, string language)
         {
             return new Item
             {
                 Code = item.Code,
                 Price = item.Price,
                 Name = AssembleName(item.Names, language),
-                MainImageName = calculateMainImageName(item, imagesDirectoryPath)
+                MainImageName = ItemUtils.getMainImageName(item.Code)
+            };
+        }
+
+        public static FullItem AssembleFullItem(BLL.Interfaces.IItem item, string language)
+        {
+            return new FullItem
+            {
+                Code = item.Code,
+                Price = item.Price,
+                Name = AssembleName(item.Names, language),
+                MainImageName = ItemUtils.getMainImageName(item.Code),
+                AdditionalImages = ItemUtils.GetItemAdditionalImageNames(item.Code)
             };
         }
 
@@ -262,13 +274,12 @@ namespace NotepadShop.Assemblers
             return new BLL.Entities.CreateOrderItemData(itemData.Code, itemData.Count);
         }
 
-        public static IEnumerable<Order> Assemble(IEnumerable<BLL.Interfaces.IOrder> orders, string language,
-            string imagesDirectoryPath)
+        public static IEnumerable<Order> Assemble(IEnumerable<BLL.Interfaces.IOrder> orders, string language)
         {
-            return orders.Select(order => Assemble(order, language, imagesDirectoryPath));
+            return orders.Select(order => Assemble(order, language));
         }
 
-        public static Order Assemble(BLL.Interfaces.IOrder order, string language, string imagesDirectoryPath)
+        public static Order Assemble(BLL.Interfaces.IOrder order, string language)
         {
             return new Order
             {
@@ -284,40 +295,25 @@ namespace NotepadShop.Assemblers
                 UserEmail = order.UserEmail,
                 OrderStatus = AssembleOrderStatus(order.OrderStatus),
                 CreatingDateTime = order.CreatingDateTime.ToString(),
-                Items = Assemble(order.Items, language, imagesDirectoryPath)
+                Items = Assemble(order.Items, language)
             };
         }
 
-        public static IEnumerable<OrderItem> Assemble(IEnumerable<BLL.Interfaces.IOrderItem> orderItems, string language,
-            string imagesDirectoryPath)
+        public static IEnumerable<OrderItem> Assemble(IEnumerable<BLL.Interfaces.IOrderItem> orderItems, string language)
         {
-            return orderItems.Select(item => Assemble(item, language, imagesDirectoryPath));
+            return orderItems.Select(item => Assemble(item, language));
         }
 
-        public static OrderItem Assemble(BLL.Interfaces.IOrderItem orderItem, string language, string imagesDirectoryPath)
+        public static OrderItem Assemble(BLL.Interfaces.IOrderItem orderItem, string language)
         {
             return new OrderItem
             {
-                Item = Assemble(orderItem.Item, language, imagesDirectoryPath),
+                Item = Assemble(orderItem.Item, language),
                 Count = orderItem.Count
             };
         }
 
-        public static string calculateMainImageName(BLL.Interfaces.IItem data, string imagesDirectoryPath)
-        {
-            string result = null;
-            DirectoryInfo imagesDirectory = new DirectoryInfo(imagesDirectoryPath);
-            FileInfo mainImagefile = imagesDirectory.GetFiles().FirstOrDefault(image => image.Name.StartsWith(data.Code + "_Main"));
-
-            if (mainImagefile != null)
-            {
-                result = data.Code + "_Main" + calcualteFileExtension(mainImagefile.Name);
-            }
-
-            return result;
-        }
-
-        public static string calcualteFileExtension(string fileName)
+        public static string CalcualteFileExtension(string fileName)
         {
             return fileName.Substring(fileName.LastIndexOf('.'));
         }

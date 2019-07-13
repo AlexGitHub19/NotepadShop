@@ -33,6 +33,11 @@ p {
     margin: 0;
 }
 
+a {
+    color: unset;
+    text-decoration: none;
+}
+
 .btn-small {
     height: 32.4px !important;
     line-height: 32.4px !important;

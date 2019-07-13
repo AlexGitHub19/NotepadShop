@@ -208,6 +208,7 @@
     <Compile Include="Models\HomeModels\IndexModel.cs" />
     <Compile Include="Models\ItemModels\ChangeItemData.cs" />
     <Compile Include="Models\ItemModels\CreateItemData.cs" />
+    <Compile Include="Models\ItemModels\FullItem.cs" />
     <Compile Include="Models\ItemModels\Item.cs" />
     <Compile Include="Models\ItemModels\ItemName.cs" />
     <Compile Include="Models\ItemModels\ItemsData.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Models\Order\Order.cs" />
     <Compile Include="Models\Order\OrderItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ItemUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\AddNewItem.css" />
@@ -228,6 +230,7 @@
     <Content Include="Content\Flags\RussiaFlag.svg" />
     <Content Include="Content\Flags\UkraineFlag.svg" />
     <Content Include="Content\Home\Index.css" />
+    <Content Include="Content\Home\Item.css" />
     <Content Include="Content\Home\Items.css" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\materialize\materialize.css" />
@@ -250,6 +253,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Admin\Orders.js" />
     <Content Include="Scripts\Home\Index.js" />
+    <Content Include="Scripts\Home\Item.js" />
     <Content Include="Scripts\Home\Items.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -289,6 +293,7 @@
     <Content Include="Views\Admin\Items.cshtml" />
     <Content Include="Views\Admin\ChangeItem.cshtml" />
     <Content Include="Views\Admin\Orders.cshtml" />
+    <Content Include="Views\Home\Item.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
