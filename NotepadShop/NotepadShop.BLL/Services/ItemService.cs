@@ -4,6 +4,7 @@ using NotepadShop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 
 namespace NotepadShop.BLL.Services
 {
@@ -36,7 +37,10 @@ namespace NotepadShop.BLL.Services
 
         public IItem getItemByCode(string code)
         {
-            DAL.Entities.Item found = repository.ItemRepository.GetAll().Where(item => item.Code == code).FirstOrDefault();
+            DAL.Entities.Item found = repository.ItemRepository.GetAll().
+                Where(item => item.Code == code).
+                Include(item => item.Names).
+                FirstOrDefault();
             return Assembler.Assemble(found);
         }
 
@@ -49,13 +53,10 @@ namespace NotepadShop.BLL.Services
                 OrderByDescending(item => item.AddingTime).
                 Skip((page-1) * countOnPage).
                 Take(countOnPage).
+                Include(item => item.Names).
                 ToList();
 
-            IEnumerable <IItem> items = new List<IItem>();
-            if (found.Count() > 0)
-            {
-                items = Assembler.Assemble(found);
-            }
+            IEnumerable<IItem> items = Assembler.Assemble(found.ToList());
 
             int itemsTotalCount = repository.ItemRepository.GetAll().Where(item => item.Category == assembledCategory).Count();
 
@@ -71,7 +72,8 @@ namespace NotepadShop.BLL.Services
 
         public void changeItem(IChangeItemData itemData)
         {
-            DAL.Entities.Item foundItem = repository.ItemRepository.GetAll().First(item => item.Code == itemData.Code);
+            DAL.Entities.Item foundItem = repository.ItemRepository.GetAll().Include(item => item.Names).
+                First(item => item.Code == itemData.Code);
 
             if (itemData.NewPrice != null)
             {

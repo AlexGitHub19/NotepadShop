@@ -11,6 +11,7 @@ using System.Web.Mvc;
 namespace NotepadShop.Controllers
 {
     [Authorize(Roles = "admin")]
+    [RoutePrefix("admin")]
     public class AdminController : Controller
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
@@ -24,7 +25,6 @@ namespace NotepadShop.Controllers
             this.itemService = itemService;
         }
 
-        // GET: Admin
         [HttpGet]
         public ActionResult Index()
         {
@@ -80,16 +80,24 @@ namespace NotepadShop.Controllers
             return View(viewModel);
         }
 
+        [Route("notepads")]
         public ActionResult Notepads()
         {
             ViewBag.ItemsCategory = GlobalConstants.Notepad;
             return View("Items");
         }
 
+        [Route("pens")]
         public ActionResult Pens()
         {
             ViewBag.ItemsCategory = GlobalConstants.Pen;
             return View("Items");
+        }
+
+        [Route("orders")]
+        public ActionResult Orders()
+        {
+            return View();
         }
     }
 }

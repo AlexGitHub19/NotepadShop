@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
 
 
-    <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />
+   @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />*@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link type="text/css" rel="stylesheet" href="~/Content/Layout.css" />
@@ -57,7 +57,7 @@
                 </div>
                 <div id="shoppingCartImageContainer">
                     <i id="shoppingCartBtn" disabled class="material-icons shopping-cart-icon"
-                       data-bind="event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }">shopping_cart</i>
+                       data-bind="event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }, click: shoppingCartImageClick">shopping_cart</i>
                     <span data-bind="text: shoppingCartItems().length, visible: shoppingCartItems().length > 0"></span>
                 </div>
                 <div id="userInfoContainer">
@@ -69,7 +69,8 @@
                             <p data-bind="text: email"></p>
                         </div>
                         <div data-bind="ifnot: isLoggedIn">
-                            <span id="logInBtn">@ViewBag.ResourceManager.GetString("loginOrRegisterLabel")</span>
+                            <span id="logInBtn"
+                                  data-bind="click: loginBtnClick">@ViewBag.ResourceManager.GetString("loginOrRegisterLabel")</span>
                         </div>
                     </div>
                 </div>
@@ -100,7 +101,7 @@
             <p id="logOutBtn">@ViewBag.ResourceManager.GetString("logOutLabel")</p>
         </div>
 
-        <div id="shoppingCart" style="display: none;" data-bind="visible: showShoppingCart, event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }">
+        <div id="shoppingCartPopup" style="display: none" data-bind="visible: isShoppingCartPopupVisible, event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }">
             <div data-bind="foreach: shoppingCartItems">
                 <div>
                     <img class="shopping-cart-item-image" data-bind="attr: { src: '/Content/Item/Images/' + ImageName }" alt="image can't be loaded" />
@@ -125,15 +126,14 @@
         </div>
 
 
-        <div id="loginModal" class="modal">
-            <div class="modal-content">
-
+        <div id="loginModal" style="display: none" data-bind="visible: isLoginModalVisible">
+            <div class="modalContent">
                 <div class="ns-tabs">
                     <input type="radio" id="tab1" name="ns-tab-control" checked>
                     <input type="radio" id="tab2" name="ns-tab-control">
                     <ul>
                         <li title="@ViewBag.ResourceManager.GetString("loginLabel")">
-                            <label for="tab1" role="button" >
+                            <label for="tab1" role="button">
                                 <span>@ViewBag.ResourceManager.GetString("loginLabel")</span>
                             </label>
                         </li>
@@ -147,11 +147,11 @@
                     <div class="ns-tabs-slider"><div class="indicator"></div></div>
                     <div class="ns-tab-content">
                         <section>
-                            <div class="input-field col s6">
+                            <div class="input-field">
                                 <input id="loginEmailInput" type="text" class="validate" data-bind="textInput: loginEmail">
                                 <label for="loginEmailInput">Email</label>
                             </div>
-                            <div class="input-field col s12">
+                            <div class="input-field">
                                 <input id="loginPasswordInput" type="password" class="validate" data-bind="textInput: loginPasword">
                                 <label for="loginPasswordInput">@ViewBag.ResourceManager.GetString("passwordLabel")</label>
                             </div>
@@ -178,12 +178,12 @@
                             </div>
                         </section>
                         <section>
-                            <div class="input-field col s6">
+                            <div class="input-field">
                                 <input id="registerEmailInput" type="email" class="validate" data-bind="textInput: registerEmail">
                                 <label for="registerEmailInput">Email</label>
                                 <span class="email-validation-msg red-text">@ViewBag.ResourceManager.GetString("incorrectEmailValidation")</span>
                             </div>
-                            <div class="input-field col s12">
+                            <div class="input-field">
                                 <input id="registerPasswordInput" type="password" data-bind="textInput: registerPasword" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
                                 <label for="registerPasswordInput">@ViewBag.ResourceManager.GetString("passwordLabel")</label>
                                 <span class="password-validation-msg red-text">@ViewBag.ResourceManager.GetString("incorrectParrwordValidation")</span>
@@ -212,13 +212,12 @@
                         </section>
                     </div>
                 </div>
-
-
             </div>
+            <button class="closeModalBtn" data-bind="click: closeloginPopupClick">Close</button>
         </div>
 
-        <div id="shoppingCartModal" class="modal">
-            <div class="modal-content">
+        <div id="shoppingCart" style="display: none" data-bind="visible: isShoppingCartVisible">
+            <div class="modalContent">
                 <div data-bind="foreach: shoppingCartItems">
                     <div>
                         <img class="shopping-cart-item-image" data-bind="attr: { src: '/Content/Item/Images/' + ImageName }" alt="image can't be loaded" />
@@ -232,15 +231,60 @@
                         <a class="waves-effect waves-light btn" data-bind="click: function() { $root.deleteItemFromShoppingCart($data) } ">Delete интернализ</a>
                     </div>
                 </div>
-                <div data-bind="visible: shoppingCartItems().length > 0">
+                <div>
                     <span>Total cумма: </span>
                     <span data-bind="text: $root.totaShoppingCartlPrice"></span>
                 </div>
+                <hr />
+                <div class="contact-info">
+                    <p>Contact информация</p>
+                    <div class="input-field">
+                        <input id="shoppingCartNameInput" type="text" data-bind="textInput: shoppingCartName">
+                        <label for="shoppingCartNameInput">Name/Имя</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="shoppingCartSurnameInput" type="text" data-bind="textInput: shoppingCartSurname">
+                        <label for="shoppingCartSurnameInput">Surname/Фамилия</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="shoppingCartPhoneInput" type="text" data-bind="textInput: shoppingCartPhone">
+                        <label for="shoppingCartPhoneInput">Phone/Телефон</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="shoppingCartEmailInput" type="text" data-bind="textInput: shoppingCartEmail">
+                        <label for="shoppingCartEmailInput">E-mail</label>
+                    </div>
+                </div>
+                <hr />
+                <div class="delivery-info">
+                    <p>Delivery информация</p>
+                    <div><input type="radio" name="deliveryTypeRadioGroup" value="novaPoshta" data-bind="checked: shoppingCartDeliveryType" />Nova Poshta достав</div>
+                    <div><input type="radio" name="deliveryTypeRadioGroup" value="self" data-bind="checked: shoppingCartDeliveryType" />Самовыв</div>
+                    <div style="display: none;" data-bind="visible: shoppingCartDeliveryType() === 'novaPoshta'">
+                        <div class="input-field">
+                            <input id="shoppingCartCityInput" type="text" data-bind="textInput: shoppingCartCity">
+                            <label for="shoppingCartCityInput">City/Город</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="shoppingCartPostDepartmentInput" type="text" data-bind="textInput: shoppingCartPostDepartment">
+                            <label for="shoppingCartPostDepartmentInput">Nova Posta deaprtment/Отделение</label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="payment-info">
+                    <div><input type="radio" name="paymentTypeRadioGroup" value="cart" data-bind="checked: shoppingCartPaymentType" />Payment на карту</div>
+                    <div><input type="radio" name="paymentTypeRadioGroup" value="cash" data-bind="checked: shoppingCartPaymentType"/>Оплата Cash</div>
+                </div>
+                <a class="waves-effect waves-light btn" data-bind="click: makeOrderClick">Order/заказать</a>
+                <button class="closeModalBtn" data-bind="click: shoppingCartCloseBtnClick">Close</button>
             </div>
         </div>
 
         <div class="session-expired-window" style="display: none;" data-bind="visible: displaySessionExpiredWindow">
-            <p>Your session is expired. Обновите страницу для дальнейшей работы</p>
+            <div>
+                <p>Your session is expired. Обновите страницу для дальнейшей работы</p>
+            </div>
         </div>
 
     </div>

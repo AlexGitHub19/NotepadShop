@@ -24,7 +24,7 @@ namespace NotepadShop.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public JsonResult CreateItem(Item item, string key)
+        public JsonResult CreateItem(CreateItemData item, string key)
         {
             IBriefItem assembled = WebAssembler.Assemble(item);
             string newIteCode = itemService.createItem(assembled);
@@ -52,7 +52,7 @@ namespace NotepadShop.Controllers
                         newName = $"{newIteCode}_{Guid.NewGuid().ToString()}";
                     }   
 
-                    newName += calcualteFileExtension(file.Name);
+                    newName += WebAssembler.calcualteFileExtension(file.Name);
 
                     System.IO.File.Move(file.FullName, Server.MapPath(GlobalConstants.ImagesDirectoryPath + newName));
                 }
@@ -87,11 +87,11 @@ namespace NotepadShop.Controllers
                 string newImageName;
                 if (i == 0)
                 {
-                    newImageName = "Main" + calcualteFileExtension(image.FileName);
+                    newImageName = "Main" + WebAssembler.calcualteFileExtension(image.FileName);
                 }
                 else
                 {
-                    newImageName = $"{i}{calcualteFileExtension(image.FileName)}";
+                    newImageName = $"{i}{WebAssembler.calcualteFileExtension(image.FileName)}";
                 }
 
                 image.SaveAs(Server.MapPath(tempFolderPath + key + "/" + newImageName));
@@ -138,7 +138,7 @@ namespace NotepadShop.Controllers
                         First(file => file.Name.Substring(0, file.Name.LastIndexOf('.')) == $"{itemData.Code}_Main");
                     oldMainImage.Delete();
                     FileInfo mainImage = tempItemDirectory.GetFiles().First(file => file.Name.Substring(0, file.Name.LastIndexOf('.')) == "Main");
-                    string newName = $"{itemData.Code}_Main" + calcualteFileExtension(mainImage.Name);
+                    string newName = $"{itemData.Code}_Main" + WebAssembler.calcualteFileExtension(mainImage.Name);
                     System.IO.File.Move(mainImage.FullName, Server.MapPath(GlobalConstants.ImagesDirectoryPath + newName));
 
                 }
@@ -149,7 +149,7 @@ namespace NotepadShop.Controllers
                     {
                         if (isFileImage(file))
                         {
-                            string newName = $"{itemData.Code}_{Guid.NewGuid().ToString()}" + calcualteFileExtension(file.Name);
+                            string newName = $"{itemData.Code}_{Guid.NewGuid().ToString()}" + WebAssembler.calcualteFileExtension(file.Name);
                             System.IO.File.Move(file.FullName, Server.MapPath(GlobalConstants.ImagesDirectoryPath + newName));
                         }
                     }
@@ -176,7 +176,7 @@ namespace NotepadShop.Controllers
             for (int i = 0; i < Request.Files.Count; i ++)
             {
                 HttpPostedFileBase image = Request.Files[i];
-                string newImageName = $"{i}{calcualteFileExtension(image.FileName)}";
+                string newImageName = $"{i}{WebAssembler.calcualteFileExtension(image.FileName)}";
                 image.SaveAs(Server.MapPath(tempFolderPath + key + "/" + newImageName));
             }
 
@@ -198,7 +198,7 @@ namespace NotepadShop.Controllers
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 HttpPostedFileBase image = Request.Files[i];
-                string newImageName = "Main" + calcualteFileExtension(image.FileName);
+                string newImageName = "Main" + WebAssembler.calcualteFileExtension(image.FileName);
                 image.SaveAs(Server.MapPath(tempFolderPath + key + "/" + newImageName));
             }
 
@@ -211,11 +211,8 @@ namespace NotepadShop.Controllers
         {
             IItemsData itemsData = itemService.getItemsByCategory(WebAssembler.Assemble(category), countOnPage, page);
 
-            ItemsData result = new ItemsData(itemsData.TotalCount, WebAssembler.Assemble(itemsData.Items, ViewBag.Language));
-            foreach (ItemBriefData data in result.Items)
-            {
-                data.MainImageName = calculateMainImageName(data);
-            }
+            ItemsData result = new ItemsData(itemsData.TotalCount, 
+                WebAssembler.Assemble(itemsData.Items, ViewBag.Language, Server.MapPath(GlobalConstants.ImagesDirectoryPath)));
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -236,35 +233,6 @@ namespace NotepadShop.Controllers
             }
 
             return Json("Ok");
-        }
-
-        private string calculateMainImageName(ItemBriefData data)
-        {
-            string result = null;
-            DirectoryInfo imagesDirectory = new DirectoryInfo(Server.MapPath(GlobalConstants.ImagesDirectoryPath));
-            FileInfo mainImagefile = imagesDirectory.GetFiles().FirstOrDefault(image => image.Name.StartsWith(data.Code + "_Main"));
-
-            if (mainImagefile != null)
-            {
-                result = data.Code + "_Main" + calcualteFileExtension(mainImagefile.Name);
-            }
-
-            return result;
-        }
-
-        private string calcualteFileExtension(string fileName)
-        {
-            return fileName.Substring(fileName.LastIndexOf('.'));
-        }
-
-        [HttpGet]
-        public void GetItemsByCategory(Item item)
-        {
-        }
-
-        [HttpGet]
-        public void GetItemsByCode(Item item)
-        {
         }
     }
 }

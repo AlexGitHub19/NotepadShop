@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Orders";
+}
+
+@section styles {
+    <link type="text/css" rel="stylesheet" href="~/Content/Admin/Orders.css" />
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/Admin/Orders.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+}
+
+    <div id="adminOrdersContainer">
+        <p>Date from: <input type="text" id="datepickerFrom" autocomplete="off" data-bind="textInput: dateFrom"></p>
+        <p>Date to: <input type="text" id="datepickerTo" autocomplete="off" data-bind="textInput: dateTo"></p>
+        <button data-bind="click: searchOrdersClick">Search</button>
+        <div class="orders-container" style="display: none" data-bind="foreach: orders, visible: orders().length > 0">
+            <div class="order-container">
+                <p data-bind="text: number"></p>
+                <p data-bind="text: status"></p>
+                <p data-bind="text: creatingDateTime"></p>
+            </div>
+        </div>
+    </div>

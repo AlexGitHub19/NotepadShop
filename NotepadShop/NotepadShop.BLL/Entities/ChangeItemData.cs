@@ -11,7 +11,8 @@ namespace NotepadShop.BLL.Entities
         public string NewUkName { get; }
         public string NewEnName { get; }
 
-        public ChangeItemData(string code, decimal? newPrice, ItemCategory? newCategory, string newRuName, string newUkName, string newEnName)
+        public ChangeItemData(string code, decimal? newPrice, ItemCategory? newCategory, string newRuName, string newUkName,
+            string newEnName)
         {
             Code = code;
             NewPrice = newPrice;

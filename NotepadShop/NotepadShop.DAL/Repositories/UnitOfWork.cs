@@ -18,6 +18,8 @@ namespace NotepadShop.DAL.Repositories
 
         private IRepository<Item> itemRepository;
         private IRepository<ItemCode> itemCodeRepository;
+        private IRepository<Order> orderRepository;
+        private IRepository<OrderNumber> orderNumberRepository;
 
         public IRepository<Item> ItemRepository
         {
@@ -36,6 +38,26 @@ namespace NotepadShop.DAL.Repositories
                 if (itemCodeRepository == null)
                     itemCodeRepository = new Repository<ItemCode>(context);
                 return itemCodeRepository;
+            }
+        }
+
+        public IRepository<Order> OrderRepository
+        {
+            get
+            {
+                if (orderRepository == null)
+                    orderRepository = new Repository<Order>(context);
+                return orderRepository;
+            }
+        }
+
+        public IRepository<OrderNumber> OrderNumberRepository
+        {
+            get
+            {
+                if (orderNumberRepository == null)
+                    orderNumberRepository = new Repository<OrderNumber>(context);
+                return orderNumberRepository;
             }
         }
 

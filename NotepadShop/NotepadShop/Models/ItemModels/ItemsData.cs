@@ -5,9 +5,9 @@ namespace NotepadShop.Models.ItemModels
     public class ItemsData
     {
         public int TotalCount { get; set; }
-        public IEnumerable<ItemBriefData> Items { get; set; } = new List<ItemBriefData>();
+        public IEnumerable<Item> Items { get; set; } = new List<Item>();
 
-        public ItemsData(int totalCount, IEnumerable<ItemBriefData> items)
+        public ItemsData(int totalCount, IEnumerable<Item> items)
         {
             TotalCount = totalCount;
             Items = items;

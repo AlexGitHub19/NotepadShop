@@ -11,7 +11,7 @@ namespace NotepadShop.DAL.Entities
         public ItemCategory Category { get; set; }
         public DateTime AddingTime { get; set; }
 
-        public virtual ICollection<ItemName> Names { get; set; }
+        public ICollection<ItemName> Names { get; set; }
 
         public Item()
         {

@@ -10,6 +10,8 @@ namespace NotepadShop.DAL.Interfaces
         ApplicationRoleManager RoleManager { get; }
         IRepository<Item> ItemRepository { get; }
         IRepository<ItemCode> ItemCodeRepository { get; }
+        IRepository<Order> OrderRepository { get; }
+        IRepository<OrderNumber> OrderNumberRepository { get; }
         int Save();
     }
 }

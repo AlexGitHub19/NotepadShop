@@ -5,6 +5,9 @@ $(document).ready(function () {
     function createViewModel() {
         var self = this;
         self.email = ko.observable(email == "" ? undefined : email);
+        self.isLoginModalVisible = ko.observable(false);
+        self.loginBtnClick = loginBtnClickCallback;
+        self.closeloginPopupClick = closeloginPopupClickCallback;
         self.loginEmail = ko.observable("");
         self.loginPasword = ko.observable("");
         self.submitLoginBtnEnabled = ko.computed(function () {
@@ -25,10 +28,10 @@ $(document).ready(function () {
 
         self.shoppingCartCookieName = 'ns-shopping-cart';
         self.shoppingCartItems = ko.observableArray();
-        self.showShoppingCart = ko.observable(false);
+        self.isShoppingCartPopupVisible = ko.observable(false);
         self.shoppingCartTimer;
-        self.showShoppingCartPopup = () => self.showShoppingCart(true);
-        self.hideShoppingCartPopup = () => self.showShoppingCart(false);
+        self.showShoppingCartPopup = () => self.isShoppingCartPopupVisible(true);
+        self.hideShoppingCartPopup = () => self.isShoppingCartPopupVisible(false);
         self.deleteItemFromShoppingCart = (item) => deleteItemFromShoppingCart(item);
         self.totaShoppingCartlPrice = ko.pureComputed(function () {
             let result = 0;
@@ -47,22 +50,30 @@ $(document).ready(function () {
                 setNewItemQuantityToCookie(item.Code, item.Quantity());
             }
         };
+        self.isShoppingCartVisible = ko.observable(false);
+        self.shoppingCartImageClick = function () {
+            if (this.shoppingCartItems().length > 0) {
+                $("body").css("overflow", "hidden");
+                self.isShoppingCartVisible(true);
+            }
+        };
+        self.shoppingCartCloseBtnClick = closeShoppingCartCallBack;
+
+        self.shoppingCartName = ko.observable('');
+        self.shoppingCartSurname = ko.observable('');
+        self.shoppingCartPhone = ko.observable('');
+        self.shoppingCartEmail = ko.observable('');
+        self.shoppingCartCity = ko.observable('');
+        self.shoppingCartPostDepartment = ko.observable('');
+        self.shoppingCartPaymentType = ko.observable('cart');
+        self.shoppingCartDeliveryType = ko.observable('novaPoshta');
+        self.makeOrderClick = makeOrderClickCallBack;
 
         self.displaySessionExpiredWindow = ko.observable(false);
     };
 
     layoutViewModel = new createViewModel();
 
-    //$('#logInBtn').leanModal({
-    //    ready: function () {
-    //        $('.tabs').tabs();
-    //    }
-    //});
-
-    $('#loginModal').modal();
-    //$('.tabs').tabs();
-
-    //$('#shoppingCartBtn').leanModal();
 
     createShoppingCartCookie();
     setShoppingCartValuesFromCookie();
@@ -73,6 +84,14 @@ $(document).ready(function () {
     registerEvents();
 
 });
+
+function loginBtnClickCallback() {
+    layoutViewModel.isLoginModalVisible(true);
+}
+
+function closeloginPopupClickCallback() {
+    layoutViewModel.isLoginModalVisible(false);
+}
 
 function registerEvents() {
     $('body').on('click', '#sumbitLogInBtn', function (e) {
@@ -126,7 +145,6 @@ function registerEvents() {
     });
 
     $('body').on('click', '#logOutBtn', function (e) {
-        console.log(getAntiForgeryToken());
         $.ajax({
             type: "POST",
             url: logOutUrl,
@@ -180,11 +198,6 @@ function registerEvents() {
     //    viewModel.showPasswordValidation($("#passwordInput").hasClass("invalid"));
     //})
 
-    $('body').on('click', '#logInBtn', function (e) {
-        $('#loginModal').modal('open');
-
-    });
-
 
     $('#languagePopup').on('click', '.popup-language-item', function (e) {
         var itemId = $(this).attr('id');
@@ -225,6 +238,10 @@ function addItemToShoppingCart(itemCode, itemPrice, itemName, imageName) {
 
 function deleteItemFromShoppingCart(item) {
     layoutViewModel.shoppingCartItems.remove(item);
+
+    if (layoutViewModel.shoppingCartItems().length === 0) {
+        closeShoppingCartCallBack();
+    }
 
     var cartCookieValue = JSON.parse(getCookie(layoutViewModel.shoppingCartCookieName));
     var newCookieValue = cartCookieValue.filter(cookieItem => cookieItem.Code !== item.Code);
@@ -289,6 +306,49 @@ function wasShoppingCartChangedInAnotherPage() {
     return shoppingCartCookieValue !== shoppingCartItemsValue;
 }
 
+function closeShoppingCartCallBack() {
+    $("body").css("overflow", "initial");
+    layoutViewModel.isShoppingCartVisible(false);
+}
+
+function makeOrderClickCallBack() {
+    var dataObject =
+    {
+        CustomerName: layoutViewModel.shoppingCartName(),
+        CustomerSurname: layoutViewModel.shoppingCartSurname(),
+        CustomerPhone: layoutViewModel.shoppingCartPhone(),
+        CustomerEmail: layoutViewModel.shoppingCartEmail(),
+        City: layoutViewModel.shoppingCartCity(),
+        PostDepartment: layoutViewModel.shoppingCartPostDepartment(),
+        PaymentType: layoutViewModel.shoppingCartPaymentType(),
+        DeliveryType: layoutViewModel.shoppingCartDeliveryType(),
+        Items: layoutViewModel.shoppingCartItems().map(cartItem => new CreateOrderItem(cartItem.Code, cartItem.Quantity()))
+    };
+
+    function CreateOrderItem(code, count) {
+        this.Code = code;
+        this.Count = count;
+    }
+
+    console.log(dataObject);
+    console.log(JSON.stringify(dataObject));
+
+    var createItemPromise = $.ajax({
+        type: "POST",
+        url: '/api/create-order',
+        contentType: "application/json",
+        data: JSON.stringify(dataObject),
+        dataType: "json"
+    });
+
+    createItemPromise.done(function () {
+        alert("saved");
+    });
+
+    createItemPromise.fail(function () {
+        alert("error!");
+    });
+}
 
 
 function ShoppingCartItem(code, price, name, quantity, imageName) {
