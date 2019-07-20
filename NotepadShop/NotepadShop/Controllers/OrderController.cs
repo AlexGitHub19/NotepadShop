@@ -35,7 +35,7 @@ namespace NotepadShop.Controllers
         {
             DateTime utcDateFrom = dateFrom.ToUniversalTime();
             DateTime utcDateTo = dateTo.ToUniversalTime();
-            IEnumerable<IOrder> foundOrders = orderService.getOrdersByDateRange(utcDateFrom, utcDateTo);
+            IEnumerable<IOrder> foundOrders = orderService.GetOrdersByDateRange(utcDateFrom, utcDateTo);
             IEnumerable<Order> assembledOrders = WebAssembler.Assemble(foundOrders, ViewBag.Language);
            
             return Json(assembledOrders, JsonRequestBehavior.AllowGet);
@@ -45,7 +45,7 @@ namespace NotepadShop.Controllers
         [HttpGet]
         public JsonResult GetOrderByOrderNumber(string number)
         {
-            IOrder foundOrder = orderService.getOrderByNumber(number);
+            IOrder foundOrder = orderService.GetOrderByNumber(number);
             return Json(foundOrder == null ? "not exists" : 
                 WebAssembler.Assemble(foundOrder, ViewBag.Language), JsonRequestBehavior.AllowGet);
         }

@@ -6,5 +6,6 @@ namespace NotepadShop.Models.Order
     {
         public Item Item { get; set; }
         public int Count { get; set; }
+        public decimal Price { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace NotepadShop.DAL.EF.Configurations
             Property(item => item.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             HasRequired(orderItem => orderItem.Item);
             Property(item => item.Count).IsRequired();
+            Property(item => item.Price).IsRequired();
         }
     }
 }

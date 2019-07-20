@@ -1,0 +1,47 @@
+﻿#profilePersonalInfoContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.link-list {
+    width: 300px;
+}
+
+    .link-list .selected {
+        border: solid;
+        border-width: 1px;
+        border-color: green;
+        border-radius: 5px;
+    }
+
+#profilePersonalInfoContainer {
+    width: 100%;
+}
+
+.user-info-header {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.user-field-label-container {
+    width: 200px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.language-label-container {
+    vertical-align: top;
+}
+
+.user-field-value-container {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.user-info-container {
+    width: 100%;
+}
+
+.user-actions {
+    width: 500px;
+}

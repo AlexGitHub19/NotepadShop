@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
 
 
-   @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />*@
+    @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />*@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link type="text/css" rel="stylesheet" href="~/Content/Layout.css" />
@@ -16,6 +16,7 @@
     <link type="text/css" rel="stylesheet" href="~/Content/Shared/tabs-control.css" />
 
     @RenderSection("styles", required: false)
+    <script type="text/javascript" src="~/Scripts/Shared/PhoneInput.js"></script>
     @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />
 
         @Scripts.Render("~/bundles/jquery")
@@ -99,6 +100,8 @@
         </div>
         <div id="userInfoPopup" class="popup">
             <p id="logOutBtn">@ViewBag.ResourceManager.GetString("logOutLabel")</p>
+            <a href="profile/personal-info">Personal данные</a>
+            <a href="profile/orders">My заказы</a>
         </div>
 
         <div id="shoppingCartPopup" style="display: none" data-bind="visible: isShoppingCartPopupVisible, event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }">

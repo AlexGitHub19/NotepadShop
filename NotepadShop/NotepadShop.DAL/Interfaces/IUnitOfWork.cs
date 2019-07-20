@@ -1,5 +1,6 @@
 ﻿using NotepadShop.DAL.Entities;
 using NotepadShop.DAL.Identity;
+using NotepadShop.DAL.Identity.Entities;
 using System;
 
 namespace NotepadShop.DAL.Interfaces
@@ -12,6 +13,7 @@ namespace NotepadShop.DAL.Interfaces
         IRepository<ItemCode> ItemCodeRepository { get; }
         IRepository<Order> OrderRepository { get; }
         IRepository<OrderNumber> OrderNumberRepository { get; }
+        IRepository<ApplicationUser> UserRepository { get; }
         int Save();
     }
 }

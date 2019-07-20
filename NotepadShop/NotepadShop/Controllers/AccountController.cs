@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using NotepadShop.Assemblers;
 using NotepadShop.BLL.DTO;
 using NotepadShop.BLL.Interfaces;
 using NotepadShop.Models.AccountModels;
@@ -54,6 +55,12 @@ namespace NotepadShop.Controllers
                 else
                 {
                     result.Email = model.Email;
+                    LanguageType? userLanguage = UserService.GetUserLanguage(model.Email);
+                    if (userLanguage != null) {
+                        result.Language = WebAssembler.AssembleLanguage(userLanguage.Value);
+                        ViewBag.Language = result.Language;
+                    }
+
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties
                     {

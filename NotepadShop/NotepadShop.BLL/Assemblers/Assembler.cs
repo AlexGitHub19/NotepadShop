@@ -85,7 +85,7 @@ namespace NotepadShop.BLL
   
         }
 
-        private static LanguageType Assemble(DAL.Entities.LanguageType language)
+        public static LanguageType Assemble(DAL.Entities.LanguageType language)
         {
             LanguageType result;
             switch (language)
@@ -108,7 +108,7 @@ namespace NotepadShop.BLL
             return result;
         }
 
-        private static DAL.Entities.LanguageType Assemble(LanguageType language)
+        public static DAL.Entities.LanguageType Assemble(LanguageType language)
         {
             DAL.Entities.LanguageType result;
             switch (language)
@@ -267,7 +267,7 @@ namespace NotepadShop.BLL
 
         private static IOrderItem Assemble(DAL.Entities.OrderItem orderItem)
         {
-            return new OrderItem(Assemble(orderItem.Item), orderItem.Count);
+            return new OrderItem(Assemble(orderItem.Item), orderItem.Count, orderItem.Price);
         }
     }
 }

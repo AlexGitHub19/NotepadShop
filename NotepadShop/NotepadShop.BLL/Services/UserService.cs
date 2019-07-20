@@ -54,6 +54,12 @@ namespace NotepadShop.BLL.Services
             return claim;
         }
 
+        public LanguageType? GetUserLanguage(string email)
+        {
+            ApplicationUser user = repository.UserRepository.GetAll().First(u => u.Email == email);
+            return user.Language != null ? Assembler.Assemble(user.Language.Value) : default(LanguageType?);
+        }
+
         public void SetInitialData()
         {
             ApplicationRole userRole = new ApplicationRole { Name = "user" };

@@ -1,8 +1,6 @@
 ﻿using NotepadShop.Assemblers;
 using NotepadShop.BLL.Interfaces;
 using NotepadShop.BLL.Util;
-using NotepadShop.Models.ItemModels;
-using NotepadShop.Utils;
 using System.Web.Mvc;
 
 namespace NotepadShop.Controllers
@@ -38,7 +36,6 @@ namespace NotepadShop.Controllers
         [Route("item")]
         public ActionResult GetItem(string code)
         {
-            FullItem result;
             IItem item = itemService.getItemByCode(code);
             if (item != null)
             {

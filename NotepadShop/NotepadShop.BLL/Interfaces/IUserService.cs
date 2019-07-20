@@ -8,6 +8,7 @@ namespace NotepadShop.BLL.Interfaces
     {
         RegisterOperationDetails Create(UserDTO userDto);
         ClaimsIdentity Authenticate(UserDTO userDto);
+        LanguageType? GetUserLanguage(string email);
         void SetInitialData();
         bool IsInitialDataSet();
     }

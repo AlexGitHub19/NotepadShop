@@ -26,6 +26,7 @@ $(document).ready(function () {
         self.showRegisterFailedMessage = ko.observable(false);
         self.displayRegisterPreloader = ko.observable(false);
 
+        self.languageCookieName = 'ns-language';
         self.shoppingCartCookieName = 'ns-shopping-cart';
         self.shoppingCartItems = ko.observableArray();
         self.isShoppingCartPopupVisible = ko.observable(false);
@@ -79,6 +80,8 @@ $(document).ready(function () {
     setShoppingCartValuesFromCookie();
     startShoppingCartCookieTimer();
 
+    reSetLanguageCookieIfExists();
+
     ko.applyBindings(layoutViewModel, document.getElementById("layoutConainer"));
 
     registerEvents();
@@ -104,6 +107,9 @@ function registerEvents() {
             data: { __RequestVerificationToken: getAntiForgeryToken(), Email: layoutViewModel.loginEmail(), Password: layoutViewModel.loginPasword() },
             success: function (result) {
                 if (result.Email) {
+                    if (result.Language) {
+                        setLanguageCookieIfNotExists(result.Language);
+                    }
                     location.reload();
                 } else {
                     layoutViewModel.displayLogInPreloader(false);
@@ -210,13 +216,30 @@ function registerEvents() {
             language = 'en';
         }
 
-        var date = new Date();
-        date.setDate(date.getDate() + 2);
-        document.cookie = 'ns-language=' + language + '; path=/; expires=' + date.toUTCString();
+
+        setLanguageCookie(language);
         $('#languagePopup').css('display', 'none');
         location.reload();
     });
 };
+
+function setLanguageCookie(language) {
+    var date = new Date();
+    date.setDate(date.getDate() + 2);
+    document.cookie = layoutViewModel.languageCookieName + '=' + language + '; path=/; expires=' + date.toUTCString();
+}
+
+function reSetLanguageCookieIfExists() {
+    if (isCookieExists(layoutViewModel.languageCookieName)) {
+        setLanguageCookie(getCookie(layoutViewModel.languageCookieName));
+    }
+}
+
+function setLanguageCookieIfNotExists(language) {
+    if (!isCookieExists(layoutViewModel.languageCookieName)) {
+        setLanguageCookie(language);
+    }
+}
 
 function createShoppingCartCookie() {
     if (!isCookieExists(layoutViewModel.shoppingCartCookieName)) {

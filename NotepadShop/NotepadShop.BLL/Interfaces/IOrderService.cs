@@ -6,9 +6,9 @@ namespace NotepadShop.BLL.Interfaces
     public interface IOrderService
     {
         void CreateOrder(ICreateOrderData createOrderData);
-        IEnumerable<IOrder> getOrdersByDateRange(DateTime dateTo, DateTime dateFrom);
-        IOrder getOrderByNumber(string number);
-        IEnumerable<IOrder> getOrdersByUserEmail(string email);
-        IEnumerable<IOrder> getOrdersByPhoneNumber(string phoneNumber);
+        IEnumerable<IOrder> GetOrdersByDateRange(DateTime dateTo, DateTime dateFrom);
+        IOrder GetOrderByNumber(string number);
+        IEnumerable<IOrder> GetOrdersByUser(string email);
+        IEnumerable<IOrder> GetOrdersByPhoneNumber(string phoneNumber);
     }
 }

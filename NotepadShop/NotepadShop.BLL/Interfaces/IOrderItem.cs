@@ -4,5 +4,6 @@
     {
         IItem Item { get; }
         int Count { get; }
+        decimal Price { get; }
     }
 }

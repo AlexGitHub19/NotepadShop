@@ -16,7 +16,7 @@ namespace NotepadShop.App_Start
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/AdminLogin"),
+                LoginPath = new PathString("/"),
             });
         }
 

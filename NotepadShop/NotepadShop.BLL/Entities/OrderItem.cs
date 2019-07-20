@@ -6,11 +6,13 @@ namespace NotepadShop.BLL.Entities
     {
         public IItem Item { get; }
         public int Count { get; }
+        public decimal Price { get; }
 
-        public OrderItem(IItem item, int count)
+        public OrderItem(IItem item, int count, decimal price)
         {
             Item = item;
             Count = count;
+            Price = price;
         }
     }
 }

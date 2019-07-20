@@ -28,7 +28,7 @@ namespace NotepadShop.BLL.Services
             repository.Save();
         }
 
-        public IEnumerable<IOrder> getOrdersByDateRange(DateTime dateTo, DateTime dateFrom)
+        public IEnumerable<IOrder> GetOrdersByDateRange(DateTime dateTo, DateTime dateFrom)
         {
             IEnumerable<DAL.Entities.Order> foundOrders = repository.OrderRepository.
                 GetAll().Where(order => order.CreatingDateTime >= dateTo && order.CreatingDateTime <= dateFrom).
@@ -41,7 +41,7 @@ namespace NotepadShop.BLL.Services
         }
 
 
-        public IOrder getOrderByNumber(string number)
+        public IOrder GetOrderByNumber(string number)
         {
             DAL.Entities.Order found = repository.OrderRepository.
                 GetAll().Where(order => order.Number == number).
@@ -53,10 +53,10 @@ namespace NotepadShop.BLL.Services
             return found == null ? null : Assembler.Assemble(found);
         }
 
-        public IEnumerable<IOrder> getOrdersByUserEmail(string email)
+        public IEnumerable<IOrder> GetOrdersByUser(string email)
         {
             IEnumerable<DAL.Entities.Order> foundOrders = repository.OrderRepository.
-                GetAll().Where(order => order.CustomerEmail == email || (order.User == null ? false : order.User.Email == email)).
+                GetAll().Where(order => order.User != null && order.User.Email == email).
                 Include(order => order.User).
                 Include(order => order.Items.Select(orderItem => orderItem.Item)).
                 Include(IncludeNamesPath);
@@ -64,7 +64,7 @@ namespace NotepadShop.BLL.Services
             return Assembler.Assemble(foundOrders.ToList());
         }
 
-        public IEnumerable<IOrder> getOrdersByPhoneNumber(string phoneNumber)
+        public IEnumerable<IOrder> GetOrdersByPhoneNumber(string phoneNumber)
         {
             IEnumerable<DAL.Entities.Order> foundOrders = repository.OrderRepository.
                 GetAll().Where(order => order.CustomerPhone == phoneNumber).
@@ -102,10 +102,12 @@ namespace NotepadShop.BLL.Services
 
         private DAL.Entities.OrderItem AssembleItem(ICreateOrderItemData item, IEnumerable<DAL.Entities.Item> items)
         {
+            DAL.Entities.Item foundItem = items.First(i => i.Code == item.Code);
             return new DAL.Entities.OrderItem
             {
-                Item = items.First(foundItem => foundItem.Code == item.Code),
-                Count = item.Count
+                Item = foundItem,
+                Count = item.Count,
+                Price = foundItem.Price
             };
         }
     }

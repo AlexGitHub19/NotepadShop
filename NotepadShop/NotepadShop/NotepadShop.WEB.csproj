@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LocalizationController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Filters\LocalizationAttribute.cs" />
     <Compile Include="Filters\UserNameAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -216,6 +217,9 @@
     <Compile Include="Models\Order\CreateOrderItemData.cs" />
     <Compile Include="Models\Order\Order.cs" />
     <Compile Include="Models\Order\OrderItem.cs" />
+    <Compile Include="Models\Profile\ChangePersonalInfoData.cs" />
+    <Compile Include="Models\Profile\ChangePersonalInfoItemData.cs" />
+    <Compile Include="Models\Profile\PersonalInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ItemUtils.cs" />
   </ItemGroup>
@@ -235,6 +239,9 @@
     <Content Include="Content\Layout.css" />
     <Content Include="Content\materialize\materialize.css" />
     <Content Include="Content\materialize\materialize.min.css" />
+    <Content Include="Content\Profile\Orders.css" />
+    <Content Include="Content\Profile\PersonalInfo.css" />
+    <Content Include="Content\Profile\Profile.css" />
     <Content Include="Content\Shared\ImageLoader.css" />
     <Content Include="Content\Shared\tabs-control.css" />
     <Content Include="favicon.ico" />
@@ -269,8 +276,11 @@
     <Content Include="Scripts\materialize\materialize.js" />
     <Content Include="Scripts\materialize\materialize.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Profile\Orders.js" />
+    <Content Include="Scripts\Profile\PersonalInfo.js" />
     <Content Include="Scripts\Shared\ImageLoader.js" />
     <Content Include="Scripts\Shared\Layout.js" />
+    <Content Include="Scripts\Shared\PhoneInput.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -294,6 +304,8 @@
     <Content Include="Views\Admin\ChangeItem.cshtml" />
     <Content Include="Views\Admin\Orders.cshtml" />
     <Content Include="Views\Home\Item.cshtml" />
+    <Content Include="Views\Profile\Orders.cshtml" />
+    <Content Include="Views\Profile\PersonalInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -101,8 +101,6 @@ function saveChanges() {
         AdditionalImagesToDeleteNames: changeItemViewModel.additionalImagesToDelete
     };
 
-    console.log(dataObject);
-
     var createItemPromise = $.ajax({
         type: "POST",
         url: '/Items/ChangeItem',

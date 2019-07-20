@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using NotepadShop.Assemblers;
+using System.Web;
 using System.Web.Mvc;
 
 namespace NotepadShop.Filters
@@ -15,6 +16,10 @@ namespace NotepadShop.Filters
                 string languageFromCookie = languageCookie.Value;
                 localizationLanguage = languageFromCookie;
             }
+            else if (filterContext.Controller.ViewBag.Language != null)
+            {
+                localizationLanguage = filterContext.Controller.ViewBag.Language;
+            }
             else if (filterContext.HttpContext.Request.UserLanguages.Length > 0)
             {
                 string[] userLanguages = filterContext.HttpContext.Request.UserLanguages;
@@ -23,14 +28,14 @@ namespace NotepadShop.Filters
                     string firstTwoLeters = language.Substring(0, 2);
                     switch (firstTwoLeters)
                     {
-                        case "ru":
-                            localizationLanguage = "ru";
+                        case WebAssembler.LanguageTypeRu:
+                            localizationLanguage = WebAssembler.LanguageTypeRu;
                             break;
-                        case "uk":
-                            localizationLanguage = "uk";
+                        case WebAssembler.LanguageTypeUk:
+                            localizationLanguage = WebAssembler.LanguageTypeUk;
                             break;
-                        case "en":
-                            localizationLanguage = "en";
+                        case WebAssembler.LanguageTypeEn:
+                            localizationLanguage = WebAssembler.LanguageTypeEn;
                             break;
                         default:
                             localizationLanguage = null;

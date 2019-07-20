@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "PersonalInfo";
+}
+
+
+@section styles {
+    <link type="text/css" rel="stylesheet" href="~/Content/Profile/PersonalInfo.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Profile/Profile.css" />
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/Profile/PersonalInfo.js"></script>
+}
+
+<div id="profilePersonalInfoContainer">
+    <div class="link-list">
+        <p class="user-info-header">My кабинет</p>
+        <div><span class="link-list-item selected">Personal данные</span></div>
+        <div><a class="link-list-item" href="orders">My заказы</a></div>      
+    </div>
+    <div class="user-info-container" style="display: none" data-bind="visible: isUserDataLaoded">
+        <div class="input-field">
+            <div class="user-field-label-container">
+                <label>Name/Имя</label>
+            </div>
+            <div class="user-field-value-container">
+                <div data-bind="ifnot: isChangeModeEnabled">
+                    <span data-bind="text: userFirstName() ? userFirstName() : notFilled"></span>
+                </div>
+                <div data-bind="if: isChangeModeEnabled">
+                    <input type="text" data-bind="textInput: userFirstName" autocomplete="none">
+                </div>
+            </div>
+        </div>
+        <div class="input-field">
+            <div class="user-field-label-container">
+                <label>Surname/Фамилия</label>
+            </div>
+            <div class="user-field-value-container">
+                <div data-bind="ifnot: isChangeModeEnabled">
+                    <span data-bind="text: userSurnameName() ? userSurnameName() : notFilled"></span>
+                </div>
+                <div data-bind="if: isChangeModeEnabled">
+                    <input type="text" data-bind="textInput: userSurnameName" autocomplete="none">
+                </div>
+            </div>
+        </div>
+        <div class="input-field">
+            <div class="user-field-label-container">
+                <label>Phone/Телефон</label>
+            </div>
+            <div class="user-field-value-container">
+                <div data-bind="ifnot: isChangeModeEnabled">
+                    <span data-bind="text: userPhone() ? userPhone() : notFilled"></span>
+                </div>
+                <div data-bind="if: isChangeModeEnabled">
+                    <input type="text" data-bind="textInput: userPhone" autocomplete="none">
+                </div>
+            </div>
+        </div>
+        <div class="input-field">
+            <div class="user-field-label-container">
+                <label>E-mail</label>
+            </div>
+            <span data-bind="text: userEmail"></span>
+        </div>
+        <div class="input-field">
+            <div class="user-field-label-container">
+                <label>City/Город</label>
+            </div>
+            <div class="user-field-value-container">
+                <div data-bind="ifnot: isChangeModeEnabled">
+                    <span data-bind="text: userCity() ? userCity() : notFilled"></span>
+                </div>
+                <div data-bind="if: isChangeModeEnabled">
+                    <input type="text" data-bind="textInput: userCity" autocomplete="none">
+                </div>
+            </div>
+        </div>
+        <div class="input-field">
+            <div class="user-field-label-container">
+                <label>Nova Posta deaprtment/Отделение</label>
+            </div>
+            <div class="user-field-value-container">
+                <div data-bind="ifnot: isChangeModeEnabled">
+                    <span data-bind="text: userPostDepartment() ? userPostDepartment() : notFilled"></span>
+                </div>
+                <div data-bind="if: isChangeModeEnabled">
+                    <input type="text" data-bind="textInput: userPostDepartment" autocomplete="none">
+                </div>
+            </div>
+        </div>
+        <div class="input-field">
+            <div class="user-field-label-container language-label-container">
+                <label>Lang</label>
+            </div>
+            <div class="user-field-value-container">
+                <div data-bind="ifnot: isChangeModeEnabled">
+                    <span data-bind="text: userLanguageString() ? userLanguageString() : notFilled"></span>
+                </div>
+                <div data-bind="if: isChangeModeEnabled">
+                    <div>
+                        <div><input type="radio" name="languageRadioGroup" value="none" data-bind="checked: userLanguage" />Not выбран</div>
+                        <div><input type="radio" name="languageRadioGroup" value="ru" data-bind="checked: userLanguage" />Русккий</div>
+                        <div><input type="radio" name="languageRadioGroup" value="uk" data-bind="checked: userLanguage" />Українська</div>
+                        <div><input type="radio" name="languageRadioGroup" value="en" data-bind="checked: userLanguage" />English</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-bind="if: isChangeModeEnabled">
+            <a data-bind="click: saveUserInfoClick">Save</a>
+            <a data-bind="click: cancelUserInfoClick">Отменить изменения</a>
+        </div>
+    </div>
+    <div class="user-actions" style="display: none" data-bind="visible: isUserDataLaoded">
+        <p data-bind="click: changeUserInfoClick">Change данные</p>
+        <p>Change пароль</p>
+    </div>
+</div>
+
+

@@ -1,6 +1,7 @@
 ﻿using NotepadShop.BLL.Util;
 using NotepadShop.Models.ItemModels;
 using NotepadShop.Models.Order;
+using NotepadShop.Models.Profile;
 using NotepadShop.Utils;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ namespace NotepadShop.Assemblers
         private const string OrderStatusSent = "sent";
         private const string OrderStatusСanceled = "canceled";
         private const string OrderStatusСompleted = "completed";
+        public const string LanguageTypeRu = "ru";
+        public const string LanguageTypeUk = "uk";
+        public const string LanguageTypeEn = "en";
 
         public static BLL.Interfaces.IBriefItem Assemble(CreateItemData item)
         {
@@ -83,18 +87,41 @@ namespace NotepadShop.Assemblers
             BLL.Interfaces.LanguageType result;
             switch (language)
             {
-                case "en":
+                case LanguageTypeEn:
                     result = BLL.Interfaces.LanguageType.English;
                     break;
-                case "ru":
+                case LanguageTypeRu:
                     result = BLL.Interfaces.LanguageType.Russian;
                     break;
-                case "uk":
+                case LanguageTypeUk:
                     result = BLL.Interfaces.LanguageType.Ukrainian;
                     break;
                 default:
-                    ThrowAssemblingException("Item.ItemName.Language", language);
+                    ThrowAssemblingException("Language", language);
                     result = BLL.Interfaces.LanguageType.Russian;
+                    break;
+            }
+
+            return result;
+        }
+
+        public static string AssembleLanguage(BLL.Interfaces.LanguageType language)
+        {
+            string result;
+            switch (language)
+            {
+                case BLL.Interfaces.LanguageType.English:
+                    result = LanguageTypeEn;
+                    break;
+                case BLL.Interfaces.LanguageType.Russian:
+                    result = LanguageTypeRu;
+                    break;
+                case BLL.Interfaces.LanguageType.Ukrainian:
+                    result = LanguageTypeUk;
+                    break;
+                default:
+                    ThrowAssemblingException("Language", language.ToString());
+                    result = LanguageTypeRu;
                     break;
             }
 
@@ -309,8 +336,36 @@ namespace NotepadShop.Assemblers
             return new OrderItem
             {
                 Item = Assemble(orderItem.Item, language),
-                Count = orderItem.Count
+                Count = orderItem.Count,
+                Price = orderItem.Price
             };
+        }
+
+        public static PersonalInfo Assemble(BLL.Interfaces.IPersonalInfo info)
+        {
+            string language = info.Language != null ? AssembleLanguage(info.Language.Value) : null;
+            return new PersonalInfo
+            {
+                FirstName = info.FirstName,
+                Surname = info.Surname,
+                City = info.City,
+                PostDepartment = info.PostDepartment,
+                Phone = info.Phone,
+                Language = language
+            };
+        }
+
+        public static BLL.Interfaces.IChangePersonalInfoData Assemble(ChangePersonalInfoData data, string email)
+        {
+            BLL.Interfaces.LanguageType? newLanguage = data.NewLanguage.NewValue != null ? AssembleLanguage(data.NewLanguage.NewValue) :
+                default(BLL.Interfaces.LanguageType?);
+            return new BLL.Entities.ChangePersonalInfoData(email,
+                new BLL.Entities.ChangePersonalInfoItemData<string>(data.NewFirstName.NewValue, data.NewFirstName.IsChanged),
+                new BLL.Entities.ChangePersonalInfoItemData<string>(data.NewSurname.NewValue, data.NewSurname.IsChanged),
+                new BLL.Entities.ChangePersonalInfoItemData<string>(data.NewCity.NewValue, data.NewCity.IsChanged),
+                new BLL.Entities.ChangePersonalInfoItemData<string>(data.NewPostDepartment.NewValue, data.NewPostDepartment.IsChanged),
+                new BLL.Entities.ChangePersonalInfoItemData<string>(data.NewPhone.NewValue, data.NewPhone.IsChanged),
+                new BLL.Entities.ChangePersonalInfoItemData<BLL.Interfaces.LanguageType?>(newLanguage, data.NewLanguage.IsChanged));
         }
 
         public static string CalcualteFileExtension(string fileName)

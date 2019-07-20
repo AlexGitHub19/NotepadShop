@@ -4,6 +4,6 @@ namespace NotepadShop.Models.ItemModels
 {
     public class FullItem : Item
     {
-        public IEnumerable<string> AdditionalImages { get; set; }
+        public IEnumerable<string> AdditionalImages { get; set; } = new List<string>();
     }
 }

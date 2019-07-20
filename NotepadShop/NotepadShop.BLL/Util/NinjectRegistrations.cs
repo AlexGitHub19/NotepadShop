@@ -13,6 +13,7 @@ namespace NotepadShop.BLL.Util
             Bind<IItemService>().To<ItemService>();
             Bind<IOrderService>().To<OrderService>();
             Bind<IOrderNumberGenerator>().To<OrderNumberGenerator>();
+            Bind<IPersonalInfoService>().To<PersonalInfoService>();
         }
     }
 }
