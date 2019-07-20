@@ -4,24 +4,6 @@
         e.preventDefault();
     });
 
-    const numbers = [];
-
-    const keypadZero = 48;
-    const numpadZero = 96;
-
-    //add key codes for digits 0 - 9 into this filter
-    for (var i = 0; i <= 9; i++) {
-        numbers.push(i + keypadZero);
-        numbers.push(i + numpadZero);
-    }
-
-    //add other keys for editing the keyboard input
-    const additionalSymbol = [];
-    additionalSymbol.push(8);     //backspace
-    additionalSymbol.push(46);    //delete
-    additionalSymbol.push(37);    //left arrow
-    additionalSymbol.push(39);    //right arrow
-
     const pfoneInputsStateBeforeKeydown = new Map();
     const phonePrefix = '+38(0';
 
@@ -98,12 +80,4 @@
             $(this).val('');
         }
     });
-
-    function isSymbolNumber(keyCode) {
-        return numbers.indexOf(keyCode) >= 0;
-    }
-
-    function isSymbolAdditionalSymbol(keyCode) {
-        return additionalSymbol.indexOf(keyCode) >= 0;
-    }
 });

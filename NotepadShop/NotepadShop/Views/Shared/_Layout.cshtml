@@ -111,7 +111,7 @@
                     <p data-bind="text: Price"></p>
                     <div>
                         <i class="material-icons cursor-pointer" data-bind="click: function() { $root.minusQuantity($data) }">remove</i>
-                        <input type="text" class="quantity-input" data-bind="textInput: Quantity" />
+                        <input type="text" class="quantity-input" data-bind="textInput: Quantity, event:{'keydown': $root.countInputKeyDown, input: $root.countInputInput}" />
                         <i class="material-icons cursor-pointer" data-bind="click: function() { $root.plusQuantity($data) }">add</i>
                     </div>
                     <a class="waves-effect waves-light btn" data-bind="click: function() { $root.deleteItemFromShoppingCart($data) } ">Delete интернализ</a>
@@ -120,6 +120,8 @@
             <div data-bind="visible: shoppingCartItems().length > 0">
                 <span>Total cумма: </span>
                 <span data-bind="text: $root.totaShoppingCartlPrice"></span>
+                <br />
+                <button  data-bind="click: shoppingCartImageClick">Открыть Cart</button>
             </div>
             <div data-bind="visible: shoppingCartItems().length == 0">
                 Cart is пустая
@@ -227,7 +229,7 @@
                         <p data-bind="text: Price"></p>
                         <div>
                             <i class="material-icons cursor-pointer" data-bind="click: function() { $root.minusQuantity($data) }">remove</i>
-                            <input type="text" class="quantity-input" data-bind="textInput: Quantity" />
+                            <input type="text" class="quantity-input" data-bind="textInput: Quantity, event:{'keydown': $root.countInputKeyDown, input: $root.countInputInput}" />
                             <i class="material-icons cursor-pointer" data-bind="click: function() { $root.plusQuantity($data) }">add</i>
                         </div>
                         <a class="waves-effect waves-light btn" data-bind="click: function() { $root.deleteItemFromShoppingCart($data) } ">Delete интернализ</a>
@@ -249,7 +251,8 @@
                         <label for="shoppingCartSurnameInput">Surname/Фамилия</label>
                     </div>
                     <div class="input-field">
-                        <input id="shoppingCartPhoneInput" type="text" data-bind="textInput: shoppingCartPhone">
+                        <input id="shoppingCartPhoneInput" type="text" data-bind="textInput: shoppingCartPhone" 
+                               class="ns-phone-input" autocomplete="none" placeholder="+38(0XX)-XX-XX-XXX">
                         <label for="shoppingCartPhoneInput">Phone/Телефон</label>
                     </div>
                     <div class="input-field">
@@ -301,6 +304,7 @@
     <script type="text/javascript" src="~/Scripts/knockout-3.4.2.js"></script>
 
     <script type="text/javascript" src="~/Scripts/Shared/Layout.js"></script>
+    <script type="text/javascript" src="~/Scripts/Shared/PhoneInput.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

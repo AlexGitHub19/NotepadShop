@@ -40,14 +40,16 @@ $(document).ready(function () {
             return result.toFixed(2);
         }, self);
         self.plusQuantity = (item) => {
-            if (item.Quantity() < 99) {
-                item.Quantity(item.Quantity() + 1); 
+            if (!item.Quantity()) {
+                item.Quantity(1);
+            } else if (Number.parseInt(item.Quantity()) < 99) {
+                item.Quantity(Number.parseInt(item.Quantity()) + 1); 
                 setNewItemQuantityToCookie(item.Code, item.Quantity());
             }
         };
         self.minusQuantity = (item) => {
-            if (item.Quantity() > 1) {
-                item.Quantity(item.Quantity() - 1); 
+            if (Number.parseInt(item.Quantity()) > 1) {
+                item.Quantity(Number.parseInt(item.Quantity()) - 1); 
                 setNewItemQuantityToCookie(item.Code, item.Quantity());
             }
         };
@@ -58,6 +60,8 @@ $(document).ready(function () {
                 self.isShoppingCartVisible(true);
             }
         };
+        self.countInputKeyDown = countInputKeyDownCallback;
+        self.countInputInput = countInputInputCallback;
         self.shoppingCartCloseBtnClick = closeShoppingCartCallBack;
 
         self.shoppingCartName = ko.observable('');
@@ -329,6 +333,30 @@ function wasShoppingCartChangedInAnotherPage() {
     return shoppingCartCookieValue !== shoppingCartItemsValue;
 }
 
+function countInputKeyDownCallback(element, event) {
+    if (event.shiftKey || (!isSymbolNumber(event.keyCode) && !isSymbolAdditionalSymbol(event.keyCode))) {
+        event.preventDefault();
+        return false;
+    }
+    return true;
+}
+
+function countInputInputCallback(element) {
+    let inputValue = Number.parseInt(element.Quantity());
+    if (!inputValue) {
+        inputValue = '';
+    }
+    let newValue = inputValue;
+
+    if (newValue > 99) {
+        newValue = 99;
+    }
+
+    element.Quantity(newValue);
+    setNewItemQuantityToCookie(element.Code, newValue);
+    return true;
+}
+
 function closeShoppingCartCallBack() {
     $("body").css("overflow", "initial");
     layoutViewModel.isShoppingCartVisible(false);
@@ -373,6 +401,30 @@ function makeOrderClickCallBack() {
     });
 }
 
+const numbers = [];
+const keypadZero = 48;
+const numpadZero = 96;
+
+//add key codes for digits 0 - 9 into this filter
+for (var i = 0; i <= 9; i++) {
+    numbers.push(i + keypadZero);
+    numbers.push(i + numpadZero);
+}
+
+//add other keys for editing the keyboard input
+const additionalSymbol = [];
+additionalSymbol.push(8);     //backspace
+additionalSymbol.push(46);    //delete
+additionalSymbol.push(37);    //left arrow
+additionalSymbol.push(39);    //right arrow
+
+function isSymbolNumber(keyCode) {
+    return numbers.indexOf(keyCode) >= 0;
+}
+
+function isSymbolAdditionalSymbol(keyCode) {
+    return additionalSymbol.indexOf(keyCode) >= 0;
+}
 
 function ShoppingCartItem(code, price, name, quantity, imageName) {
     this.Code = code;
