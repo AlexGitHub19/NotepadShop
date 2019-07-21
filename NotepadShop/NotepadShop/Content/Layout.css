@@ -119,8 +119,8 @@
     max-height: 50px;
 }
 
-.quantity-input {
-    width: 40px !important;
+.quantity-input, .post-department-input {
+    width: 40px;
 }
 
 .cursor-pointer {
@@ -162,4 +162,8 @@
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+.shopping-cart-validation-message {
+    color: red;
 }

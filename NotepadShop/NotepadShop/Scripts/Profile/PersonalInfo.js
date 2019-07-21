@@ -17,6 +17,8 @@ $(document).ready(function () {
         self.saveUserInfoClick = saveUserInfoClickCallback;
         self.cancelUserInfoClick = cancelUserInfoClickCallback;
 
+        self.postDepartmentInputKeyDown = numberInputKeyDownCallback;
+
         self.isChangeModeEnabled = ko.observable(false);
         self.isUserDataLaoded = ko.observable(false);
         self.loadedUserData = undefined;

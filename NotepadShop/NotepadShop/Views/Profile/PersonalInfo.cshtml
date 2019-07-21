@@ -29,7 +29,7 @@
                     <span data-bind="text: userFirstName() ? userFirstName() : notFilled"></span>
                 </div>
                 <div data-bind="if: isChangeModeEnabled">
-                    <input type="text" data-bind="textInput: userFirstName" autocomplete="none">
+                    <input type="text" data-bind="textInput: userFirstName">
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                     <span data-bind="text: userSurnameName() ? userSurnameName() : notFilled"></span>
                 </div>
                 <div data-bind="if: isChangeModeEnabled">
-                    <input type="text" data-bind="textInput: userSurnameName" autocomplete="none">
+                    <input type="text" data-bind="textInput: userSurnameName">
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                     <span data-bind="text: userPhone() ? userPhone() : notFilled"></span>
                 </div>
                 <div data-bind="if: isChangeModeEnabled">
-                    <input class="ns-phone-input" type="text" data-bind="textInput: userPhone" autocomplete="none" placeholder="+38(0XX)-XX-XX-XXX">
+                    <input class="ns-phone-input" type="text" data-bind="textInput: userPhone"  placeholder="+38(0XX)-XX-XX-XXX">
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
                     <span data-bind="text: userCity() ? userCity() : notFilled"></span>
                 </div>
                 <div data-bind="if: isChangeModeEnabled">
-                    <input type="text" data-bind="textInput: userCity" autocomplete="none">
+                    <input type="text" data-bind="textInput: userCity">
                 </div>
             </div>
         </div>
@@ -87,7 +87,8 @@
                     <span data-bind="text: userPostDepartment() ? userPostDepartment() : notFilled"></span>
                 </div>
                 <div data-bind="if: isChangeModeEnabled">
-                    <input type="text" data-bind="textInput: userPostDepartment" autocomplete="none">
+                    <input type="text" data-bind="textInput: userPostDepartment, event:{'keydown': postDepartmentInputKeyDown }" 
+                           class="post-department-input">
                 </div>
             </div>
         </div>

@@ -60,9 +60,11 @@ $(document).ready(function () {
                 self.isShoppingCartVisible(true);
             }
         };
-        self.countInputKeyDown = countInputKeyDownCallback;
+        self.countInputKeyDown = numberInputKeyDownCallback;
         self.countInputInput = countInputInputCallback;
         self.shoppingCartCloseBtnClick = closeShoppingCartCallBack;
+
+        self.postDepartmentInputKeyDown = numberInputKeyDownCallback;
 
         self.shoppingCartName = ko.observable('');
         self.shoppingCartSurname = ko.observable('');
@@ -72,6 +74,18 @@ $(document).ready(function () {
         self.shoppingCartPostDepartment = ko.observable('');
         self.shoppingCartPaymentType = ko.observable('cart');
         self.shoppingCartDeliveryType = ko.observable('novaPoshta');
+        self.isShoppingCartNameEmpty = ko.observable(false);
+        self.isShoppingCartSurnameEmpty = ko.observable(false);
+        self.isShoppingCartPhoneEmpty = ko.observable(false);
+        self.isShoppingCartPhoneValid = ko.observable(true);
+        self.isShoppingCartCityEmpty = ko.observable(false);
+        self.isShoppingCartPostDepartmentEmpty = ko.observable(false);
+
+        self.shoppingCartNameInputFocusIn = () => self.isShoppingCartNameEmpty(false);
+        self.shoppingCartSurnameInputFocusIn = () => self.isShoppingCartSurnameEmpty(false);
+        self.shoppingCartPhoneInputFocusIn = () => { self.isShoppingCartPhoneEmpty(false); self.isShoppingCartPhoneValid(true);}
+        self.shoppingCartCityInputFocusIn = () => self.isShoppingCartCityEmpty(false);
+        self.shoppingCartPostDepartmentInputFocusIn = () => self.isShoppingCartPostDepartmentEmpty(false);
         self.makeOrderClick = makeOrderClickCallBack;
 
         self.displaySessionExpiredWindow = ko.observable(false);
@@ -333,7 +347,7 @@ function wasShoppingCartChangedInAnotherPage() {
     return shoppingCartCookieValue !== shoppingCartItemsValue;
 }
 
-function countInputKeyDownCallback(element, event) {
+function numberInputKeyDownCallback(element, event) {
     if (event.shiftKey || (!isSymbolNumber(event.keyCode) && !isSymbolAdditionalSymbol(event.keyCode))) {
         event.preventDefault();
         return false;
@@ -363,6 +377,11 @@ function closeShoppingCartCallBack() {
 }
 
 function makeOrderClickCallBack() {
+
+    if (!validateShoppingCartData()) {
+        return;
+    }
+
     var dataObject =
     {
         CustomerName: layoutViewModel.shoppingCartName(),
@@ -381,9 +400,6 @@ function makeOrderClickCallBack() {
         this.Count = count;
     }
 
-    console.log(dataObject);
-    console.log(JSON.stringify(dataObject));
-
     var createItemPromise = $.ajax({
         type: "POST",
         url: '/api/create-order',
@@ -399,6 +415,43 @@ function makeOrderClickCallBack() {
     createItemPromise.fail(function () {
         alert("error!");
     });
+}
+
+function validateShoppingCartData() {
+    let result = true;
+    if (!layoutViewModel.shoppingCartName()) {
+        layoutViewModel.isShoppingCartNameEmpty(true);
+        result = false;
+    }
+    if (!layoutViewModel.shoppingCartSurname()) {
+        layoutViewModel.isShoppingCartSurnameEmpty(true);
+        result = false;
+    }
+
+    if (!layoutViewModel.shoppingCartPhone()) {
+        layoutViewModel.isShoppingCartPhoneEmpty(true);
+        result = false;
+    } else if (!isPhoneNumberValid(layoutViewModel.shoppingCartPhone())) {
+        layoutViewModel.isShoppingCartPhoneValid(false);
+        result = false;
+    }
+
+    if (layoutViewModel.shoppingCartDeliveryType() === 'novaPoshta') {
+        if (!layoutViewModel.shoppingCartCity()) {
+            layoutViewModel.isShoppingCartCityEmpty(true);
+            result = false;
+        }
+        if (!layoutViewModel.shoppingCartPostDepartment()) {
+            layoutViewModel.isShoppingCartPostDepartmentEmpty(true);
+            result = false;
+        }
+    }
+
+    return result;
+}
+
+function isPhoneNumberValid(phone) {
+    return /\+38\(0\d{2}\)-\d{2}-\d{2}-\d{3}/.test(phone);
 }
 
 const numbers = [];
