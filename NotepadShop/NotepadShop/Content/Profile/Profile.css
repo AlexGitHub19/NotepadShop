@@ -1,9 +1,4 @@
-﻿#profilePersonalInfoContainer {
-    display: flex;
-    flex-direction: row;
-}
-
-.link-list {
+﻿.link-list {
     width: 300px;
 }
 
@@ -14,8 +9,10 @@
         border-radius: 5px;
     }
 
-#profilePersonalInfoContainer {
+#profilePersonalInfoContainer, #profileOrdersContainer {
     width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
 .user-info-header {

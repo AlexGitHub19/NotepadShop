@@ -321,7 +321,7 @@ namespace NotepadShop.Assemblers
                 DeliveryType = AssembleDeliveryType(order.DeliveryType),
                 UserEmail = order.UserEmail,
                 OrderStatus = AssembleOrderStatus(order.OrderStatus),
-                CreatingDateTime = order.CreatingDateTime.ToString(),
+                CreatingDateTime = order.CreatingDateTime.ToString("u"),
                 Items = Assemble(order.Items, language)
             };
         }

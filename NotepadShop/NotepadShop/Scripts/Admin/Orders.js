@@ -39,7 +39,6 @@ function loadOrders(dateFrom, dateTo) {
     });
 
     loadOrdersPromise.done(function (result) {
-        console.log(result);
         var orders = result.map(item => new Order(item));
         adminOrdersViewModel.orders.removeAll();
         ko.utils.arrayPushAll(adminOrdersViewModel.orders, orders);
@@ -53,6 +52,6 @@ function loadOrders(dateFrom, dateTo) {
 
 function Order(order) {
     this.number = order.Number;
-    this.creatingDateTime = new Date(order.CreatingDateTime + ".000Z");
+    this.creatingDateTime = order.CreatingDateTime.slice(0, order.CreatingDateTime.lastIndexOf(':'));
     this.status = order.OrderStatus;
 }
