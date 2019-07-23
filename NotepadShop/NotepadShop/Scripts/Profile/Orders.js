@@ -16,7 +16,7 @@ $(document).ready(function () {
 function loadOrders() {
     var loadOrdersPromise = $.ajax({
         type: "GET",
-        url: '/api/user-orders',
+        url: '/profile/api/user-orders',
         contentType: "application/json",
         dataType: "json"
     });

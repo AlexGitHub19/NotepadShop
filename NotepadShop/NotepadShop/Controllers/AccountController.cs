@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using NotepadShop.Assemblers;
 using NotepadShop.BLL.DTO;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace NotepadShop.Controllers
 {
+    [RoutePrefix("account/api")]
     public class AccountController : Controller
     {
         private IUserService UserService
@@ -36,6 +38,7 @@ namespace NotepadShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("login")]
         public async Task<JsonResult> Login(LoginModel model)
         {
             LoginResult result = new LoginResult();
@@ -74,6 +77,7 @@ namespace NotepadShop.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
+        [Route("logout")]
         public void Logout()
         {
             if (User.Identity.IsAuthenticated)
@@ -89,6 +93,7 @@ namespace NotepadShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("register")]
         public async Task<JsonResult> Register(RegisterModel model)
         {
             RegisterResult result = new RegisterResult();
@@ -145,12 +150,23 @@ namespace NotepadShop.Controllers
         }
 
         [HttpGet]
+        [Route("set-initial-data")]
         public void SetInitialData()
         {
             if (!UserService.IsInitialDataSet()) {
                 UserService.SetInitialData();
             }
             
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        [Route("change-password")]
+        public JsonResult ChangePassword(string oldPassword, string newPassword)
+        {
+            bool isSuceeded = UserService.ChangePassword(User.Identity.GetUserId(), oldPassword, newPassword);
+            return Json(isSuceeded);
         }
 
     }

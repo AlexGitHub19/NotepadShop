@@ -121,7 +121,7 @@ function registerEvents() {
         layoutViewModel.registerFailedMessage(false);
         $.ajax({
             type: "POST",
-            url: logInUrl,
+            url: "/account/api/login",
             data: { __RequestVerificationToken: getAntiForgeryToken(), Email: layoutViewModel.loginEmail(), Password: layoutViewModel.loginPasword() },
             success: function (result) {
                 if (result.Email) {
@@ -150,7 +150,7 @@ function registerEvents() {
 
             $.ajax({
                 type: "POST",
-                url: registerUrl,
+                url: "/account/api/register",
                 data: { __RequestVerificationToken: getAntiForgeryToken(), Email: layoutViewModel.registerEmail(), Password: layoutViewModel.registerPasword() },
                 success: function (result) {
                     if (result.Email) {
@@ -171,7 +171,7 @@ function registerEvents() {
     $('body').on('click', '#logOutBtn', function (e) {
         $.ajax({
             type: "POST",
-            url: logOutUrl,
+            url: "/account/api/logout",
             data: { __RequestVerificationToken: getAntiForgeryToken()},
             success: function (result) {
                 location.reload();

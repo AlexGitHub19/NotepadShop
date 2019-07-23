@@ -20,8 +20,30 @@ $(document).ready(function () {
         self.postDepartmentInputKeyDown = numberInputKeyDownCallback;
 
         self.isChangeModeEnabled = ko.observable(false);
-        self.isUserDataLaoded = ko.observable(false);
+        self.isUserDataLoaded = ko.observable(false);
         self.loadedUserData = undefined;
+
+        self.isChangePasswordContainerVisible = ko.observable(false);
+        self.isUserDataContainerVisible = ko.computed(function () {
+            return self.isUserDataLoaded() && !self.isChangePasswordContainerVisible();
+        });
+
+        self.oldPassword = ko.observable('');
+        self.newPassword = ko.observable('');
+        self.newPasswordConfirm = ko.observable('');
+        self.showOldPasswordIsEmpty = ko.observable(false);
+        self.showNewPasswordIsEmpty = ko.observable(false);
+        self.showNewPasswordConfirmIsEmpty = ko.observable(false);
+        self.showNePasswordIsNotValid = ko.observable(false);
+        self.showNewPasswordAndConfirmAreNotMatched = ko.observable(false);
+        self.changePasswordClick = changePasswordClickCallback;
+        self.oldPasswordFocusIn = () => self.showOldPasswordIsEmpty(false);
+        self.newPasswordFocusIn = () => { self.showNewPasswordIsEmpty(false); self.showNePasswordIsNotValid(false); self.showNewPasswordAndConfirmAreNotMatched(false); }
+        self.newPasswordConfirmFocusIn = () => { self.showNewPasswordConfirmIsEmpty(false); self.showNewPasswordAndConfirmAreNotMatched(false); }
+        self.savePasswordChangingClick = savePasswordChangingClickCallback;
+        self.cancelPasswordChangingClick = cancelPasswordChangingClickCallback;
+
+        self.passwordInputPaste = (element, event) => event.preventDefault();;
     };
 
     profilePersonalInfoModel = new createViewModel();
@@ -41,7 +63,7 @@ function loadUserInfo() {
         profilePersonalInfoModel.loadedUserData = result;
         setUserDataFromLoadedData();
 
-        profilePersonalInfoModel.isUserDataLaoded(true);
+        profilePersonalInfoModel.isUserDataLoaded(true);
     });
 
     loadUserInfoPromise.fail(function () {
@@ -191,6 +213,77 @@ function assembleLanguageInputValue(languageInputValue) {
 
         return languageInputValue;
     }
+}
+
+function changePasswordClickCallback() {
+    profilePersonalInfoModel.isChangePasswordContainerVisible(true);
+}
+
+function savePasswordChangingClickCallback() {
+    if (!validatePasswordChanging()) {
+        return
+    }
+
+    var changePasswordPromise = $.ajax({
+        type: "POST",
+        url: '/account/api/change-password',
+        data: { __RequestVerificationToken: getAntiForgeryToken(), oldPassword: profilePersonalInfoModel.oldPassword(), newPassword: profilePersonalInfoModel.newPassword() },
+    });
+
+    changePasswordPromise.done(function (result) {
+        if (result != true) {
+            alert("fail");
+        } else {
+            closeChangePasswordContainer();
+        }
+    });
+
+    changePasswordPromise.fail(function () {
+        alert("error!");
+    });
+}
+
+function validatePasswordChanging() {
+    let result = true;
+    if (!profilePersonalInfoModel.oldPassword()) {
+        profilePersonalInfoModel.showOldPasswordIsEmpty(true);
+        result = false;
+    }
+
+    if (!profilePersonalInfoModel.newPassword()) {
+        profilePersonalInfoModel.showNewPasswordIsEmpty(true);
+        result = false;
+    } else if (!isPasswordValid(profilePersonalInfoModel.newPassword())) {
+        profilePersonalInfoModel.showNePasswordIsNotValid(true);
+        result = false;
+    }
+
+    if (!profilePersonalInfoModel.newPasswordConfirm()) {
+        profilePersonalInfoModel.showNewPasswordConfirmIsEmpty(true);
+        result = false;
+    }
+
+    if (profilePersonalInfoModel.newPassword() !== profilePersonalInfoModel.newPasswordConfirm()) {
+        profilePersonalInfoModel.showNewPasswordAndConfirmAreNotMatched(true);
+        result = false;
+    }
+
+    return result;
+}
+
+function isPasswordValid(password) {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
+}
+
+function cancelPasswordChangingClickCallback() {
+    closeChangePasswordContainer();
+}
+
+function closeChangePasswordContainer() {
+    profilePersonalInfoModel.isChangePasswordContainerVisible(false);
+    profilePersonalInfoModel.oldPassword('');
+    profilePersonalInfoModel.newPassword('');
+    profilePersonalInfoModel.newPasswordConfirm('');
 }
 
 function ChangePersonalInfoItemData(newValue, isChanged) {

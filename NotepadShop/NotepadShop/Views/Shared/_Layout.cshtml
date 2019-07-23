@@ -245,19 +245,19 @@
                     <div class="input-field">
                         <input id="shoppingCartNameInput" type="text" data-bind="textInput: shoppingCartName, event:{'focusin': shoppingCartNameInputFocusIn }">
                         <label for="shoppingCartNameInput">Name/Имя</label>
-                        <p class="shopping-cart-validation-message" style="display: none;" data-bind="visible: isShoppingCartNameEmpty()">Enter имя</p>
+                        <p class="validation-message" style="display: none;" data-bind="visible: isShoppingCartNameEmpty">Enter имя</p>
                     </div>
                     <div class="input-field">
                         <input id="shoppingCartSurnameInput" type="text" data-bind="textInput: shoppingCartSurname, event:{'focusin': shoppingCartSurnameInputFocusIn }">
                         <label for="shoppingCartSurnameInput">Surname/Фамилия</label>
-                        <p class="shopping-cart-validation-message" style="display: none;" data-bind="visible: isShoppingCartSurnameEmpty()">Enter фамилию</p>
+                        <p class="validation-message" style="display: none;" data-bind="visible: isShoppingCartSurnameEmpty">Enter фамилию</p>
                     </div>
                     <div class="input-field">
                         <input id="shoppingCartPhoneInput" type="text" data-bind="textInput: shoppingCartPhone, event:{'focusin': shoppingCartPhoneInputFocusIn }"
                                class="ns-phone-input" placeholder="+38(0XX)-XX-XX-XXX">
                         <label for="shoppingCartPhoneInput">Phone/Телефон</label>
-                        <p class="shopping-cart-validation-message" style="display: none;" data-bind="visible: isShoppingCartPhoneEmpty()">Enter телефон</p>
-                        <p class="shopping-cart-validation-message" style="display: none;" data-bind="visible: !isShoppingCartPhoneValid()">телефон is entered incorrectly</p>
+                        <p class="validation-message" style="display: none;" data-bind="visible: isShoppingCartPhoneEmpty">Enter телефон</p>
+                        <p class="validation-message" style="display: none;" data-bind="visible: !isShoppingCartPhoneValid">телефон is entered incorrectly</p>
                     </div>
                     <div class="input-field">
                         <input id="shoppingCartEmailInput" type="text" data-bind="textInput: shoppingCartEmail">
@@ -273,14 +273,14 @@
                         <div class="input-field">
                             <input id="shoppingCartCityInput" type="text" data-bind="textInput: shoppingCartCity, event:{'focusin': shoppingCartCityInputFocusIn }">
                             <label for="shoppingCartCityInput">City/Город</label>
-                            <p class="shopping-cart-validation-message" style="display: none;" data-bind="visible: isShoppingCartCityEmpty()">Enter город</p>
+                            <p class="validation-message" style="display: none;" data-bind="visible: isShoppingCartCityEmpty">Enter город</p>
                         </div>
                         <div class="input-field">
                             <input id="shoppingCartPostDepartmentInput" type="text"
                                    data-bind="textInput: shoppingCartPostDepartment, event:{'keydown': postDepartmentInputKeyDown, 'focusin': shoppingCartPostDepartmentInputFocusIn }"
                                    class="post-department-input">
                             <label for="shoppingCartPostDepartmentInput">Nova Posta deaprtment/Отделение</label>
-                            <p class="shopping-cart-validation-message" style="display: none;" data-bind="visible: isShoppingCartPostDepartmentEmpty()">Enter отделение</p>
+                            <p class="validation-message" style="display: none;" data-bind="visible: isShoppingCartPostDepartmentEmpty">Enter отделение</p>
                         </div>
                     </div>
                 </div>
@@ -319,7 +319,4 @@
 
 <script type="text/javascript">
     var email = "@ViewBag.Email";
-    var registerUrl = "@Url.Action("Register", "Account")";
-    var logInUrl = "@Url.Action("Login", "Account")";
-    var logOutUrl = "@Url.Action("Logout", "Account")";
 </script>

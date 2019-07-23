@@ -16,10 +16,10 @@
 <div id="profilePersonalInfoContainer">
     <div class="link-list">
         <p class="user-info-header">My кабинет</p>
-        <div><a href="~/profile/personal-info" class="link-list-item selected">Personal данные</a></div>
+        <div><span class="link-list-item selected">Personal данные</span></div>
         <div><a href="~/profile/orders" class="link-list-item">My заказы</a></div>
     </div>
-    <div class="user-info-container" style="display: none" data-bind="visible: isUserDataLaoded">
+    <div class="user-info-container" style="display: none" data-bind="visible: isUserDataContainerVisible">
         <div class="input-field">
             <div class="user-field-label-container">
                 <label>Name/Имя</label>
@@ -115,9 +115,50 @@
             <a data-bind="click: cancelUserInfoClick">Отменить изменения</a>
         </div>
     </div>
-    <div class="user-actions" style="display: none" data-bind="visible: isUserDataLaoded">
+    <div class="change-password-container" style="display: none" data-bind="visible: isChangePasswordContainerVisible">
+        <div class="input-field">
+            <div class="user-field-label-container">
+                <label>Old пароль</label>
+            </div>
+            <div class="user-field-value-container">
+                <div>
+                    <input type="text" data-bind="textInput: oldPassword, event:{'focusin': oldPasswordFocusIn, 'paste': passwordInputPaste }">
+                </div>
+            </div>
+        </div>
+        <p class="validation-message" style="display: none;" data-bind="visible: showOldPasswordIsEmpty">Enter Old ппароль</p>
+        <div class="input-field">
+            <div class="user-field-label-container">
+                <label>New пароль</label>
+            </div>
+            <div class="user-field-value-container">
+                <div>
+                    <input type="text" data-bind="textInput: newPassword, event:{'focusin': newPasswordFocusIn, 'paste': passwordInputPaste }">
+                </div>
+            </div>
+        </div>
+        <p class="validation-message" style="display: none;" data-bind="visible: showNewPasswordIsEmpty">Enter New ппароль</p>
+        <p class="validation-message" style="display: none;" data-bind="visible: showNePasswordIsNotValid">@ViewBag.ResourceManager.GetString("incorrectParrwordValidation")</p>
+        <div class="input-field">
+            <div class="user-field-label-container">
+                <label>Confirm new пароль</label>
+            </div>
+            <div class="user-field-value-container">
+                <div>
+                    <input type="text" data-bind="textInput: newPasswordConfirm, event:{'focusin': newPasswordConfirmFocusIn, 'paste': passwordInputPaste }">
+                </div>
+            </div>
+        </div>
+        <p class="validation-message" style="display: none;" data-bind="visible: showNewPasswordConfirmIsEmpty">Enter New пароль confirmation</p>
+        <p class="validation-message" style="display: none;" data-bind="visible: showNewPasswordAndConfirmAreNotMatched">Passwords do не соападают</p>
+        <div>
+            <a data-bind="click: savePasswordChangingClick">Save</a>
+            <a data-bind="click: cancelPasswordChangingClick">Отменить/Cancel</a>
+        </div>
+    </div>
+    <div class="user-actions" style="display: none" data-bind="visible: isUserDataContainerVisible">
         <p data-bind="click: changeUserInfoClick">Change данные</p>
-        <p>Change пароль</p>
+        <p data-bind="click: changePasswordClick">Change пароль</p>
     </div>
 </div>
 

@@ -54,6 +54,12 @@ namespace NotepadShop.BLL.Services
             return claim;
         }
 
+        public bool ChangePassword(string userId, string currentPassword, string newPassword)
+        {
+            IdentityResult result = repository.UserManager.ChangePassword(userId, currentPassword, newPassword);
+            return result.Succeeded;
+        }
+
         public LanguageType? GetUserLanguage(string email)
         {
             ApplicationUser user = repository.UserRepository.GetAll().First(u => u.Email == email);

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 namespace NotepadShop.Controllers
 {
     [Authorize]
+    [RoutePrefix("profile")]
     public class ProfileController : Controller
     {
         private readonly IOrderService orderService;
@@ -18,14 +19,14 @@ namespace NotepadShop.Controllers
             this.personalInfoService = personalInfoService;
         }
 
-        [Route("profile/personal-info")]
+        [Route("personal-info")]
         [HttpGet]
         public ActionResult GetPersonalInfoView()
         {
             return View("PersonalInfo");
         }
 
-        [Route("profile/api/personal-info")]
+        [Route("api/personal-info")]
         [HttpGet]
         public JsonResult GetPersonalInfo()
         {
@@ -33,7 +34,7 @@ namespace NotepadShop.Controllers
             return Json(WebAssembler.Assemble(info), JsonRequestBehavior.AllowGet);
         }  
 
-        [Route("profile/api/change-personal-info")]
+        [Route("api/change-personal-info")]
         [HttpPost]
         public JsonResult ChangePersonalInfo(ChangePersonalInfoData data)
         {
@@ -41,7 +42,7 @@ namespace NotepadShop.Controllers
             return Json("Ok");
         }
 
-        [Route("profile/orders")]
+        [Route("orders")]
         [HttpGet]
         public ActionResult GetOrdersView()
         {
