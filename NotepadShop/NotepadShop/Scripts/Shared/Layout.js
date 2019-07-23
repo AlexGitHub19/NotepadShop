@@ -88,10 +88,13 @@ $(document).ready(function () {
         self.shoppingCartPostDepartmentInputFocusIn = () => self.isShoppingCartPostDepartmentEmpty(false);
         self.makeOrderClick = makeOrderClickCallBack;
 
+        self.userInfo;
+
         self.displaySessionExpiredWindow = ko.observable(false);
     };
 
     layoutViewModel = new createViewModel();
+
 
 
     createShoppingCartCookie();
@@ -102,6 +105,7 @@ $(document).ready(function () {
 
     ko.applyBindings(layoutViewModel, document.getElementById("layoutConainer"));
 
+    loadLayoutUserInfo();
     registerEvents();
 
 });
@@ -454,10 +458,34 @@ function isPhoneNumberValid(phone) {
     return /\+38\(0\d{2}\)-\d{2}-\d{2}-\d{3}/.test(phone);
 }
 
+function loadLayoutUserInfo() {
+    if (email) {
+        var loadUserInfoPromise = $.ajax({
+            type: "GET",
+            url: '/profile/api/personal-info',
+            contentType: "application/json",
+            dataType: "json"
+        });
+
+        loadUserInfoPromise.done(function (result) {
+            layoutViewModel.userInfo = new UserData(result);
+            layoutViewModel.shoppingCartName(layoutViewModel.userInfo.FirstName);
+            layoutViewModel.shoppingCartSurname(layoutViewModel.userInfo.Surname);
+            layoutViewModel.shoppingCartPhone(layoutViewModel.userInfo.Phone);
+            layoutViewModel.shoppingCartEmail(email);
+            layoutViewModel.shoppingCartCity(layoutViewModel.userInfo.City);
+            layoutViewModel.shoppingCartPostDepartment(layoutViewModel.userInfo.PostDepartment);
+        });
+
+        loadUserInfoPromise.fail(function () {
+            alert("error!");
+        });
+    }
+}
+
 const numbers = [];
 const keypadZero = 48;
 const numpadZero = 96;
-
 //add key codes for digits 0 - 9 into this filter
 for (var i = 0; i <= 9; i++) {
     numbers.push(i + keypadZero);
@@ -493,6 +521,14 @@ function CookieShoppingCartItem(code, price, name, quantity, imageName) {
     this.Name = name;
     this.Quantity = quantity;
     this.ImageName = imageName;
+}
+
+function UserData(userData) {
+    this.FirstName = userData.FirstName;
+    this.Surname = userData.Surname;
+    this.City = userData.City;
+    this.PostDepartment = userData.PostDepartment;
+    this.Phone = userData.Phone;
 }
 
 function getAntiForgeryToken() {

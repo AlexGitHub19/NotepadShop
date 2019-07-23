@@ -136,9 +136,8 @@
                     <input type="text" data-bind="textInput: newPassword, event:{'focusin': newPasswordFocusIn, 'paste': passwordInputPaste }">
                 </div>
             </div>
-        </div>
+        </div>  
         <p class="validation-message" style="display: none;" data-bind="visible: showNewPasswordIsEmpty">Enter New ппароль</p>
-        <p class="validation-message" style="display: none;" data-bind="visible: showNePasswordIsNotValid">@ViewBag.ResourceManager.GetString("incorrectParrwordValidation")</p>
         <div class="input-field">
             <div class="user-field-label-container">
                 <label>Confirm new пароль</label>
@@ -149,6 +148,7 @@
                 </div>
             </div>
         </div>
+        <p class="validation-message" style="display: none;" data-bind="visible: showNePasswordIsNotValid">@ViewBag.ResourceManager.GetString("incorrectParrwordValidation")</p>
         <p class="validation-message" style="display: none;" data-bind="visible: showNewPasswordConfirmIsEmpty">Enter New пароль confirmation</p>
         <p class="validation-message" style="display: none;" data-bind="visible: showNewPasswordAndConfirmAreNotMatched">Passwords do не соападают</p>
         <div>
