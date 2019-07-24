@@ -127,6 +127,6 @@ function addOrdersToList(loadedOrders, searchType) {
 
 function Order(order) {
     this.number = order.Number;
-    this.creatingDateTime = order.CreatingDateTime.slice(0, order.CreatingDateTime.lastIndexOf(':'));
+    this.creatingDateTime = new Date(order.CreatingDateTime).toLocaleString();
     this.status = order.OrderStatus;
 }
