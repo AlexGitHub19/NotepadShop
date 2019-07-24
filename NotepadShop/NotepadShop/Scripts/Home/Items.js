@@ -34,7 +34,7 @@ function loadItems() {
 
     var loadItemsPromise = $.ajax({
         type: "GET",
-        url: '/Items/GetItems',
+        url: '/items/api/get-items',
         contentType: "application/json",
         data: { category: category, countOnPage: homeItemsViewModel.itemsCountOnPage(), page: homeItemsViewModel.selectedPageNumber() },
         dataType: "json"

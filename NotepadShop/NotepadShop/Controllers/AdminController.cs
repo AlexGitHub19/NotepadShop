@@ -5,8 +5,6 @@ using NotepadShop.Models.Admin;
 using NotepadShop.Utils;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace NotepadShop.Controllers
@@ -27,12 +25,14 @@ namespace NotepadShop.Controllers
         }
 
         [HttpGet]
+        [Route("")]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        [Route("add-new-item")]
         public ActionResult AddNewItem()
         {      
             AddItemViewModel viewModel = new AddItemViewModel(Guid.NewGuid().ToString(), categories);
@@ -41,6 +41,7 @@ namespace NotepadShop.Controllers
 
 
         [HttpGet]
+        [Route("change-item")]
         public ActionResult ChangeItem(string code)
         {
             IItem item = itemService.getItemByCode(code);

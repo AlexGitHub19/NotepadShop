@@ -11,6 +11,7 @@ using NotepadShop.BLL.Util;
 
 namespace NotepadShop.Controllers
 {
+    [RoutePrefix("items/api")]
     public class ItemsController : Controller
     {
         private IItemService itemService;
@@ -24,6 +25,7 @@ namespace NotepadShop.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
+        [Route("create-item")]
         public JsonResult CreateItem(CreateItemData item, string key)
         {
             IBriefItem assembled = WebAssembler.Assemble(item);
@@ -73,6 +75,7 @@ namespace NotepadShop.Controllers
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
+        [Route("upload-item-images")]
         public JsonResult UploadItemImages(string key)
         {
             DirectoryInfo tempDirectory = new DirectoryInfo(Server.MapPath(tempFolderPath + key));
@@ -102,9 +105,10 @@ namespace NotepadShop.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
+        [Route("change-item")]
         public JsonResult ChangeItem(ChangeItemData itemData, string key)
         {
-            IChangeItemData data = new NotepadShop.BLL.Entities.ChangeItemData(
+            IChangeItemData data = new BLL.Entities.ChangeItemData(
                 itemData.Code, 
                 string.IsNullOrEmpty(itemData.NewPrice) ? (decimal?)null : WebAssembler.AssemblePrice(itemData.NewPrice),
                 string.IsNullOrEmpty(itemData.NewCategory) ? (BLL.Interfaces.ItemCategory?)null : WebAssembler.Assemble(itemData.NewCategory),
@@ -164,6 +168,7 @@ namespace NotepadShop.Controllers
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
+        [Route("change-item-upload-images")]
         public JsonResult ChangeItemUploadItemImages(string key)
         {
             DirectoryInfo tempDirectory = new DirectoryInfo(Server.MapPath(tempFolderPath + key));
@@ -186,6 +191,7 @@ namespace NotepadShop.Controllers
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
+        [Route("change-item-upload-main-image")]
         public JsonResult ChangeItemUploadMainImage(string key)
         {
             DirectoryInfo tempDirectory = new DirectoryInfo(Server.MapPath(tempFolderPath + key));
@@ -207,6 +213,7 @@ namespace NotepadShop.Controllers
 
             
         [HttpGet]
+        [Route("get-items")]
         public JsonResult GetItems(string category, int countOnPage, int page)
         {
             IItemsData itemsData = itemService.getItemsByCategory(WebAssembler.Assemble(category), countOnPage, page);
@@ -220,6 +227,7 @@ namespace NotepadShop.Controllers
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
+        [Route("delete-item")]
         public JsonResult DeleteItem(string code)
         {
             itemService.deleteItemByCode(code);

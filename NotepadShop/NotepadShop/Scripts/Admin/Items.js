@@ -33,7 +33,7 @@ $(document).ready(function () {
 function loadItems() {
     var loadItemsPromise = $.ajax({
         type: "GET",
-        url: '/Items/GetItems',
+        url: '/items/api/get-items',
         contentType: "application/json",
         data: { category: category, countOnPage: adminItemsViewModel.itemsCountOnPage(), page: adminItemsViewModel.selectedPageNumber() },
         dataType: "json"
@@ -156,7 +156,7 @@ function onDeleteItemCallback(element, event) {
 
     var deleteItemPromise = $.ajax({
         type: "POST",
-        url: '/Items/DeleteItem',
+        url: '/items/api/delete-item',
         data: { __RequestVerificationToken: getAntiForgeryToken(), code: element.Code }
     });
 

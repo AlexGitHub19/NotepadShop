@@ -63,7 +63,7 @@ function createItem() {
 
             var createItemPromise = $.ajax({
                 type: "POST",
-                url: '/Items/CreateItem',
+                url: '/items/api/create-item',
                 contentType: "application/json",
                 data: JSON.stringify({ item: dataObject, key: addItemKey }),
                 dataType: "json"
@@ -126,7 +126,7 @@ function uploadImages() {
 
             var uploadImagesromise = $.ajax({
                 type: "POST",
-                url: '/Items/UploadItemImages',
+                url: '/items/api/upload-item-images',
                 contentType: false,
                 processData: false,
                 data: data

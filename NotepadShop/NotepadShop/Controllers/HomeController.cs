@@ -14,6 +14,7 @@ namespace NotepadShop.Controllers
             this.itemService = itemService;
         }
 
+        [Route("")]
         public ActionResult Index()
         {
             return View();

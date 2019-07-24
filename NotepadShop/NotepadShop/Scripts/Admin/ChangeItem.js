@@ -103,7 +103,7 @@ function saveChanges() {
 
     var createItemPromise = $.ajax({
         type: "POST",
-        url: '/Items/ChangeItem',
+        url: '/items/api/change-item',
         contentType: "application/json",
         data: JSON.stringify({ itemData: dataObject, key: inputData.key }),
         dataType: "json"
@@ -132,7 +132,7 @@ function uploadItemImages() {
 
             var uploadImagesromise = $.ajax({
                 type: "POST",
-                url: '/Items/ChangeItemUploadItemImages',
+                url: '/items/api/change-item-upload-images',
                 contentType: false,
                 processData: false,
                 data: data
@@ -169,7 +169,7 @@ function uploadMainImage() {
 
             var uploadImagesromise = $.ajax({
                 type: "POST",
-                url: '/Items/ChangeItemUploadMainImage',
+                url: '/items/api/change-item-upload-main-image',
                 contentType: false,
                 processData: false,
                 data: data

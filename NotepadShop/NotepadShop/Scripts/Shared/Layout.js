@@ -392,8 +392,8 @@ function makeOrderClickCallBack() {
         CustomerSurname: layoutViewModel.shoppingCartSurname(),
         CustomerPhone: layoutViewModel.shoppingCartPhone(),
         CustomerEmail: layoutViewModel.shoppingCartEmail(),
-        City: layoutViewModel.shoppingCartCity(),
-        PostDepartment: layoutViewModel.shoppingCartPostDepartment(),
+        City: layoutViewModel.shoppingCartDeliveryType() == 'self' ? null : layoutViewModel.shoppingCartCity(),
+        PostDepartment: layoutViewModel.shoppingCartDeliveryType() == 'self' ? null : layoutViewModel.shoppingCartPostDepartment(),
         PaymentType: layoutViewModel.shoppingCartPaymentType(),
         DeliveryType: layoutViewModel.shoppingCartDeliveryType(),
         Items: layoutViewModel.shoppingCartItems().map(cartItem => new CreateOrderItem(cartItem.Code, cartItem.Quantity()))
@@ -413,6 +413,8 @@ function makeOrderClickCallBack() {
     });
 
     createItemPromise.done(function () {
+        closeShoppingCartCallBack();
+        setCartCookieValue('[]');
         alert("saved");
     });
 
