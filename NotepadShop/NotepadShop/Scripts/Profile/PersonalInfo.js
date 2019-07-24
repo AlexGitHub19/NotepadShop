@@ -17,6 +17,9 @@ $(document).ready(function () {
         self.saveUserInfoClick = saveUserInfoClickCallback;
         self.cancelUserInfoClick = cancelUserInfoClickCallback;
 
+        self.isLabelPhoneIsNotValidShown = ko.observable(false);
+        self.phoneInputFocusIn = () => self.isLabelPhoneIsNotValidShown(false);
+
         self.postDepartmentInputKeyDown = numberInputKeyDownCallback;
 
         self.isChangeModeEnabled = ko.observable(false);
@@ -88,6 +91,11 @@ function saveUserInfoClickCallback() {
 
     const isPhoneChanged = profilePersonalInfoModel.userPhone() !== data.Phone;
     const newPhone = new ChangePersonalInfoItemData(profilePersonalInfoModel.userPhone(), isPhoneChanged);
+
+    if (profilePersonalInfoModel.userPhone() && !isPhoneNumberValid(profilePersonalInfoModel.userPhone())) {
+        profilePersonalInfoModel.isLabelPhoneIsNotValidShown(true);
+        return;
+    }
 
     const isCityChanged = profilePersonalInfoModel.userCity() !== data.City;
     const newCity = new ChangePersonalInfoItemData(profilePersonalInfoModel.userCity(), isCityChanged);

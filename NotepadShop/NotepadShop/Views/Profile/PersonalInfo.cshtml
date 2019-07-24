@@ -55,7 +55,7 @@
                     <span data-bind="text: userPhone() ? userPhone() : notFilled"></span>
                 </div>
                 <div data-bind="if: isChangeModeEnabled">
-                    <input class="ns-phone-input" type="text" data-bind="textInput: userPhone"  placeholder="+38(0XX)-XX-XX-XXX">
+                    <input class="ns-phone-input" type="text" data-bind="textInput: userPhone, event:{'focusin': phoneInputFocusIn }"  placeholder="+38(0XX)-XX-XX-XXX">
                 </div>
             </div>
         </div>
@@ -111,6 +111,7 @@
             </div>
         </div>
         <div data-bind="if: isChangeModeEnabled">
+            <p class="validation-message" style="display: none;" data-bind="visible: isLabelPhoneIsNotValidShown">Phone number введен не корреткно</p>
             <a data-bind="click: saveUserInfoClick">Save</a>
             <a data-bind="click: cancelUserInfoClick">Отменить изменения</a>
         </div>

@@ -13,10 +13,30 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 }
 
+
     <div id="adminOrdersContainer">
+        <p data-bind="text: ordersSearchType"></p>
         <p>Date from: <input type="text" id="datepickerFrom" autocomplete="off" data-bind="textInput: dateFrom"></p>
         <p>Date to: <input type="text" id="datepickerTo" autocomplete="off" data-bind="textInput: dateTo"></p>
         <button data-bind="click: searchOrdersClick">Search</button>
+        <br />
+        <div class="input-field">
+            <label>Search by phone number</label>
+            <input class="ns-phone-input" type="text" data-bind="textInput: phoneNumberToSearch" placeholder="+38(0XX)-XX-XX-XXX">
+        </div>
+        <button data-bind="enable: isSearchByPhoneNumberBtnEnabled, click: searchOrdersByPhoneClick">Search</button>
+
+        <br />
+        <div class="input-field">
+            <label>Search by order number</label>
+            <input type="text" data-bind="textInput: orderNumberToSearch">
+        </div>
+        <button data-bind="click: searchOrdersByOrderNumberClick">Search</button>
+
+        <br />
+        <div data-bind="if: isNoOrdersFoundShown">
+            <p>No orders found</p>
+        </div>
         <div class="orders-container" style="display: none" data-bind="foreach: orders, visible: orders().length > 0">
             <div class="order-container">
                 <p data-bind="text: number"></p>

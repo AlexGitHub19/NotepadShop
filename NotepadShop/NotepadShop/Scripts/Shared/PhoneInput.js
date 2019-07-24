@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
 
-    $('body').on('paste', '.ns-phone-input', function (e) {
-        e.preventDefault();
-    });
+    //$('body').on('paste', '.ns-phone-input', function (e) {
+    //    e.preventDefault();
+    //});
 
     const pfoneInputsStateBeforeKeydown = new Map();
     const phonePrefix = '+38(0';

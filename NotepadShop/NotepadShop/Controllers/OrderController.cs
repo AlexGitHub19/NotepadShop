@@ -31,6 +31,7 @@ namespace NotepadShop.Controllers
 
         [Route("api/orders-by-date-range")]
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public JsonResult GetOrdersByDateRange(DateTime dateFrom, DateTime dateTo)
         {
             DateTime utcDateFrom = dateFrom.ToUniversalTime();
@@ -43,11 +44,21 @@ namespace NotepadShop.Controllers
 
         [Route("api/order-by-number")]
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public JsonResult GetOrderByOrderNumber(string number)
         {
             IOrder foundOrder = orderService.GetOrderByNumber(number);
             return Json(foundOrder == null ? "not exists" : 
                 WebAssembler.Assemble(foundOrder, ViewBag.Language), JsonRequestBehavior.AllowGet);
+        }
+
+        [Route("api/orders-by-phone-number")]
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public JsonResult GetOrdersByPhonerNumber(string phoneNumber)
+        {
+            IEnumerable<IOrder> foundOrders = orderService.GetOrdersByPhoneNumber(phoneNumber);
+            return Json(WebAssembler.Assemble(foundOrders, ViewBag.Language), JsonRequestBehavior.AllowGet);
         }
 
         private string calculateMainImageName(Item data)
