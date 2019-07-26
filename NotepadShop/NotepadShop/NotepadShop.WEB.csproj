@@ -234,6 +234,7 @@
     <Content Include="Content\Flags\RussiaFlag.svg" />
     <Content Include="Content\Flags\UkraineFlag.svg" />
     <Content Include="Content\Home\Index.css" />
+    <Content Include="Content\Home\Shop.css" />
     <Content Include="Content\Home\Item.css" />
     <Content Include="Content\Home\Items.css" />
     <Content Include="Content\Layout.css" />
@@ -260,6 +261,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Admin\Orders.js" />
     <Content Include="Scripts\Home\Index.js" />
+    <Content Include="Scripts\Home\Shop.js" />
     <Content Include="Scripts\Home\Item.js" />
     <Content Include="Scripts\Home\Items.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -296,7 +298,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Shop.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\AddNewItem.cshtml" />
     <Content Include="Views\Home\Items.cshtml" />
@@ -306,6 +308,7 @@
     <Content Include="Views\Home\Item.cshtml" />
     <Content Include="Views\Profile\Orders.cshtml" />
     <Content Include="Views\Profile\PersonalInfo.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

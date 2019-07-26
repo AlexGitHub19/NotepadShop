@@ -1,26 +1,7 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Index";
 }
 
-@section styles {
-    <link type="text/css" rel="stylesheet" href="~/Content/Home/Index.css" />
-}
+<h2>Index</h2>
 
-@section scripts {
-    <script type="text/javascript" src="~/Scripts/Home/Index.js"></script>
-}
-
-
-<div id="homeIndexContainer">
-    <div class="categories">
-        <div>
-            <a href="/notepads" class="">@ViewBag.ResourceManager.GetString("notepadsCategory")</a>
-        </div>
-        <div>
-            <a href="/pens" class="">@ViewBag.ResourceManager.GetString("pensCategory")</a>
-        </div>
-    </div>
-    <div class="row">
-
-    </div>
-</div>

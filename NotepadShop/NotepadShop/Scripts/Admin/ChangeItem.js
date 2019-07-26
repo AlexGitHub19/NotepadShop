@@ -193,15 +193,8 @@ function uploadMainImage() {
     return d.promise();
 }
 
-
 function areAdditionalImagesAdded() {
     return changeItemViewModel.additionalmages().some(img => img.changed);
-}
-
-function changeFileName(file, newName) {
-    var blob = file.slice(0, file.size, file.type);
-    var newNameWithExtension = newName + file.name.substring(file.name.lastIndexOf('.'));
-    return new File([blob], newNameWithExtension, { type: file.type });
 }
 
 function imageItem(file, name, src) {

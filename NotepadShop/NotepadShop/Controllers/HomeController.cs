@@ -15,20 +15,26 @@ namespace NotepadShop.Controllers
         }
 
         [Route("")]
-        public ActionResult Index()
+        public ActionResult IndexPage()
         {
-            return View();
+            return View("Index");
+        }
+
+        [Route("shop")]
+        public ActionResult ShopPage()
+        {
+            return View("Shop");
         }
 
         [Route("notepads")]
-        public ActionResult Notepads()
+        public ActionResult NotepadsPage()
         {
             ViewBag.ItemsCategory = GlobalConstants.Notepad;
             return View("Items");
         }
 
         [Route("pens")]
-        public ActionResult Pens()
+        public ActionResult PensPage()
         {
             ViewBag.ItemsCategory = GlobalConstants.Pen;
             return View("Items");
