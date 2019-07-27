@@ -23,6 +23,10 @@ textarea {
     max-width: 280px;
 }*/
 
+html {
+    display: none;
+}
+
 body {
     font-size: 14px;
     font-family: 'Work sans', sans-serif;

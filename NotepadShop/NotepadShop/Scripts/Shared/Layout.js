@@ -2,6 +2,8 @@
 
 $(document).ready(function () {
 
+    $('html').fadeIn();
+
     function createViewModel() {
         var self = this;
         self.email = ko.observable(email == "" ? undefined : email);

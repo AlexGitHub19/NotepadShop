@@ -7,8 +7,6 @@
     @Styles.Render("~/Content/css")
 
 
-    @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />*@
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link type="text/css" rel="stylesheet" href="~/Content/Layout.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/Site.css" />
@@ -17,7 +15,7 @@
     <link type="text/css" rel="stylesheet" href="~/Content/Shared/MenuOverlay.css" />
 
     @RenderSection("styles", required: false)
-    @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />
+    @*
 
         @Scripts.Render("~/bundles/jquery")
         <script type="text/javascript" src="~/Scripts/materialize/materialize.js"></script>
@@ -33,57 +31,54 @@
     </div>
 
     <div id="layoutConainer">
-        <div id="navnarMenu">
-            <div class="navbar-container">
-                <div id="languageContainer">
-                    @switch ((string)ViewBag.Language)
-                    {
-                        case "en":
-                            <div class="flag">
-                                <img class="flag" src="~/Content/Flags/GreatBritainFlag.svg" alt="En">
-                            </div>
-                            break;
-                        case "uk":
-                            <div class="flag">
-                                <img class="flag" src="~/Content/Flags/UkraineFlag.svg" alt="Uk">
-                            </div>
-                            break;
-                        case "ru":
-                        default:
-                            <div class="flag">
-                                <img class="flag" src="~/Content/Flags/RussiaFlag.svg" alt="Ru">
-                            </div>
-                            break;
-                    }
-                </div>
-                <div id="shoppingCartImageContainer">
-                    <i id="shoppingCartBtn" class="material-icons shopping-cart-icon"
-                       data-bind="event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }, click: shoppingCartImageClick">shopping_cart</i>
-                    <span data-bind="text: shoppingCartItems().length, visible: shoppingCartItems().length > 0"></span>
-                </div>
-                <div id="userInfoContainer">
-                    <div class="display-inline height100">
-                        <i class="material-icons person-icon">person</i>
-                    </div>
-                    <div class="display-inline height100">
-                        <div data-bind="if: isLoggedIn">
-                            <p data-bind="text: email"></p>
+        <div class="navbar-container">
+            <div id="languageContainer">
+                @switch ((string)ViewBag.Language)
+                {
+                    case "en":
+                        <div class="flag en-flag">
                         </div>
-                        <div data-bind="ifnot: isLoggedIn">
-                            <span id="logInBtn"
-                                  data-bind="click: loginBtnClick">@ViewBag.ResourceManager.GetString("loginOrRegisterLabel")</span>
+                        break;
+                    case "uk":
+                        <div class="flag uk-flag">
                         </div>
+                        break;
+                    case "ru":
+                    default:
+                        <div class="flag ru-flag">
+                        </div>
+                        break;
+                }
+            </div>
+            <div id="shoppingCartImageContainer"
+                 data-bind="event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }, click: shoppingCartImageClick">
+                <div class="shopping-cart-icon"></div>
+                <span data-bind="text: shoppingCartItems().length, visible: shoppingCartItems().length > 0"></span>
+            </div>
+            <div id="userInfoContainer">
+
+                @if (ViewBag.Email != null)
+                {
+                    <div class="display-inline height100">
+                        <div class="person-icon"></div>
                     </div>
-                </div>
+
+                }
+                @if (ViewBag.Email == null)
+                {
+                    <div class="display-inline height100">
+                        <div id="logInBtn" data-bind="click: loginBtnClick"></div>
+                    </div>
+                }
+            </div>
+            <div class="menu-btn">
+                <span class="menu-btn-first-line"></span>
+                <span class="menu-btn-second-line"></span>
+                <span class="menu-btn-third-line"></span>
             </div>
         </div>
 
         @*Menu Overlay*@
-        <div class="menu-btn">
-            <span class="menu-btn-first-line"></span>
-            <span class="menu-btn-second-line"></span>
-            <span class="menu-btn-third-line"></span>
-        </div>
         <div class="menu-close-btn">
             <div class="menu-close-btn-layout">
                 <span class="close-btn-first-line"></span>
@@ -105,21 +100,15 @@
         <div id="languagePopup" class="popup">
             @if (!((string)ViewBag.Language == "ru"))
             {
-                <div id="popup-language-ru" class="popup-language-item flag">
-                    <img class="flag" src="~/Content/Flags/RussiaFlag.svg" alt="Ru">
-                </div>
+                <div id="popup-language-ru" class="popup-language-item flag ru-flag"></div>
             }
             @if (!((string)ViewBag.Language == "uk"))
             {
-                <div id="popup-language-uk" class="popup-language-item flag">
-                    <img class="flag" src="~/Content/Flags/UkraineFlag.svg" alt="Uk">
-                </div>
+                <div id="popup-language-uk" class="popup-language-item flag uk-flag"></div>
             }
             @if (!((string)ViewBag.Language == "en"))
             {
-                <div id="popup-language-en" class="popup-language-item flag">
-                    <img class="flag" src="~/Content/Flags/GreatBritainFlag.svg" alt="En">
-                </div>
+                <div id="popup-language-en" class="popup-language-item flag en-flag"></div>
             }
         </div>
         <div id="userInfoPopup" class="popup">

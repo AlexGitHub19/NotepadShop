@@ -230,9 +230,6 @@
     <Content Include="Content\Admin\Orders.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\Flags\GreatBritainFlag.svg" />
-    <Content Include="Content\Flags\RussiaFlag.svg" />
-    <Content Include="Content\Flags\UkraineFlag.svg" />
     <Content Include="Content\Home\Index.css" />
     <Content Include="Content\Home\Shop.css" />
     <Content Include="Content\Home\Item.css" />

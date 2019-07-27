@@ -1,20 +1,17 @@
 ﻿
-#navnarMenu {
-    height: 22px;
-    width: 100%;
-    margin-top: 2px;
-}
 .navbar-container {
-    height: 100%;
-    float: right;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 10;
 }
 
-#languageContainer {
+#languageContainer, #userInfoContainer, #shoppingCartImageContainer {
     display: inline-block;
-    vertical-align:top;
-    margin-right:15px;
-    height: 100%;
+    vertical-align: top;
+    margin-right: 15px;
 }
+
 
 #languagePopup, #userInfoPopu {
     top: 22px;
@@ -29,25 +26,28 @@
     height: 100%;
 }
 
-#userInfoContainer {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 15px;
-    height: 100%;
-    cursor: pointer;
-}
-.person-icon {
-    font-size: 22px;
-}
-
 .popup-language-item {
     margin-top: 6px;
 }
 
 .flag {
-    height: 18px;
+    height: 22px;
+    width: 28px;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     cursor:pointer;
+    background-size: cover;
+}
+
+.en-flag {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJmbGFnLWljb24tY3NzLWdiIiB2aWV3Qm94PSIwIDAgNjQwIDQ4MCI+CiAgPGRlZnM+CiAgICA8Y2xpcFBhdGggaWQ9ImEiPgogICAgICA8cGF0aCBmaWxsLW9wYWNpdHk9Ii43IiBkPSJNLTg1LjMgMGg2ODIuNnY1MTJILTg1LjN6Ii8+CiAgICA8L2NsaXBQYXRoPgogIDwvZGVmcz4KICA8ZyBjbGlwLXBhdGg9InVybCgjYSkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDgwKSBzY2FsZSguOTQpIj4KICAgIDxnIHN0cm9rZS13aWR0aD0iMXB0Ij4KICAgICAgPHBhdGggZmlsbD0iIzAxMjE2OSIgZD0iTS0yNTYgMEg3Njh2NTEySC0yNTZ6Ii8+CiAgICAgIDxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0tMjU2IDB2NTcuMkw2NTMuNSA1MTJINzY4di01Ny4yTC0xNDEuNSAwSC0yNTZ6TTc2OCAwdjU3LjJMLTE0MS41IDUxMkgtMjU2di01Ny4yTDY1My41IDBINzY4eiIvPgogICAgICA8cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTcwLjcgMHY1MTJoMTcwLjZWMEgxNzAuN3pNLTI1NiAxNzAuN3YxNzAuNkg3NjhWMTcwLjdILTI1NnoiLz4KICAgICAgPHBhdGggZmlsbD0iI2M4MTAyZSIgZD0iTS0yNTYgMjA0Ljh2MTAyLjRINzY4VjIwNC44SC0yNTZ6TTIwNC44IDB2NTEyaDEwMi40VjBIMjA0Ljh6TS0yNTYgNTEyTDg1LjMgMzQxLjNoNzYuNEwtMTc5LjcgNTEySC0yNTZ6bTAtNTEyTDg1LjMgMTcwLjdIOUwtMjU2IDM4LjJWMHptNjA2LjQgMTcwLjdMNjkxLjcgMEg3NjhMNDI2LjcgMTcwLjdoLTc2LjN6TTc2OCA1MTJMNDI2LjcgMzQxLjNINTAzbDI2NSAxMzIuNVY1MTJ6Ii8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K');
+}
+
+.uk-flag {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJmbGFnLWljb24tY3NzLXVhIiB2aWV3Qm94PSIwIDAgNjQwIDQ4MCI+CiAgPGcgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2Utd2lkdGg9IjFwdCI+CiAgICA8cGF0aCBmaWxsPSIjZmZkNTAwIiBkPSJNMCAwaDY0MHY0ODBIMHoiLz4KICAgIDxwYXRoIGZpbGw9IiMwMDViYmIiIGQ9Ik0wIDBoNjQwdjI0MEgweiIvPgogIDwvZz4KPC9zdmc+Cg==');
+}
+
+.ru-flag {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJmbGFnLWljb24tY3NzLXJ1IiB2aWV3Qm94PSIwIDAgNjQwIDQ4MCI+CiAgPGcgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2Utd2lkdGg9IjFwdCI+CiAgICA8cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDY0MHY0ODBIMHoiLz4KICAgIDxwYXRoIGZpbGw9IiMwMDM5YTYiIGQ9Ik0wIDE2MGg2NDB2MzIwSDB6Ii8+CiAgICA8cGF0aCBmaWxsPSIjZDUyYjFlIiBkPSJNMCAzMjBoNjQwdjE2MEgweiIvPgogIDwvZz4KPC9zdmc+Cg==');
 }
 
 .popup {
@@ -94,15 +94,22 @@
     text-align: center;
 }
 
-#shoppingCartImageContainer {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 15px;
-    height: 100%;
+.shopping-cart-icon, #logInBtn, .person-icon {
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+}
+
+#logInBtn {
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDUwMCA1MDAiIGhlaWdodD0iNTAwcHgiIGlkPSJMYXllcl8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MDAgNTAwIiB3aWR0aD0iNTAwcHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEzMS44ODksMTUwLjA2MXY2My41OTdoLTI3LjI1NiAgYy0yMC4wNzksMC0zNi4zNDMsMTYuMjYzLTM2LjM0MywzNi4zNDJ2MTgxLjcxMWMwLDIwLjA3OCwxNi4yNjQsMzYuMzQsMzYuMzQzLDM2LjM0aDI5MC43MzRjMjAuMDc4LDAsMzYuMzQ1LTE2LjI2MiwzNi4zNDUtMzYuMzQgIFYyNTBjMC0yMC4wNzktMTYuMjY3LTM2LjM0Mi0zNi4zNDUtMzYuMzQyaC0yNy4yNTR2LTYzLjU5N2MwLTY1LjIzMi01Mi44ODItMTE4LjExMS0xMTguMTEyLTExOC4xMTEgIFMxMzEuODg5LDg0LjgyOCwxMzEuODg5LDE1MC4wNjF6IE0xNzcuMzE3LDIxMy42NTh2LTYzLjU5N2MwLTQwLjE1NywzMi41MjUtNzIuNjg1LDcyLjY4My03Mi42ODUgIGM0MC4xNTgsMCw3Mi42ODUsMzIuNTI4LDcyLjY4NSw3Mi42ODV2NjMuNTk3SDE3Ny4zMTd6IE0yMTMuNjU4LDMxMy41OTljMC0yMC4wNzgsMTYuMjYzLTM2LjM0MSwzNi4zNDItMzYuMzQxICBzMzYuMzQxLDE2LjI2MywzNi4zNDEsMzYuMzQxYzAsMTIuODEyLTYuNjM0LDI0LjA3OS0xNi42MjUsMzAuNTI5YzAsMCwzLjU1LDIxLjQ0Niw3LjU0Miw0Ni42OTkgIGMwLDcuNTM4LTYuMDg3LDEzLjYyNS0xMy42MjksMTMuNjI1aC0yNy4yNThjLTcuNTQxLDAtMTMuNjI3LTYuMDg3LTEzLjYyNy0xMy42MjVsNy41NDItNDYuNjk5ICBDMjIwLjI5NCwzMzcuNjc4LDIxMy42NTgsMzI2LjQxLDIxMy42NTgsMzEzLjU5OXoiIGZpbGw9IiMwMTAxMDEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==');
+}
+
+.person-icon {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAA1VBMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwim1yAAAARnRSTlMA2ofzpPBP/lQFhvL8BNLXo0ED4AIH30TZd6VICtNS2BTd4oBCZkcJj1F1Vtx64a1L0dZVF36I7wz0fT8BygarTtQQWN58IP+fUAAAAQRJREFUSMft1MlSwkAQgGFCEiYhgUBYkqDgAoq7gguCLILa7/9IeLCKTjqkG09S5X//qmZqpjuX26dsy/DGumdYtlQUNPhJK4hAPQ+bVLEuIFh8VxScSsWJemdvrkGikzlDLCBZDGlRUmFISMkRQ3RKdIZASv8kK5MKkyFlSgYMMXb/MA+UHDCk1EyKmxI3ML3kiAX8WF7ESV6yL7pYvMiW0g7P+NfJEybHAjC9/MSkXeWA/0H+5ezazwCvZ2HavDSj1RZw+GzClkZf/TRRPYWMam9URC5k5l4lxQTYbuMiUDxR51g07kBQrYHII4jqIHIvIwtEhjKyRMSREYdZq79YtfvXGuBF+KQSkrWYAAAAAElFTkSuQmCC');
 }
 
 .shopping-cart-icon {
-    cursor: pointer;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB3aWR0aD0iMTc5MiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNzA0IDE1MzZxMCA1Mi0zOCA5MHQtOTAgMzgtOTAtMzgtMzgtOTAgMzgtOTAgOTAtMzggOTAgMzggMzggOTB6bTg5NiAwcTAgNTItMzggOTB0LTkwIDM4LTkwLTM4LTM4LTkwIDM4LTkwIDkwLTM4IDkwIDM4IDM4IDkwem0xMjgtMTA4OHY1MTJxMCAyNC0xNi41IDQyLjV0LTQwLjUgMjEuNWwtMTA0NCAxMjJxMTMgNjAgMTMgNzAgMCAxNi0yNCA2NGg5MjBxMjYgMCA0NSAxOXQxOSA0NS0xOSA0NS00NSAxOWgtMTAyNHEtMjYgMC00NS0xOXQtMTktNDVxMC0xMSA4LTMxLjV0MTYtMzYgMjEuNS00MCAxNS41LTI5LjVsLTE3Ny04MjNoLTIwNHEtMjYgMC00NS0xOXQtMTktNDUgMTktNDUgNDUtMTloMjU2cTE2IDAgMjguNSA2LjV0MTkuNSAxNS41IDEzIDI0LjUgOCAyNiA1LjUgMjkuNSA0LjUgMjZoMTIwMXEyNiAwIDQ1IDE5dDE5IDQ1eiIvPjwvc3ZnPg==');
 }
 
 #shoppingCartPopup {
