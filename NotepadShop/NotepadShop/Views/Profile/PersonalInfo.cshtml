@@ -157,9 +157,10 @@
             <a data-bind="click: cancelPasswordChangingClick">Отменить/Cancel</a>
         </div>
     </div>
-    <div class="user-actions" style="display: none" data-bind="visible: isUserDataContainerVisible">
+    <div class="user-actions" style="display: none" data-bind="visible: isUserActionsContainerVisible">
         <p data-bind="click: changeUserInfoClick">Change данные</p>
         <p data-bind="click: changePasswordClick">Change пароль</p>
+        <p data-bind="click: logoutClick">@ViewBag.ResourceManager.GetString("logOutLabel")</p>
     </div>
 </div>
 

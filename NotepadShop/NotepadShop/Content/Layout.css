@@ -132,7 +132,7 @@
     height: 100vh;
     background: black;
     color: red;
-    z-index: 100;
+    z-index: 10000;
     position: fixed;
     top: 0;
     left: 0;

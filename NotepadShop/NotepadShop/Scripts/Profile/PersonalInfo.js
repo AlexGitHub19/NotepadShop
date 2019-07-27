@@ -31,6 +31,10 @@ $(document).ready(function () {
             return self.isUserDataLoaded() && !self.isChangePasswordContainerVisible();
         });
 
+        self.isUserActionsContainerVisible = ko.computed(function () {
+            return self.isUserDataLoaded() && !self.isChangePasswordContainerVisible() && !self.isChangeModeEnabled();
+        });
+
         self.oldPassword = ko.observable('');
         self.newPassword = ko.observable('');
         self.newPasswordConfirm = ko.observable('');
@@ -46,7 +50,9 @@ $(document).ready(function () {
         self.savePasswordChangingClick = savePasswordChangingClickCallback;
         self.cancelPasswordChangingClick = cancelPasswordChangingClickCallback;
 
-        self.passwordInputPaste = (element, event) => event.preventDefault();;
+        self.passwordInputPaste = (element, event) => event.preventDefault();
+
+        self.logoutClick = logout;
     };
 
     profilePersonalInfoModel = new createViewModel();

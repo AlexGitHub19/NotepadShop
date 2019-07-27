@@ -14,6 +14,7 @@
     <link type="text/css" rel="stylesheet" href="~/Content/Site.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/bootstrap-grid.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/Shared/tabs-control.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Shared/MenuOverlay.css" />
 
     @RenderSection("styles", required: false)
     @* <link type="text/css" rel="stylesheet" href="~/Content/materialize/css/materialize.css" />
@@ -77,6 +78,30 @@
             </div>
         </div>
 
+        @*Menu Overlay*@
+        <div class="menu-btn">
+            <span class="menu-btn-first-line"></span>
+            <span class="menu-btn-second-line"></span>
+            <span class="menu-btn-third-line"></span>
+        </div>
+        <div class="menu-close-btn">
+            <div class="menu-close-btn-layout">
+                <span class="close-btn-first-line"></span>
+                <span class="close-btn-second-line"></span>
+            </div>
+        </div>
+        <div class="menu-overlay-container">
+            <div class="menu-overlay">
+            </div>
+        </div>
+        <div class="ns-menu">
+            <div class="ns-menu-item"><a href="~/">Home</a></div>
+            <div class="ns-menu-item"><a href="~/shop">Shop</a></div>
+            <div class="ns-menu-item"><a href="~/profile/personal-info">Delivery info</a></div>
+            <div class="ns-menu-item" data-bind="if: isLoggedIn"><a href="~/profile/personal-info">Personal Info</a></div>
+        </div>
+        @*Menu Overlay end*@
+
         <div id="languagePopup" class="popup">
             @if (!((string)ViewBag.Language == "ru"))
             {
@@ -98,7 +123,7 @@
             }
         </div>
         <div id="userInfoPopup" class="popup">
-            <p id="logOutBtn">@ViewBag.ResourceManager.GetString("logOutLabel")</p>
+            <p data-bind="click: logoutClick">@ViewBag.ResourceManager.GetString("logOutLabel")</p>
             <a href="~/profile/personal-info">Personal данные</a>
             <a href="~/profile/orders">My заказы</a>
         </div>
@@ -313,6 +338,7 @@
 
     <script type="text/javascript" src="~/Scripts/Shared/Layout.js"></script>
     <script type="text/javascript" src="~/Scripts/Shared/PhoneInput.js"></script>
+    <script type="text/javascript" src="~/Scripts/Shared/MenuOverlay.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

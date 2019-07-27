@@ -240,10 +240,12 @@
     <Content Include="Content\Layout.css" />
     <Content Include="Content\materialize\materialize.css" />
     <Content Include="Content\materialize\materialize.min.css" />
+    <Content Include="Content\menuOverlayImg.png" />
     <Content Include="Content\Profile\Orders.css" />
     <Content Include="Content\Profile\PersonalInfo.css" />
     <Content Include="Content\Profile\Profile.css" />
     <Content Include="Content\Shared\ImageLoader.css" />
+    <Content Include="Content\Shared\MenuOverlay.css" />
     <Content Include="Content\Shared\tabs-control.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -282,6 +284,7 @@
     <Content Include="Scripts\Profile\PersonalInfo.js" />
     <Content Include="Scripts\Shared\ImageLoader.js" />
     <Content Include="Scripts\Shared\Layout.js" />
+    <Content Include="Scripts\Shared\MenuOverlay.js" />
     <Content Include="Scripts\Shared\PhoneInput.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

@@ -16,7 +16,7 @@ $(document).ready(function () {
         });
         self.displayLogInPreloader = ko.observable(false);
         self.isLoggedIn = ko.computed(function () {
-            return self.email() !== undefined && self.email() !== "";
+            return self.email() !== undefined && self.email() !== "" && self.email() !== null;
         });
         self.loginFailedMessage = ko.observable("");
         self.showLoginFailedMessage = ko.observable(false);
@@ -91,10 +91,11 @@ $(document).ready(function () {
         self.userInfo;
 
         self.displaySessionExpiredWindow = ko.observable(false);
+
+        self.logoutClick = logout;
     };
 
     layoutViewModel = new createViewModel();
-
 
 
     createShoppingCartCookie();
@@ -172,17 +173,6 @@ function registerEvents() {
         }
     });
 
-    $('body').on('click', '#logOutBtn', function (e) {
-        $.ajax({
-            type: "POST",
-            url: "/account/api/logout",
-            data: { __RequestVerificationToken: getAntiForgeryToken()},
-            success: function (result) {
-                location.reload();
-            }
-        });
-    });
-
     $('body').on('mouseenter', '#userInfoContainer', function (e) {
         if (layoutViewModel.isLoggedIn()) {
             $('#userInfoPopup').css('left', $('#userInfoContainer').offset().left);
@@ -244,6 +234,17 @@ function registerEvents() {
         location.reload();
     });
 };
+
+function logout() {
+    $.ajax({
+        type: "POST",
+        url: "/account/api/logout",
+        data: { __RequestVerificationToken: getAntiForgeryToken() },
+        success: function () {
+            location.reload();
+        }
+    });
+}
 
 function setLanguageCookie(language) {
     var date = new Date();
