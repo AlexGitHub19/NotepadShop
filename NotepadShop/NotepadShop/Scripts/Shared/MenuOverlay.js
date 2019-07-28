@@ -20,9 +20,9 @@
         menuOverlayConatainer.addClass('visible opening');
         setTimeout(function () {
             nsMenu.addClass('visible');
-            $('.menu-close-btn').addClass('visible');
-            $('.close-btn-second-line').addClass('visible')
-            $('.close-btn-first-line').addClass('visible')
+            setTimeout(function () {
+                $('.menu-close-btn').addClass('visible');
+            }, 1300);
         }, 600);
     });
 
@@ -31,8 +31,6 @@
         menuOverlayConatainer.addClass('closing');
         nsMenu.removeClass('visible');
         $(this).removeClass('visible');
-        $('.close-btn-second-line').removeClass('visible');
-        $('.close-btn-first-line').removeClass('visible');
         menuOverlay.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
             menuOverlayConatainer.removeClass('closing opening visible');
             menuOverlay.off('webkitAnimationEnd oanimationend msAnimationEnd animationend');

@@ -90,10 +90,50 @@
             </div>
         </div>
         <div class="ns-menu">
-            <div class="ns-menu-item"><a href="~/">Home</a></div>
-            <div class="ns-menu-item"><a href="~/shop">Shop</a></div>
-            <div class="ns-menu-item"><a href="~/profile/personal-info">Delivery info</a></div>
-            <div class="ns-menu-item" data-bind="if: isLoggedIn"><a href="~/profile/personal-info">Personal Info</a></div>
+            <div class="ns-menu-item">
+                <div class="menu-line-conatiner">
+                    <span class="menu-line"></span>
+                </div>
+                <div class="menu-item-text-container">
+                    <a href="~/">Home</a>
+                </div>
+                <div class="arrow-conatiner first">
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="ns-menu-item">
+                <div class="menu-line-conatiner">
+                    <span class="menu-line"></span>
+                </div>
+                <div class="menu-item-text-container">
+                    <a href="~/shop">Shop</a>
+                </div>
+                <div class="arrow-conatiner second">
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="ns-menu-item">
+                <div class="menu-line-conatiner">
+                    <span class="menu-line"></span>
+                </div>
+                <div class="menu-item-text-container">
+                    <a href="~/profile/personal-info">Delivery info</a>
+                </div>
+                <div class="arrow-conatiner third">
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="ns-menu-item" data-bind="if: isLoggedIn">
+                <div class="menu-line-conatiner">
+                    <span class="menu-line"></span>
+                </div>
+                <div class="menu-item-text-container">
+                    <a href="~/profile/personal-info">Personal Info</a>
+                </div>
+                <div class="arrow-conatiner fourth">
+                    <span class="arrow"></span>
+                </div>
+            </div>
         </div>
         @*Menu Overlay end*@
 
