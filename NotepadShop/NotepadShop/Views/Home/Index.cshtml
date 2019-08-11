@@ -1,7 +1,36 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home";
 }
 
-<h2>Index</h2>
+@section styles {
+    <link type="text/css" rel="stylesheet" href="~/Content/Home/Index.css" />
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/Home/Index.js"></script>
+}
+
+<div id="homeIndexContainer">
+    <div class="notepad-container">
+        <div class="cover">
+            <div class="cover-text-container">
+                <p>Notepad</p>
+            </div>
+        </div>
+        <div class="left-part">
+            <div class="content">
+                <h1>Header</h1>
+                <p>A Matryoshka nesting doll is a set of typically seven wooden dolls of decreasing sizes that all fit inside of each other, one by one. Each stacking doll splits in half at the mid section and opens to reveal another smaller doll nested within. The traditional Matryoshka doll is usually round in shape and decoratively painted to resemble a pretty young faced peasant woman dressed or bundled up in an extravagant sarafan costume, a loose fitting traditional Russian garment. </p>
+            </div>
+        </div>
+        <div class="right-part">
+            <div class="content">
+                <h1>Matryoshka</h1>
+                <p>A Matryoshka nesting doll is a set of typically seven wooden dolls of decreasing sizes that all fit inside of each other, one by one. Each stacking doll splits in half at the mid section and opens to reveal another smaller doll nested within. The traditional Matryoshka doll is usually round in shape and decoratively painted to resemble a pretty young faced peasant woman dressed or bundled up in an extravagant sarafan costume, a loose fitting traditional Russian garment. </p>
+            </div>
+        <div class="notepad-close-btn"></div>
+    </div>
+</div>
+</div>
 
