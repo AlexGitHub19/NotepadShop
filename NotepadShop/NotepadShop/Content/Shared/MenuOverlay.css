@@ -186,9 +186,6 @@
         -o-transition: width 0.3s linear;
     }
 
-        .menu-btn span:nth-child(1) {
-        }
-
         .menu-btn span:nth-child(2) {
             margin-top: 6px;
         }

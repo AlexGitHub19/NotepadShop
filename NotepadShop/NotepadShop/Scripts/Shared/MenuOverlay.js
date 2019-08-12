@@ -17,7 +17,7 @@
 
     $('.menu-btn').on('click', function (event) {
         event.preventDefault();
-        menuOverlayConatainer.addClass('visible opening');
+        openMenuOverlay();
         setTimeout(function () {
             nsMenu.addClass('visible');
             setTimeout(function () {
@@ -28,8 +28,8 @@
 
     $('#layoutConainer').on('click', '.menu-close-btn', function (event) {
         event.preventDefault();
-        menuOverlayConatainer.addClass('closing');
         nsMenu.removeClass('visible');
+        closeMenuOverlay();
         $(this).removeClass('visible');
         menuOverlay.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
             menuOverlayConatainer.removeClass('closing opening visible');
@@ -68,3 +68,15 @@
         return false;
     });
 });
+
+function openMenuOverlay() {
+    $('.menu-overlay-container').addClass('visible opening');
+}
+
+function closeMenuOverlay() {
+    $('.menu-overlay-container').addClass('closing');
+    $('.menu-overlay-container').one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
+        $('.menu-overlay-container').removeClass('closing opening visible');
+        $('.menu-overlay-container').off('webkitAnimationEnd oanimationend msAnimationEnd animationend');
+    });
+}
