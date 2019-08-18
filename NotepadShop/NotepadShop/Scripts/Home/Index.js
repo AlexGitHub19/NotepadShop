@@ -77,7 +77,7 @@ function startSvgAnimation() {
 
     setTimeout(function () {
         timeLine.timeScale(0.15);
-    }, 4900);
+    }, 5000);
 
     setTimeout(function () {
         timeLine.timeScale(1);

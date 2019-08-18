@@ -31,7 +31,7 @@
 
     <div id="layoutConainer">
         <div class="navbar-container">
-            <div id="languageContainer">
+            <div id="languageContainer" data-bind="css: { 'open' : isLanguagePopupVisible }, event: { mouseover: showLanguagePopup, mouseleave: hideLanguagePopup }">
                 @switch ((string)ViewBag.Language)
                 {
                     case "en":
@@ -54,7 +54,7 @@
                 <div class="shopping-cart-icon"></div>
                 <span data-bind="text: shoppingCartItems().length, visible: shoppingCartItems().length > 0"></span>
             </div>
-            <div id="userInfoContainer">
+            <div id="userInfoContainer" data-bind="css: { 'open' : isUserInfoPopupVisible }, event: { mouseover: showUserInfoPopup, mouseleave: hideUserInfoPopup }">
 
                 @if (ViewBag.Email != null)
                 {
@@ -136,50 +136,83 @@
         </div>
         @*Menu Overlay end*@
 
-        <div id="languagePopup" class="popup">
-            @if (!((string)ViewBag.Language == "ru"))
-            {
-                <div id="popup-language-ru" class="popup-language-item flag ru-flag"></div>
-            }
-            @if (!((string)ViewBag.Language == "uk"))
-            {
-                <div id="popup-language-uk" class="popup-language-item flag uk-flag"></div>
-            }
-            @if (!((string)ViewBag.Language == "en"))
-            {
-                <div id="popup-language-en" class="popup-language-item flag en-flag"></div>
-            }
-        </div>
-        <div id="userInfoPopup" class="popup">
-            <p data-bind="click: logoutClick">@ViewBag.ResourceManager.GetString("logOutLabel")</p>
-            <a href="~/profile/personal-info">Personal данные</a>
-            <a href="~/profile/orders">My заказы</a>
-        </div>
-
-        <div id="shoppingCartPopup" style="display: none" data-bind="visible: isShoppingCartPopupVisible, event: { mouseover: showShoppingCartPopup, mouseout: hideShoppingCartPopup }">
-            <div data-bind="foreach: shoppingCartItems">
-                <div>
-                    <img class="shopping-cart-item-image" data-bind="attr: { src: '/Content/Item/Images/' + ImageName }" alt="image can't be loaded" />
-                    <p data-bind="text: Name"></p>
-                    <p data-bind="text: Price"></p>
-                    <div>
-                        <i class="material-icons cursor-pointer" data-bind="click: function() { $root.minusQuantity($data) }">remove</i>
-                        <input type="text" class="quantity-input" data-bind="textInput: Quantity, event:{'keydown': $root.countInputKeyDown, input: $root.countInputInput}" />
-                        <i class="material-icons cursor-pointer" data-bind="click: function() { $root.plusQuantity($data) }">add</i>
-                    </div>
-                    <a class="waves-effect waves-light btn" data-bind="click: function() { $root.deleteItemFromShoppingCart($data) } ">Delete интернализ</a>
+        <div id="languagePopup" class="popup" data-bind="css: { 'open' : isLanguagePopupVisible }, event: { mouseover: showLanguagePopup, mouseleave: hideLanguagePopup }">
+            <div class="language-popup-content popup-content">
+                <div class="popup-item-container">
+                    @if (((string)ViewBag.Language == "ru"))
+                    {
+                        <div id="popup-language-uk" class="popup-language-item flag uk-flag"></div>
+                        <div id="popup-language-en" class="popup-language-item flag en-flag popup-language-right-item"></div>
+                    }
+                    @if (((string)ViewBag.Language == "uk"))
+                    {
+                        <div id="popup-language-ru" class="popup-language-item flag ru-flag"></div>
+                        <div id="popup-language-en" class="popup-language-item flag en-flag popup-language-right-item"></div>
+                    }
+                    @if (((string)ViewBag.Language == "en"))
+                    {
+                        <div id="popup-language-ru" class="popup-language-item flag ru-flag"></div>
+                        <div id="popup-language-uk" class="popup-language-item flag uk-flag popup-language-right-item"></div>
+                    }
                 </div>
             </div>
-            <div data-bind="visible: shoppingCartItems().length > 0">
-                <span>Total cумма: </span>
-                <span data-bind="text: $root.totaShoppingCartlPrice"></span>
-                <br />
-                <button  data-bind="click: shoppingCartImageClick">Открыть Cart</button>
-            </div>
-            <div data-bind="visible: shoppingCartItems().length == 0">
-                Cart is пустая
-            </div>
+        </div>
 
+        <div id="userInfoPopup" class="popup" data-bind="css: { 'open' : isUserInfoPopupVisible }, event: { mouseover: showUserInfoPopup, mouseleave: hideUserInfoPopup }">
+            <div class="popup-content">
+                <div class="popup-item-container popup-item-logout" data-bind="click: logoutClick">
+                    <div class="logout-icon"></div>
+                    <div class="popup-item-text">
+                        <p>@ViewBag.ResourceManager.GetString("logOutLabel")</p>
+                    </div>
+                </div>
+                <div class="popup-item-user-info">
+                    <a href="~/profile/personal-info" class="popup-item-container">
+                        <div class="user-info-icon"></div>
+                        <div class="popup-item-text">
+                            <p>Personal данные</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="popup-item-user-orders">
+                    <a href="~/profile/orders" class="popup-item-container">
+                        <div class="user-orders-icon"></div>
+                        <div class="popup-item-text">
+                            <p>My заказы</p>
+                        </div>
+                    </a>                   
+                </div>
+            </div>
+        </div>
+
+        <div id="shoppingCartPopup" class="popup" data-bind="css: { 'open' : isShoppingCartPopupVisible }, event: { mouseover: showShoppingCartPopup, mouseleave: hideShoppingCartPopup }">
+            <div class="popup-content">
+                <div data-bind="foreach: shoppingCartItems">
+                    <div>
+                        <img class="shopping-cart-item-image" data-bind="attr: { src: '/Content/Item/Images/' + ImageName }" alt="image can't be loaded" />
+                        <p data-bind="text: Name"></p>
+                        <p data-bind="text: Price"></p>
+                        <div>
+                            <i class="material-icons cursor-pointer" data-bind="click: function() { $root.minusQuantity($data) }">remove</i>
+                            <input type="text" class="quantity-input" data-bind="textInput: Quantity, event:{'keydown': $root.countInputKeyDown, input: $root.countInputInput}" />
+                            <i class="material-icons cursor-pointer" data-bind="click: function() { $root.plusQuantity($data) }">add</i>
+                        </div>
+                        <a class="waves-effect waves-light btn" data-bind="click: function() { $root.deleteItemFromShoppingCart($data) } ">Delete интернализ</a>
+                    </div>
+                </div>
+                <div data-bind="visible: shoppingCartItems().length > 0">
+                    <span>Total cумма: </span>
+                    <span data-bind="text: $root.totaShoppingCartlPrice"></span>
+                    <br />
+                    <button data-bind="click: shoppingCartImageClick">Открыть Cart</button>
+                </div>
+                <div class="popup-item-container" data-bind="visible: shoppingCartItems().length == 0">
+                    <div class="shopping-cart-icon"></div>
+                    <div class="popup-item-text">
+                        <p>Cart is пустая</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
 

@@ -32,10 +32,23 @@ $(document).ready(function () {
         self.shoppingCartCookieName = 'ns-shopping-cart';
         self.shoppingCartItems = ko.observableArray();
         self.isShoppingCartPopupVisible = ko.observable(false);
-        self.shoppingCartTimer;
         self.showShoppingCartPopup = () => self.isShoppingCartPopupVisible(true);
         self.hideShoppingCartPopup = () => self.isShoppingCartPopupVisible(false);
+        self.isUserInfoPopupVisible = ko.observable(false);
+        self.showUserInfoPopup = () => {
+            if (layoutViewModel.isLoggedIn()) {
+                self.isUserInfoPopupVisible(true)
+            }
+        };
+        self.hideUserInfoPopup = () => self.isUserInfoPopupVisible(false);
+        self.isLanguagePopupVisible = ko.observable(false);
+        self.showLanguagePopup = () => {
+            $('#languagePopup').css('left', $('#languageContainer').offset().left - 30);
+            self.isLanguagePopupVisible(true)};
+        self.hideLanguagePopup = () => self.isLanguagePopupVisible(false);
+
         self.deleteItemFromShoppingCart = (item) => deleteItemFromShoppingCart(item);
+        self.shoppingCartTimer;
         self.totaShoppingCartlPrice = ko.pureComputed(function () {
             let result = 0;
             this.shoppingCartItems().forEach(item => result += item.Price * item.Quantity());
@@ -175,50 +188,6 @@ function registerEvents() {
         }
     });
 
-    $('body').on('mouseenter', '#userInfoContainer', function (e) {
-        if (layoutViewModel.isLoggedIn()) {
-            $('#userInfoPopup').css('left', $('#userInfoContainer').offset().left);
-            $('#userInfoPopup').css('width', $('#userInfoContainer').width());
-            $('#userInfoPopup').css('display', 'block');
-        }
-    });
-
-    $('body').on('mouseleave', '#userInfoContainer', function (e) {
-        $('#userInfoPopup').css('display', 'none');
-    });
-
-    $('body').on('mouseenter', '#userInfoPopup', function (e) {
-        $('#userInfoPopup').css('display', 'block');
-    });
-
-    $('body').on('mouseleave', '#userInfoPopup', function (e) {
-        $('#userInfoPopup').css('display', 'none');
-    });
-
-
-    $('body').on('mouseenter', '#languageContainer', function (e) {
-        $('#languagePopup').css('left', $('#languageContainer').offset().left);
-        $('#languagePopup').css('display', 'block');
-    });
-
-    $('body').on('mouseleave', '#languageContainer', function (e) {
-        $('#languagePopup').css('display', 'none');
-    });
-
-    $('body').on('mouseenter', '#languagePopup', function (e) {
-        $('#languagePopup').css('display', 'block');
-    });
-
-    $('body').on('mouseleave', '#languagePopup', function (e) {
-        $('#languagePopup').css('display', 'none');
-    });
-
-
-    //$('#userInfoContainer').on('focusout', '#passwordInput', function (e) {
-    //    viewModel.showPasswordValidation($("#passwordInput").hasClass("invalid"));
-    //})
-
-
     $('#languagePopup').on('click', '.popup-language-item', function (e) {
         var itemId = $(this).attr('id');
         var language = 'ru';
@@ -229,7 +198,6 @@ function registerEvents() {
         } else if (itemId === 'popup-language-en') {
             language = 'en';
         }
-
 
         setLanguageCookie(language);
         $('#languagePopup').css('display', 'none');
