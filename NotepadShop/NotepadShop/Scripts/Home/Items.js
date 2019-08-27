@@ -5,7 +5,7 @@ $(document).ready(function () {
     function createViewModel() {
         var self = this;
         self.items = ko.observableArray();
-        self.availableItemsCountOnPage = [2, 3, 10];
+        self.availableItemsCountOnPage = [2, 3, 1];
         self.itemsCountOnPage = ko.observable();
         self.selectedPageNumber = ko.observable(1);
         self.isPaginationVisible = ko.observable(false);

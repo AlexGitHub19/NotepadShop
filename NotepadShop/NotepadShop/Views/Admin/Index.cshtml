@@ -3,19 +3,22 @@
     ViewBag.Title = "AdminIndex";
 }
 
-<a href="~/admin/add-new-item" class="waves-effect waves-light btn">Add new Item</a>
-
-
 <div id="homeShopContainer">
-    <div class="categories">
-        <div>
-            <a href="~/admin/notepads" class="">@ViewBag.ResourceManager.GetString("notepadsCategory")</a>
+    <div class="categories-container">
+        <div class="categories-left-item">
+            <a href="~/admin/notepads" class="categories-item">@ViewBag.ResourceManager.GetString("notepadsCategory")</a>
         </div>
         <div>
-            <a href="~/admin/pens" class="">@ViewBag.ResourceManager.GetString("pensCategory")</a>
+            <a href="~/admin/pens" class="categories-item">@ViewBag.ResourceManager.GetString("pensCategory")</a>
         </div>
     </div>
 </div>
 
-<a href="~/admin/orders" class="waves-effect waves-light btn">Orders</a>
+<div>
+    <a href="~/admin/add-new-item" class="waves-effect waves-light btn">Add new Item</a>
+</div>
+
+<div>
+    <a href="~/admin/orders" class="waves-effect waves-light btn">Orders</a>
+</div>
 

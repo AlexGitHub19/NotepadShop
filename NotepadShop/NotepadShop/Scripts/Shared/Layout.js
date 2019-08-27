@@ -257,6 +257,9 @@ function deleteItemFromShoppingCart(item) {
 
     if (layoutViewModel.shoppingCartItems().length === 0) {
         closeShoppingCartCallBack();
+        if (layoutViewModel.isShoppingCartPopupVisible()) {
+        }
+        layoutViewModel.isShoppingCartPopupVisible(false);
     }
 
     var cartCookieValue = JSON.parse(getCookie(layoutViewModel.shoppingCartCookieName));

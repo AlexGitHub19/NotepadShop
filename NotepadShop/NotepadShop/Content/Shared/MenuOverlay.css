@@ -18,6 +18,7 @@
         -webkit-transform: translateY(-50%) translateX(-2%);
         -ms-transform: translateY(-50%) translateX(-2%);
         -o-transform: translateY(-50%) translateX(-2%);
+        -moz-transform: translateY(-50%) translateX(-2%);
         height: 100%;
         width: 2500%;
         background: url(../menuOverlayImg.png) no-repeat 0 0;
@@ -77,6 +78,7 @@
             -webkit-transform: translateY(0px);
             -moz-transform: translateY(0px);
             -o-transform: translateY(0px);
+            -ms-transform: translateY(0px);
         }
 
             .ns-menu.visible .ns-menu-item:nth-child(1) {
@@ -121,6 +123,7 @@
     -webkit-transform: translateY(80px);
     -moz-transform: translateY(80px);
     -o-transform: translateY(80px);
+    -ms-transform: translateY(80px);
 }
 
     /*.ns-menu-item a {
@@ -148,6 +151,7 @@
         -webkit-transform: translateY(-50%) translateX(-2%);
         -moz-transform: translateY(-50%) translateX(-2%);
         -o-transform: translateY(-50%) translateX(-2%);
+        -ms-transform: translateY(-50%) translateX(-2%);
     }
 
     100% {
@@ -155,6 +159,7 @@
         -webkit-transform: translateY(-50%) translateX(-98%);
         -moz-transform: translateY(-50%) translateX(-98%);
         -o-transform: translateY(-50%) translateX(-98%);
+        -ms-transform: translateY(-50%) translateX(-98%);
     }
 }
 
@@ -164,6 +169,7 @@
         -webkit-transform: translateY(-50%) translateX(-98%);
         -moz-transform: translateY(-50%) translateX(-98%);
         -o-transform: translateY(-50%) translateX(-98%);
+        -ms-transform: translateY(-50%) translateX(-98%);
     }
 
     100% {
@@ -171,6 +177,7 @@
         -webkit-transform: translateY(-50%) translateX(-2%);
         -moz-transform: translateY(-50%) translateX(-2%);
         -o-transform: translateY(-50%) translateX(-2%);
+        -ms-transform: translateY(-50%) translateX(-2%);
     }
 }
 
@@ -239,6 +246,7 @@
         -webkit-transform: rotate(180deg);
         -moz-transform: rotate(180deg);
         -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
     }
 
     .menu-close-btn-layout .close-btn-first-line, .menu-close-btn-layout .close-btn-second-line {
@@ -256,6 +264,7 @@
             -webkit-transform: rotate(360deg);
             -moz-transform: rotate(360deg);
             -o-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
             transition: transform .5s ease-in-out 0.9s;
             -webkit-transition: transform .5s ease-in-out 0.9s;
             -moz-transition: transform .25s ease-in-out;
@@ -276,6 +285,7 @@
             -webkit-transform: rotate(45deg);
             -moz-transform: rotate(45deg);
             -o-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
         }
 
         .menu-close-btn.visible .close-btn-second-line {
@@ -283,6 +293,7 @@
             -webkit-transform: rotate(-45deg);
             -moz-transform: rotate(-45deg);
             -o-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
         }
 
 
@@ -296,6 +307,7 @@
     -webkit-transform: translateX(30px);
     -moz-transform: translateX(30px);
     -o-transform: translateX(30px);
+    -ms-transform: translateX(30px);
     opacity: 0;
 }
 
@@ -327,11 +339,12 @@
         -o-transition: transform .5s ease-in-out 0.7s, opacity .5s ease-in-out 0.7s;
     }
 
-   .ns-menu.visible .arrow-conatiner {
+.ns-menu.visible .arrow-conatiner {
     transform: translateX(0px);
     -webkit-transform: translateX(0px);
     -moz-transform: translateX(0px);
     -o-transform: translateX(0px);
+    -ms-transform: translateX(0px);
     opacity: 1;
 }
 
@@ -369,10 +382,12 @@
         -webkit-transform: rotate(40deg);
         -moz-transform: rotate(40deg);
         -o-transform: rotate(40deg);
+        -ms-transform: rotate(40deg);
         transform-origin: right;
         -webkit-transform-origin: right;
         -moz-transform-origin: right;
         -o-transform-origin: right;
+        -ms-transform-origin: right;
     }
 
     .arrow:after {
@@ -380,10 +395,12 @@
         -webkit-transform: rotate(-40deg);
         -moz-transform: rotate(-40deg);
         -o-transform: rotate(-40deg);
+        -ms-transform: rotate(-40deg);
         transform-origin: right;
         -webkit-transform-origin: right;
         -moz-transform-origin: right;
         -o-transform-origin: right;
+        -ms-transform-origin: right;
     }
 
 .menu-line-conatiner {

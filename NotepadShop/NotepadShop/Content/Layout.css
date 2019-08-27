@@ -1,8 +1,10 @@
-﻿
+﻿#layoutConainer {
+    margin-bottom: 30px;
+}
 .navbar-container {
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: 5px;
     z-index: 10;
 }
 
@@ -58,6 +60,7 @@
     -webkit-transform: translateY(5px);
     -moz-transform: translateY(5px);
     -o-transform: translateY(5px);
+    -ms-transform: translateY(5px);
     top: 35px;
     right: 20px;
     width: 200px;
@@ -70,6 +73,7 @@
         -webkit-transform: translateY(0);
         -moz-transform: translateY(0);
         -o-transform: translateY(0);
+        -ms-transform: translateY(0);
     }
 
 .popup-content {
@@ -79,6 +83,7 @@
     box-shadow: 0 8px 16px 4px rgba(0,0,0,.35);
     -moz-box-shadow: 0 8px 16px 4px rgba(0,0,0,.35);
     padding: 10px;
+    background-color: white;
 }
 
 #languagePopup {
@@ -163,6 +168,7 @@
 .popup-item-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .popup-item-user-orders, .popup-item-user-info {

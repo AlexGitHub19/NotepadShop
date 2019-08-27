@@ -7,11 +7,19 @@
     <script type="text/javascript" src="~/Scripts/Admin/Items.js"></script>
 }
 <div id="adminItemsContainer">
+    <div class="categories-container">
+        <div class="categories-left-item">
+            <a href="~/admin/notepads" class="categories-item selected"  data-bind="css: { 'selected-category': category == 'Notepad' }">@ViewBag.ResourceManager.GetString("notepadsCategory")</a>
+        </div>
+        <div>
+            <a href="~/admin/pens" class="categories-item" data-bind="css: { 'selected-category': category == 'Pen' }">@ViewBag.ResourceManager.GetString("pensCategory")</a>
+        </div>
+    </div>
     <div class="items-count-container">
         <select data-bind="options: availableItemsCountOnPage, value: itemsCountOnPage, event:{change: itemsCountOnPageChange}"></select>
     </div>
 
-    <div class="row container items-container" data-bind="foreach: items">
+    <div class="row items-container" data-bind="foreach: items">
         <div class="col-lg-6">
             <img class="item-image" data-bind="attr: { src: '/Content/Item/Images/' + MainImageName }" alt="image can't be loaded" />
             <p data-bind="text: Name"></p>
@@ -22,7 +30,7 @@
     </div>
 
     <div class="pagination-container" data-bind="visible: isPaginationVisible">
-        <div class="pagination-element" data-bind="click: leftArrowClick,  css: { 'div-disabled': isLeftArrowDisabled }"><i class="material-icons">chevron_left</i></div>
+        <div class="pagination-element pagination-arrow left-arrow" data-bind="click: leftArrowClick,  css: { 'div-disabled': isLeftArrowDisabled }"></div>
         <div class="pagination-element pagination-element-number" 
              data-bind="visible: firstPaginationElement().number, click: function() { paginationElementClick(firstPaginationElement().number()) }, text: firstPaginationElement().number, css: { 'selected-pagination-element': firstPaginationElement().isMarked }"></div>
         <div class="pagination-element pagination-element-number"
@@ -33,7 +41,7 @@
              data-bind="visible: thourthPaginationElement().number, click: function() { paginationElementClick(thourthPaginationElement().number()) }, text: thourthPaginationElement().number, css: { 'selected-pagination-element': thourthPaginationElement().isMarked }"></div>
         <div class="pagination-element pagination-element-number" 
              data-bind="visible: fifthPaginationElement().number, click: function() { paginationElementClick(fifthPaginationElement().number()) }, text: fifthPaginationElement().number, css: { 'selected-pagination-element': fifthPaginationElement().isMarked }"></div>
-        <div class="pagination-element" data-bind="click: rightArrowClick, css: { 'div-disabled': isRightArrowDisabled }" ><i class="material-icons">chevron_right</i></div>
+        <div class="pagination-element pagination-arrow right-arrow" data-bind="click: rightArrowClick, css: { 'div-disabled': isRightArrowDisabled }" ></div>
     </div>
 </div>
 

@@ -26,21 +26,21 @@ namespace NotepadShop.Controllers
             return View("Shop");
         }
 
-        [Route("notepads")]
+        [Route("shop/notepads")]
         public ActionResult NotepadsPage()
         {
             ViewBag.ItemsCategory = GlobalConstants.Notepad;
             return View("Items");
         }
 
-        [Route("pens")]
+        [Route("shop/pens")]
         public ActionResult PensPage()
         {
             ViewBag.ItemsCategory = GlobalConstants.Pen;
             return View("Items");
         }
 
-        [Route("item")]
+        [Route("shop/item")]
         public ActionResult GetItem(string code)
         {
             IItem item = itemService.getItemByCode(code);
