@@ -1,6 +1,11 @@
 ﻿#layoutConainer {
-    margin-bottom: 30px;
+   
 }
+
+.body-content {
+    padding-top: 30px;
+}
+
 .navbar-container {
     position: absolute;
     right: 10px;
@@ -136,8 +141,8 @@
 }
 
 .user-info-icon, .logout-icon, .user-orders-icon {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     background-size: cover;
 }
 

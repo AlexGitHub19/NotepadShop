@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="items-count-container ">
+    <div class="items-count-container">
         <select data-bind="options: availableItemsCountOnPage, value: itemsCountOnPage, event:{change: itemsCountOnPageChange}"></select>
     </div>
 
@@ -39,7 +39,7 @@
                             <div><p>Код товара</p></div>
                             <div class="item-code-container">
                                 <a data-bind="attr: { href: '/shop/item?code=' + Code}">
-                                    <div class="item-code-spinner"></div>
+                                    <div class="spinner"></div>
                                     <p class="item-code" data-bind="text: Code"></p>
                                 </a>
                             </div>
@@ -76,7 +76,13 @@
         </div>
     </div>
 
-    <div class="pagination-container" data-bind="visible: isPaginationVisible">
+    <div class="items-loading-container">
+        <div class="loader-container">
+            <div class="spinner items-loading-spinner"></div>
+        </div>
+    </div>
+
+    <div class="pagination-container" style="display:none">
         <div class="pagination-element pagination-arrow left-arrow" data-bind="click: leftArrowClick,  css: { 'div-disabled': isLeftArrowDisabled }"></div>
         <div class="pagination-element pagination-element-number"
              data-bind="visible: firstPaginationElement().number, click: function() { paginationElementClick(firstPaginationElement().number()) }, text: firstPaginationElement().number, css: { 'selected-pagination-element': firstPaginationElement().isMarked }"></div>

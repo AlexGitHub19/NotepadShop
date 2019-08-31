@@ -1,14 +1,15 @@
-﻿var homeItemsViewModel;
+﻿var homeItemsViewModel; 
 
 $(document).ready(function () {
+
+    recalculateItemsLoadingContianerHeight();
 
     function createViewModel() {
         var self = this;
         self.items = ko.observableArray();
-        self.availableItemsCountOnPage = [2, 3, 1];
+        self.availableItemsCountOnPage = [3, 2, 1, 10];
         self.itemsCountOnPage = ko.observable();
         self.selectedPageNumber = ko.observable(1);
-        self.isPaginationVisible = ko.observable(false);
         self.firstPaginationElement = ko.observable(new PaginationElement(undefined, true));
         self.secondPaginationElement = ko.observable(new PaginationElement(undefined, false));
         self.thirdPaginationElement = ko.observable(new PaginationElement(undefined, false));
@@ -28,9 +29,17 @@ $(document).ready(function () {
     ko.applyBindings(homeItemsViewModel, document.getElementById("homeItemsContainer"));
 
     loadItems();
+
+    $(window).resize(() => recalculateItemsLoadingContianerHeight());
 });
 
+let itemsLoading = false;
+let scollingAnimationContinues = false;
+let shouldPaginationBeShown = false;
+
 function loadItems() {
+
+    beforeLoadingCallback();
 
     var loadItemsPromise = $.ajax({
         type: "GET",
@@ -41,15 +50,62 @@ function loadItems() {
     });
 
     loadItemsPromise.done(function (result) {
+        itemLoadingCompletedCallback();
         var items = result.Items.map(item => new Item(item));
         homeItemsViewModel.items.removeAll();
         ko.utils.arrayPushAll(homeItemsViewModel.items, items);
         processPagination(Number(result.TotalCount));
+        showItemsContainer();
     });
 
     loadItemsPromise.fail(function () {
+        itemLoadingCompletedCallback();
+        showItemsContainer();
         alert("error!");
     });
+}
+
+function beforeLoadingCallback() {
+    itemsLoading = true;
+    scollingAnimationContinues = true;
+
+    $('html').animate({
+        scrollTop: 0
+    }, 200, () => {
+        scollingAnimationContinues = false;
+        if (itemsLoading) {
+            $('.items-loading-container').fadeIn(200);
+        } else {
+            if ($('.items-loading-container').css('display') != 'none') {
+                $('.items-loading-container').fadeOut(200, () => {
+                    displayItemsContainer();
+                });
+            } else {
+                displayItemsContainer();
+            }
+        }
+    });
+    $('.items-container').fadeOut(200);
+    $('.pagination-container').fadeOut(200);
+}
+
+function showItemsContainer() {
+    if (!scollingAnimationContinues) {
+        $('.items-loading-container').fadeOut(200, () => {
+            displayItemsContainer();
+        });
+    }
+}
+
+function displayItemsContainer() {
+    $('.items-container').fadeIn(200);
+    if (shouldPaginationBeShown) {
+        $('.pagination-container').fadeIn(200);
+    }
+}
+
+function itemLoadingCompletedCallback() {
+    itemsLoading = false;
 }
 
 function onItemsCountOnPageChange() {
@@ -94,6 +150,10 @@ function processPagination(itemsTotalCount) {
     resetPaginationVisibility(pagesCount);
 }
 
+function resetPaginationVisibility(pagesCount) {
+    shouldPaginationBeShown = pagesCount > 1;
+}
+
 function resetPaginationElementsNumbers(rightNumber) {
     homeItemsViewModel.firstPaginationElement().number(rightNumber - 4);
     homeItemsViewModel.secondPaginationElement().number(rightNumber - 3);
@@ -122,9 +182,6 @@ function resetArrowEnabling(pagesCount) {
     } else if (homeItemsViewModel.isRightArrowDisabled()) {
         homeItemsViewModel.isRightArrowDisabled(false);
     }
-}
-function resetPaginationVisibility(pagesCount) {
-    homeItemsViewModel.isPaginationVisible(pagesCount > 1);
 }
 
 function resetPaginationElementsMarkedState() {
@@ -165,4 +222,15 @@ function Item(item) {
 function PaginationElement(number, isMarked) {
     this.number = ko.observable(number);
     this.isMarked = ko.observable(isMarked);
+}
+
+
+function recalculateItemsLoadingContianerHeight() {
+    const pageContainerOffsetTop = $('#homeItemsContainer').offset().top;
+    const categoryContainerHeight = $('.categories-container').outerHeight(true);
+    const itemsCountContainerHeight = $('.items-count-container ').outerHeight(true);
+
+    const itemsLoadingSpiinnerHeight = $(window).height() - pageContainerOffsetTop - categoryContainerHeight - itemsCountContainerHeight - 7;
+
+    $('.items-loading-container').height(itemsLoadingSpiinnerHeight + 'px');
 }
