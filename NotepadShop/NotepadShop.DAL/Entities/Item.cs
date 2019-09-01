@@ -12,10 +12,12 @@ namespace NotepadShop.DAL.Entities
         public DateTime AddingTime { get; set; }
 
         public ICollection<ItemName> Names { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
 
         public Item()
         {
             Names = new List<ItemName>();
+            OrderItems = new List<OrderItem>();
         }
     }
 }
