@@ -224,6 +224,17 @@ namespace NotepadShop.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [Route("get-most-popular-items")]
+        public JsonResult GetMostPopularItems()
+        {
+            IEnumerable<IItem> items = itemService.getMostPopularItems(10);
+
+            IEnumerable<Item> result = WebAssembler.Assemble(items, ViewBag.Language);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]

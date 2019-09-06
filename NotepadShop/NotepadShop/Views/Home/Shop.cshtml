@@ -3,11 +3,14 @@
 }
 
 @section styles {
+    <link type="text/css" rel="stylesheet" href="~/Content/Home/Items.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/Home/Shop.css" />
 }
 
 @section scripts {
     <script type="text/javascript" src="~/Scripts/Home/Shop.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/utils/Draggable.min.js"></script>
 }
 
 
@@ -19,5 +22,48 @@
         <div>
             <a href="~/shop/pens" class="categories-item">@ViewBag.ResourceManager.GetString("pensCategory")</a>
         </div>
+    </div>
+    <div class="popular-items-container" data-bind="foreach: items">
+        <div class="item"  data-bind="attr: { 'data-url': '/shop/item?code=' + Code}">
+            <div class="item-a-contaner">
+                <div class="item-container">
+                    <div>
+                        <img class="item-image" data-bind="attr: { src: '/Content/Item/Images/' + MainImageName }" alt="image can't be loaded" />
+                    </div>
+                    <div class="item-container-right">
+                        <div class="item-container-header">
+                            <div><p>Код товара</p></div>
+                            <div class="item-code-container">
+                                <p class="item-code" data-bind="text: Code"></p>
+                            </div>
+                        </div>
+                        <div class="item-name-container">
+                            <p data-bind="text: Name"></p>
+                        </div>
+                        <div class="item-container-footer">
+                            <div class="price-container">
+                                <p data-bind="text: Price"></p>
+                                <p>₴</p>
+                            </div>
+                            <div class="add-item-btn-container">
+                                <p class="ns-btn" data-bind="click: $root.addItemToCartClick">@ViewBag.ResourceManager.GetString("addItemToShopppingCart")</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-screen-footer">
+                    <div class="item-container-footer">
+                        <div class="price-container">
+                            <p data-bind="text: Price"></p>
+                            <p>₴</p>
+                        </div>
+                        <div class="add-item-btn-container">
+                            <p class="ns-btn" data-bind="click: $root.addItemToCartClick">@ViewBag.ResourceManager.GetString("addItemToShopppingCart")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

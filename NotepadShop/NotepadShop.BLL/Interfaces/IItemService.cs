@@ -1,4 +1,6 @@
-﻿namespace NotepadShop.BLL.Interfaces
+﻿using System.Collections.Generic;
+
+namespace NotepadShop.BLL.Interfaces
 {
     public interface IItemService
     {
@@ -7,5 +9,6 @@
         IItemsData getItemsByCategory(ItemCategory category, int countOnPage, int page);
         void deleteItemByCode(string code);
         void changeItem(IChangeItemData itemData);
+        IEnumerable<IItem> getMostPopularItems(int count);
     }
 }

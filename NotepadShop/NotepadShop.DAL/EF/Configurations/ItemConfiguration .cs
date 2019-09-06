@@ -16,6 +16,7 @@ namespace NotepadShop.DAL.EF.Configurations
             Property(item => item.Category).IsRequired();
             Property(item => item.AddingTime).IsRequired();
             HasMany(item => item.Names).WithRequired(name => name.Item);
+            HasMany(item => item.OrderItems).WithRequired(orderItem => orderItem.Item);
         }
     }
 }

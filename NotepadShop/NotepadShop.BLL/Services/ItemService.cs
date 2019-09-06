@@ -111,5 +111,17 @@ namespace NotepadShop.BLL.Services
             repository.ItemRepository.Update(foundItem);
             repository.Save();
         }
+
+        public IEnumerable<IItem> getMostPopularItems(int count)
+        {
+            IEnumerable<DAL.Entities.Item> found = repository.ItemRepository.
+                GetAll().OrderBy(item => item.OrderItems.Count).
+                Take(count).
+                Include(item => item.OrderItems).
+                Include(item => item.Names).
+                ToList();
+
+            return Assembler.Assemble(found.ToList());
+        }
     }
 }
