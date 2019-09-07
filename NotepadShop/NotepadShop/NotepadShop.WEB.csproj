@@ -235,9 +235,6 @@
     <Content Include="Content\Home\Item.css" />
     <Content Include="Content\Home\Items.css" />
     <Content Include="Content\Layout.css" />
-    <Content Include="Content\materialize\materialize.css" />
-    <Content Include="Content\materialize\materialize.min.css" />
-    <Content Include="Content\menuOverlayImg.png" />
     <Content Include="Content\Profile\Orders.css" />
     <Content Include="Content\Profile\PersonalInfo.css" />
     <Content Include="Content\Profile\Profile.css" />
@@ -274,8 +271,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
-    <Content Include="Scripts\materialize\materialize.js" />
-    <Content Include="Scripts\materialize\materialize.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Profile\Orders.js" />
     <Content Include="Scripts\Profile\PersonalInfo.js" />
