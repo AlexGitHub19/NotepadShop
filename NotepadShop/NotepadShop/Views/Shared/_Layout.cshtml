@@ -29,6 +29,66 @@
         @Html.AntiForgeryToken()
     </div>
 
+
+    @*Menu Overlay*@
+    <div class="menu-close-btn">
+        <div class="menu-close-btn-layout">
+            <span class="close-btn-first-line"></span>
+            <span class="close-btn-second-line"></span>
+        </div>
+    </div>
+    <div class="overlay-background"></div>
+    <div class="overlay-element overlay-left"></div>
+    <div class="overlay-element overlay-center"></div>
+    <div class="overlay-element overlay-right"></div>
+    <div class="ns-menu">
+        <div class="ns-menu-item">
+            <div class="menu-line-conatiner">
+                <span class="menu-line"></span>
+            </div>
+            <div class="menu-item-text-container">
+                <a href="~/">Home</a>
+            </div>
+            <div class="arrow-conatiner first">
+                <span class="arrow"></span>
+            </div>
+        </div>
+        <div class="ns-menu-item">
+            <div class="menu-line-conatiner">
+                <span class="menu-line"></span>
+            </div>
+            <div class="menu-item-text-container">
+                <a href="~/shop">Shop</a>
+            </div>
+            <div class="arrow-conatiner second">
+                <span class="arrow"></span>
+            </div>
+        </div>
+        <div class="ns-menu-item">
+            <div class="menu-line-conatiner">
+                <span class="menu-line"></span>
+            </div>
+            <div class="menu-item-text-container">
+                <a href="~/profile/personal-info">Delivery info</a>
+            </div>
+            <div class="arrow-conatiner third">
+                <span class="arrow"></span>
+            </div>
+        </div>
+        <div class="ns-menu-item" data-bind="if: isLoggedIn">
+            <div class="menu-line-conatiner">
+                <span class="menu-line"></span>
+            </div>
+            <div class="menu-item-text-container">
+                <a href="~/profile/personal-info">Personal Info</a>
+            </div>
+            <div class="arrow-conatiner fourth">
+                <span class="arrow"></span>
+            </div>
+        </div>
+    </div>
+    @*Menu Overlay end*@
+
     <div id="layoutConainer">
         <div class="navbar-container">
             <div id="languageContainer" data-bind="css: { 'open' : isLanguagePopupVisible }, event: { mouseover: showLanguagePopup, mouseleave: hideLanguagePopup }">
@@ -77,65 +137,6 @@
             </div>
         </div>
 
-        @*Menu Overlay*@
-        <div class="menu-close-btn">
-            <div class="menu-close-btn-layout">
-                <span class="close-btn-first-line"></span>
-                <span class="close-btn-second-line"></span>
-            </div>
-        </div>
-        <div class="menu-overlay-container">
-            <div class="menu-overlay">
-            </div>
-        </div>
-        <div class="ns-menu">
-            <div class="ns-menu-item">
-                <div class="menu-line-conatiner">
-                    <span class="menu-line"></span>
-                </div>
-                <div class="menu-item-text-container">
-                    <a href="~/">Home</a>
-                </div>
-                <div class="arrow-conatiner first">
-                    <span class="arrow"></span>
-                </div>
-            </div>
-            <div class="ns-menu-item">
-                <div class="menu-line-conatiner">
-                    <span class="menu-line"></span>
-                </div>
-                <div class="menu-item-text-container">
-                    <a href="~/shop">Shop</a>
-                </div>
-                <div class="arrow-conatiner second">
-                    <span class="arrow"></span>
-                </div>
-            </div>
-            <div class="ns-menu-item">
-                <div class="menu-line-conatiner">
-                    <span class="menu-line"></span>
-                </div>
-                <div class="menu-item-text-container">
-                    <a href="~/profile/personal-info">Delivery info</a>
-                </div>
-                <div class="arrow-conatiner third">
-                    <span class="arrow"></span>
-                </div>
-            </div>
-            <div class="ns-menu-item" data-bind="if: isLoggedIn">
-                <div class="menu-line-conatiner">
-                    <span class="menu-line"></span>
-                </div>
-                <div class="menu-item-text-container">
-                    <a href="~/profile/personal-info">Personal Info</a>
-                </div>
-                <div class="arrow-conatiner fourth">
-                    <span class="arrow"></span>
-                </div>
-            </div>
-        </div>
-        @*Menu Overlay end*@
-
         <div id="languagePopup" class="popup" data-bind="css: { 'open' : isLanguagePopupVisible }, event: { mouseover: showLanguagePopup, mouseleave: hideLanguagePopup }">
             <div class="language-popup-content popup-content">
                 <div class="popup-item-container">
@@ -180,7 +181,7 @@
                         <div class="popup-item-text">
                             <p>My заказы</p>
                         </div>
-                    </a>                   
+                    </a>
                 </div>
             </div>
         </div>
@@ -373,7 +374,7 @@
                 <hr />
                 <div class="payment-info">
                     <div><input type="radio" name="paymentTypeRadioGroup" value="cart" data-bind="checked: shoppingCartPaymentType" />Payment на карту</div>
-                    <div><input type="radio" name="paymentTypeRadioGroup" value="cash" data-bind="checked: shoppingCartPaymentType"/>Оплата Cash</div>
+                    <div><input type="radio" name="paymentTypeRadioGroup" value="cash" data-bind="checked: shoppingCartPaymentType" />Оплата Cash</div>
                 </div>
                 <a class="waves-effect waves-light btn" data-bind="click: makeOrderClick">Order/заказать</a>
                 <button class="closeModalBtn" data-bind="click: shoppingCartCloseBtnClick">Close</button>

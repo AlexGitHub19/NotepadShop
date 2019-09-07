@@ -3,11 +3,11 @@
 
     startSvgAnimation();
 
-    openMenuOverlay();
+    openMenu();
 
     setTimeout(function () {
         $('.main-header-overlay').addClass('hidden');
-        closeMenuOverlay();
+        closeMenu();
     }, 7000);
 });
 

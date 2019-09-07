@@ -1,64 +1,91 @@
-﻿.menu-overlay-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    height: 100%;
+﻿.menu-opened {
     width: 100%;
-    opacity: 0;
-    visibility: hidden;
+    height: 100vh;
     overflow: hidden;
 }
 
-    .menu-overlay-container .menu-overlay {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translateY(-50%) translateX(-2%);
-        -webkit-transform: translateY(-50%) translateX(-2%);
-        -ms-transform: translateY(-50%) translateX(-2%);
-        -o-transform: translateY(-50%) translateX(-2%);
-        -moz-transform: translateY(-50%) translateX(-2%);
-        height: 100%;
-        width: 2500%;
-        background: url(../menuOverlayImg.png) no-repeat 0 0;
-        background-size: 100% 100%;
+.overlay-element {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 800%;
+    background-color: black;
+    transition: transform 0.6s ease-in-out, width 0.6s ease-in-out, background-color 0.2s;
+    z-index: 2000;
+}
+
+
+.overlay-center {
+    width: 0%;
+    transform: translateY(-50%) translateX(-50%) rotate(45deg);
+}
+
+    .overlay-center.color {
+        background-color: #BA55D3;
     }
 
-    .menu-overlay-container.visible {
-        opacity: 1;
-        visibility: visible;
+    .overlay-center.open {
+        width: 30% !important;
     }
 
-    .menu-overlay-container.opening .menu-overlay {
-        animation: open-menu-overlay-animation 1s steps(24);
-        -webkit-animation: open-menu-overlay-animation 1s steps(24);
-        -moz-animation: open-menu-overlay-animation 1s steps(24);
-        -o-animation: open-menu-overlay-animation 1s steps(24);
-        animation-fill-mode: forwards;
-        -webkit-animation-fill-mode: forwards;
-        -moz-animation-fill-mode: forwards;
-        -o-animation-fill-mode: forwards;
+    .overlay-center.small-open {
+        width: 50% !important;
     }
 
-    .menu-overlay-container.closing .menu-overlay {
-        animation: close-menu-overlay-animation 1s steps(24);
-        -webkit-animation: close-menu-overlay-animation 1s steps(24);
-        -moz-animation: close-menu-overlay-animation 1s steps(24);
-        -o-animation: close-menu-overlay-animation 1s steps(24);
-        animation-fill-mode: forwards;
-        -webkit-animation-fill-mode: forwards;
-        -moz-animation-fill-mode: forwards;
-        -o-animation-fill-mode: forwards;
+.overlay-left {
+    width: 120%;
+    transform: translateY(-50%) translateX(-188.2%) rotate(45deg);
+}
+
+    .overlay-left.color {
+        background-color: #9370DB;
     }
+
+
+    .overlay-left.open {
+        transform: translateY(-50%) translateX(-138.2%) rotate(45deg) !important;
+    }
+
+    .overlay-left.small-open {
+        transform: translateY(-50%) translateX(-150%) rotate(45deg) !important;
+    }
+
+.overlay-right {
+    width: 120%;
+    transform: translateY(-50%) translateX(88.2%) rotate(45deg);
+}
+
+    .overlay-right.color {
+        background-color: #db4dd4;
+    }
+
+    .overlay-right.open {
+        transform: translateY(-50%) translateX(38.2%) rotate(45deg) !important;
+    }
+
+    .overlay-right.small-open {
+        transform: translateY(-50%) translateX(50%) rotate(45deg) !important;
+    }
+
+.overlay-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+    display: none;
+    z-index: 2000;
+}
+
 
 .ns-menu {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1001;
-    height: 100%;
-    width: 100%;
+    z-index: 2001;
+    height: 100vh;
+    width: 100vw;
     visibility: hidden;
     overflow: hidden;
     color: white;
@@ -145,7 +172,7 @@
     vertical-align:middle;
 }
 
-@keyframes open-menu-overlay-animation {
+/*@keyframes open-menu-overlay-animation {
     0% {
         transform: translateY(-50%) translateX(-2%);
         -webkit-transform: translateY(-50%) translateX(-2%);
@@ -179,7 +206,7 @@
         -o-transform: translateY(-50%) translateX(-2%);
         -ms-transform: translateY(-50%) translateX(-2%);
     }
-}
+}*/
 
 .menu-btn {
     display: inline-block;
@@ -217,7 +244,7 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    z-index: 1002;
+    z-index: 2002;
     cursor: pointer;
     visibility: hidden;
     opacity: 0;

@@ -1,5 +1,6 @@
 ﻿html {
     display: unset;
+    overflow: hidden;
 }
 
 body {
@@ -171,7 +172,7 @@ body {
     height: 100vh;
     width: 100%;
     background-color: black;
-    z-index: 1000;
+    z-index: 3000;
     display: flex;
     align-items: center;
     justify-content: center;
